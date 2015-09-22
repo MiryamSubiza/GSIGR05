@@ -74,11 +74,11 @@ public class Client {
         return lastName;
     }
     
-    public void setBirthday (Date birthday) {
+    public void setBirthday (DateBirthday birthday) {
         this.birthday = birthday;
     }
     
-    public Date getBirthday () {
+    public DateBirthday getBirthday () {
         return birthday;
     }
     

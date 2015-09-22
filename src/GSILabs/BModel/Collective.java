@@ -23,7 +23,6 @@ public class Collective {
     private ArrayList <Artist> artists; // Todos los artistas que componen el colectivo
     private String description; // Descripción del colectivo de artistas
     private String webSite; // Página web de dicho colectivo de artistas
-    private String HolaMimi;
     
     public Collective (String name, Artist primerArtista, String description, String webSite) {
         

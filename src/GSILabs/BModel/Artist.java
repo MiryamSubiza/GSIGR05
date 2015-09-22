@@ -9,6 +9,7 @@
 package GSILabs.BModel;
 
 /**
+ * 
  * @author subiza.79082
  * @author izu.78236
  * @version 1.0 (21/09/2015)
@@ -27,27 +28,27 @@ public class Artist {
         
     }
     
-    public void setName(String name) {
+    public void setName (String name) {
         this.name = name;
     }
     
-    public void setWorkDescription(String workDescription) {
+    public void setWorkDescription (String workDescription) {
         this.workDescription = workDescription;
     }
     
-    public void setWebSite(String webSite) {
+    public void setWebSite (String webSite) {
         this.webSite = webSite;
     }
     
-    public String getName() {
+    public String getName () {
         return name;
     }
     
-    public String getWorkDescription() {
+    public String getWorkDescription () {
         return workDescription;
     }
     
-    public String getWebSite() {
+    public String getWebSite () {
         return webSite;
     }
     

@@ -18,13 +18,13 @@ import java.util.Date;
  */
 public class Sales {
     
-    private Ticket ticket;
-    private Client client;
-    private float price;
-    private String cCard;
-    private Date dateSale;
+    private Ticket ticket; //Entrada que se ha comprado
+    private Client client; //Cliente que ha realizado la compra
+    private float price; //Precio de la entrada que se ha comprado
+    private String cCard; //Tarjeta de crédito con la que se ha realizado la compra
+    private Date dateSale; //Momento en el que la venta se ha producido
     
-    public Sales (Ticket ticket, Client client, float price, String cCard, Date dateSale){
+    public Sales (Ticket ticket, Client client, float price, String cCard, Date dateSale) {
         
         this.ticket = ticket;
         this.client = client;
@@ -34,64 +34,44 @@ public class Sales {
         
     }
     
-    public Client getClient (){
-        
+    public void setClient (Client client) {
+        this.client = client;
+    }
+    
+    public Client getClient () {
         return this.client;
-        
     }
     
-    public Ticket getTicket (){
-        
-        return this.ticket;
-        
-    }
-    
-    public float getPrice(){
-    
-        return this.price;
-    
-    }
-    
-    public String getCCard(){
-    
-        return this.cCard;
-    
-    }
-    
-    public Date getDateSale(){
-    
-        return this.dateSale;
-    
-    }
-    
-    public void setClient(Client client){
-    
-        this.client = client;
-    
-    }
-    
-    public void setTicket(Ticket ticket){
-    
+    public void setTicket (Ticket ticket) {
         this.ticket = ticket;
-    
     }
     
-    public void setPrice(float price){
+    public Ticket getTicket () {
+        return this.ticket;
+    }
     
+    public void setPrice (float price) {
         this.price = price;
-    
     }
     
-    public void setCCard(String cCard){
+    public float getPrice () {
+        return this.price;
+    }
     
+    public void setCCard (String cCard) {
         this.cCard = cCard;
-    
     }
     
-    public void setDateSale(Date dateSale){
+    public String getCCard () {
+        return this.cCard;
+    }
     
+    public void setDateSale (Date dateSale) {
         this.dateSale = dateSale;
+    }
     
+    public Date getDateSale () {
+        return this.dateSale;
     }
     
 }

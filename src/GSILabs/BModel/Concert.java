@@ -19,17 +19,18 @@ import java.util.Date;
 public class Concert {
     
     private Performer p; //Puede ser Artista o Colectivo, pero solamente uno
-    private Date startTime; //Hora de comienzo
-    private Date doorOpeningTime; //Hora de apertura de puertas
-    private Date closingTime; //Hora de cierre
+    private Date startTimeConcert; //Hora de comienzo
+    private Date doorOpeningTimeConcert; //Hora de apertura de puertas
+    private Date closingTimeConcert; //Hora de cierre
     private Location location;
     
-    public Concert (Performer p, Date startTime, Date doorOpeningTime, Date closingTime, Location location) {
+    public Concert (Performer p, Date startTimeConcert, Date doorOpeningTimeConcert, 
+            Date closingTimeConcert, Location location) {
         
         this.p = p;
-        this.startTime = startTime;
-        this.doorOpeningTime = doorOpeningTime;
-        this.closingTime = closingTime;
+        this.startTimeConcert = startTimeConcert;
+        this.doorOpeningTimeConcert = doorOpeningTimeConcert;
+        this.closingTimeConcert = closingTimeConcert;
         this.location = location;
         
     }
@@ -42,28 +43,28 @@ public class Concert {
         return p;
     }
     
-    public void setStartTime (Date startTime) {
-        this.startTime = startTime;
+    public void setStartTimeConcert (Date startTimeConcert) {
+        this.startTimeConcert = startTimeConcert;
     }
     
-    public Date getStartTime () {
-        return startTime;
+    public Date getStartTimeConcert () {
+        return startTimeConcert;
     }
     
-    public void setDoorOpeningTime (Date doorOpeningTime) {
-        this.doorOpeningTime = doorOpeningTime;
+    public void setDoorOpeningTimeConcert (Date doorOpeningTimeConcert) {
+        this.doorOpeningTimeConcert = doorOpeningTimeConcert;
     }
     
-    public Date getDoorOpeningTime () {
-        return doorOpeningTime;
+    public Date getDoorOpeningTimeConcert () {
+        return doorOpeningTimeConcert;
     }
     
-    public void setClosingTime (Date closingTime) {
-        this.doorOpeningTime = doorOpeningTime;
+    public void setClosingTimeConcert (Date closingTimeConcert) {
+        this.doorOpeningTimeConcert = doorOpeningTimeConcert;
     }
     
-    public Date getClosingTime () {
-        return closingTime;
+    public Date getClosingTimeConcert () {
+        return closingTimeConcert;
     }
     
     public void setLocation (Location location) {

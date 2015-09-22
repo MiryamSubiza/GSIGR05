@@ -20,17 +20,22 @@ import java.util.Date;
 public class Client {
     
     private int id;
+    private String dni;
     private String name;
     private String lastName;
-    private Date birthday;
+    private DateBirthday birthday;
     private ArrayList <String> creditCards;
     
-    public Client (int id, String name, String lastName, Date birthday, String cCard) {
+    public Client (int id, String name, String lastName, int day, int month,
+            int year, String cCard) {
         
         this.id = id;
+        dni = calculateLetterDNI(id);
         this.name = name;
         this.lastName = lastName;
-        this.birthday = birthday;
+        birthday.setDay(day);
+        birthday.setMonth(month);
+        birthday.setYear(year);
         creditCards.add(cCard);
         
     }
@@ -41,6 +46,16 @@ public class Client {
     
     public int getId () {
         return id;
+    }
+    
+    //Calcula la letra del dni numérico
+    public String calculateLetterDNI (int id) {
+        
+        String letters = "TRWAGMYFPDXBNJZSQVHLCKET";
+        int rest = id % 23;
+        char letter = letters.charAt(rest);
+        return id + letter + "";
+        
     }
     
     public void setName (String name) {

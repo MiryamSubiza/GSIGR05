@@ -27,7 +27,6 @@ public class Exhibition {
     private Performer p; //Puede ser un artista o varios, en cuyo caso se considerará colectivo
     private ArrayList <String> webLinks; //Enlaces web (número indeterminado)
     private Location location;
-    public String Alexandre;
     
     public Exhibition (String title, String organizerName, Date startDate, Date closingDate, Date startTime, 
             Performer p, String webLink, Location location) {
@@ -41,10 +40,6 @@ public class Exhibition {
         webLinks.add(webLink);
         this.location = location;
         
-    }
-    
-    public void addWebLinks (String webLink) {
-        webLinks.add(webLink);
     }
     
     public void setTitle (String title) {
@@ -71,6 +66,40 @@ public class Exhibition {
         return startDate;
     }
     
-    public void setClosingDate
+    public void setClosingDate (Date closingDate) {
+        this.closingDate = closingDate;
+    }
+    
+    public Date getClosingDate () {
+        return closingDate;
+    }
+    
+    public void setStartTime (Date startTime) {
+        this.startTime = startTime;
+    }
+    
+    public Date getStartTime () {
+        return startTime;
+    }
+    
+    public void setPerformer (Performer p) {
+        this.p = p;
+    }
+    
+    public Performer getPerformer () {
+        return p;
+    }
+    
+    public void addWebLinks (String webLink) {
+        webLinks.add(webLink);
+    }
+    
+    public void setLocation (Location location) {
+        this.location = location;
+    }
+    
+    public Location getLocation () {
+        return location;
+    }
     
 }

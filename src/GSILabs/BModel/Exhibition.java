@@ -27,6 +27,7 @@ public class Exhibition {
     private Performer p; //Puede ser un artista o varios, en cuyo caso se considerará colectivo
     private ArrayList <String> webLinks; //Enlaces web (número indeterminado)
     private Location location;
+    public String Alexandre;
     
     public Exhibition (String title, String organizerName, Date startDate, Date closingDate, Date startTime, 
             Performer p, String webLink, Location location) {

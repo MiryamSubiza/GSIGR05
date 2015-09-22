@@ -21,21 +21,22 @@ public class Exhibition {
     
     private String title;
     private String organizerName; //Nombre de la entidad organizadora
-    private Date startDate; //Fecha de apertura
-    private Date closingDate; //Fecha de cierre
-    private Date startTime; //Hora de apertura
+    private Date startDateExhibition; //Fecha de apertura
+    private Date closingDateExhibition; //Fecha de cierre
+    private Date startTimeExhibition; //Hora de apertura
     private Performer p; //Puede ser un artista o varios, en cuyo caso se considerará colectivo
     private ArrayList <String> webLinks; //Enlaces web (número indeterminado)
     private Location location;
     
-    public Exhibition (String title, String organizerName, Date startDate, Date closingDate, Date startTime, 
+    public Exhibition (String title, String organizerName, Date startDateExhibition, 
+            Date closingDateExhibition, Date startTimeExhibition, 
             Performer p, String webLink, Location location) {
         
         this.title = title;
         this.organizerName = organizerName;
-        this.startDate = startDate;
-        this.closingDate = closingDate;
-        this.startTime = startTime;
+        this.startDateExhibition = startDateExhibition;
+        this.closingDateExhibition = closingDateExhibition;
+        this.startTimeExhibition = startTimeExhibition;
         this.p = p;
         webLinks.add(webLink);
         this.location = location;
@@ -58,28 +59,28 @@ public class Exhibition {
         return organizerName;
     }
     
-    public void setStartDate (Date startDate) {
-        this.startDate = startDate;
+    public void setStartDateExhibition (Date startDateExhibition) {
+        this.startDateExhibition = startDateExhibition;
     }
     
-    public Date getStartDate () {
-        return startDate;
+    public Date getStartDateExhibition () {
+        return startDateExhibition;
     }
     
-    public void setClosingDate (Date closingDate) {
-        this.closingDate = closingDate;
+    public void setClosingDateExhibition (Date closingDateExhibition) {
+        this.closingDateExhibition = closingDateExhibition;
     }
     
-    public Date getClosingDate () {
-        return closingDate;
+    public Date getClosingDateExhibition () {
+        return closingDateExhibition;
     }
     
-    public void setStartTime (Date startTime) {
-        this.startTime = startTime;
+    public void setStartTimeExhibition (Date startTimeExhibition) {
+        this.startTimeExhibition = startTimeExhibition;
     }
     
-    public Date getStartTime () {
-        return startTime;
+    public Date getStartTimeExhibition () {
+        return startTimeExhibition;
     }
     
     public void setPerformer (Performer p) {
@@ -90,7 +91,7 @@ public class Exhibition {
         return p;
     }
     
-    public void addWebLinks (String webLink) {
+    public void addWebLink (String webLink) {
         webLinks.add(webLink);
     }
     

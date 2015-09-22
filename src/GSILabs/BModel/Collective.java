@@ -21,58 +21,54 @@ public class Collective {
     
     private String name; // EL nombre del colectivo de artistas
     private ArrayList <Artist> artists; // Todos los artistas que componen el colectivo
-    private String descripcion; // Descripcion del colectivo de artistas
-    private String website; // Página web de dicho colectivo de artistas
+    private String description; // Descripción del colectivo de artistas
+    private String webSite; // Página web de dicho colectivo de artistas
     
-    public Collective (String name, Artist primerArtista, String descripcion, String website){
+    public Collective (String name, Artist primerArtista, String description, String webSite) {
         
         this.name = name;
         artists.add(primerArtista);
-        this.descripcion = descripcion;
-        this.website = website;
+        this.description = description;
+        this.webSite = webSite;
         
     }
     
-    public void addArtistToCollective (Artist newArtist){
-        
+    public void addArtistToCollective (Artist newArtist) {
         artists.add(newArtist);
-        
     }
     
-    public void setName(String name){
-        
+    public void setName (String name) {
         this.name = name;
-        
     }
     
-    public void setDescripcion(String descripcion){
-        
-        this.descripcion = descripcion;
-        
+    public void setDescription (String description) {
+        this.description = description;
     }
     
-    public void setWebsite(String websit){
-        
-        this.website = website;
-        
+    public void setWebSite (String webSite) {
+        this.webSite = webSite;
     }
     
-    public boolean isArtistInCollective (Artist auxArtist){
+    /* Devuelve verdadero si el artista se encuentra en el colectivo
+    *  y falso en caso contrario
+    */
+    public boolean isArtistInCollective (Artist auxArtist) {
         
         Iterator i = artists.iterator();
-        Artist artista = null;
-        while(i.hasNext()){
-            artista = (Artist)i.next();
-            if(auxArtist.equals(artista)){
+        Artist artist = null;
+        while (i.hasNext()) {
+            artist = (Artist)i.next();
+            if (auxArtist.equals(artist)) {
                 break;
             }
         }
-        if(auxArtist.equals(artista)){
+        if (auxArtist.equals(artist)) {
             return true;
         }
-        else{
+        else {
             return false;
         }
+        
     }
             
 }

@@ -8,7 +8,6 @@
 
 package GSILabs.BModel;
 
-import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -61,6 +60,7 @@ public class Concert implements ImpermanentEvent {
         this.startDateConcert = startDateConcert;
     }
     
+    //Sobreescribe el método de ImpermanentEvent
     @Override
     public Date getStartDate () {
         return startDateConcert;
@@ -94,16 +94,19 @@ public class Concert implements ImpermanentEvent {
         this.location = location;
     }
     
+    //Sobreescribe el método de ImpermanentEvent
     @Override
     public Location getLocation () {
         return location;
     }
 
+    //Sobreescribe el método de Event
     @Override
     public String getName() {
         return concertName;
     }
-
+    
+    //Sobreescribe el método de Event
     @Override
     public Date[] getDates() {
         
@@ -115,19 +118,37 @@ public class Concert implements ImpermanentEvent {
         
     }
 
+    //Sobreescribe el método de Event
     @Override
-    public boolean involvesPerformer(Performer p) {
-        
+    public boolean involvesPerformer (Performer pEvent) {
+
         //Utilización del operador instanceof para determinar si el tipo de cierto objeto Performer es Artist
         if (p instanceof Artist) {
-            // Conversión descendente de la referencia de Performer
-            // a una referencia de Artist
+            //Conversión descendente de la referencia de Performer
+            //a una referencia de Artist
             Artist a = (Artist) p;
+            
+            if (a.equals
             
         }
         
     }
-
+    
+    //Devuelve true si dos artistas son iguales y false si no son iguales
+    public boolean equals (Artist a2) {
+        
+        if (this.p instanceof Artist) {
+            Artist a1 = (Artist)this.p;
+            if ((a1.getName().equalsIgnoreCase(a2.getName())) && 
+                    (a1.getWorkDescription().equalsIgnoreCase(a2.getWorkDescription())) &&
+                    (a1.getWebSite().equalsIgnoreCase(a2.getWorkDescription()))) return true;
+            else return false;
+        }
+        else return false;
+        
+    }   
+    
+    //Sobreescribe el método de Event
     @Override
     public Performer[] getPerformers() {
         

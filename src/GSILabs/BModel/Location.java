@@ -7,15 +7,17 @@ package GSILabs.BModel;
  */
 
 /**
- *
- * @author Alex
+ * 
+ * @author subiza.79082
+ * @author izu.78236
+ * @version 1.0 (23/09/2015)
  */
 public class Location {
     
-    private String name;
-    private int aforoMax;
-    private String posicionGeografica;
-    private String website = "";
+    private String name; // Nombre de la localización
+    private int aforoMax; // Aforo máximo 
+    private String posicionGeografica; // Posición geográfica de la localización
+    private String website = ""; // Página web de la localización, puede no tener página web
     
     public Location (String name, int aforoMax, String posicionGeografica, String website){
         

@@ -41,6 +41,7 @@ public class Collective implements Performer{
         this.name = name;
     }
     
+    @Override
     public void setWorkDescription (String description) {
         this.workDescription = description;
     }
@@ -71,10 +72,12 @@ public class Collective implements Performer{
         
     }
     
+    @Override
     public String getWorkDescription(){
         return workDescription;
     }
 
+    @Override
     public String getName() {
         return name;
     }

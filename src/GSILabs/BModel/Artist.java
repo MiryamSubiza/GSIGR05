@@ -32,6 +32,7 @@ public class Artist implements Performer{
         this.name = name;
     }
     
+    @Override
     public void setWorkDescription (String workDescription) {
         this.workDescription = workDescription;
     }
@@ -40,10 +41,12 @@ public class Artist implements Performer{
         this.webSite = webSite;
     }
     
+    @Override
     public String getName () {
         return name;
     }
     
+    @Override
     public String getWorkDescription () {
         return workDescription;
     }

@@ -17,7 +17,7 @@ import java.util.Date;
  * @author izu.78236
  * @version 1.0 (21/09/2015)
  */
-public class Exhibition {
+public class Exhibition implements LastingEvent, Event{
     
     private String title;
     private String organizerName; //Nombre de la entidad organizadora
@@ -55,7 +55,7 @@ public class Exhibition {
         this.organizerName = organizerName;
     }
     
-    public String getOrganizerName () {
+    public String getName () {
         return organizerName;
     }
     
@@ -63,11 +63,11 @@ public class Exhibition {
         this.startDateExhibition = startDateExhibition;
     }
     
-    public Date getStartDateExhibition () {
+    public Date getStartDate () {
         return startDateExhibition;
     }
     
-    public void setClosingDateExhibition (Date closingDateExhibition) {
+    public void setEndingDate (Date closingDateExhibition) {
         this.closingDateExhibition = closingDateExhibition;
     }
     
@@ -102,5 +102,17 @@ public class Exhibition {
     public Location getLocation () {
         return location;
     }
+    
+    public Date[] getDates(){
+        Date[] datesExhibition;
+        Date auxDate = startDateExhibition;
+        for(int i=0;i<(calcularDiasExibicion(startDateExhibition, closingDateExhibition));i++){
+            datesExhibition[i] = auxDate;
+            auxDate = aumentarDia(auxDate);
+        }
+        return datesExhibition;
+    }
+    
+    // HAY QUE IMPLEMENTAR LOS DOS METODOS INVENTADOS DE ARRIBA
     
 }

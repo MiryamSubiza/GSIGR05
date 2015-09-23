@@ -14,7 +14,7 @@ package GSILabs.BModel;
  * @author izu.78236
  * @version 1.0 (21/09/2015)
  */
-public class Artist {
+public class Artist implements Performer{
     
     private String name; // Nombre del artista
     private String workDescription; // Descripción de la obra o trabajo que realiza

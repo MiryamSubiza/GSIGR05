@@ -17,18 +17,18 @@ import java.util.Iterator;
  * @author izu.78236
  * @version 1.0 (21/09/2015)
  */
-public class Collective {
+public class Collective implements Performer{
     
     private String name; // EL nombre del colectivo de artistas
     private ArrayList <Artist> artists; // Todos los artistas que componen el colectivo
-    private String description; // Descripción del colectivo de artistas
+    private String workDescription; // Descripción del colectivo de artistas
     private String webSite; // Página web de dicho colectivo de artistas
     
     public Collective (String name, Artist primerArtista, String description, String webSite) {
         
         this.name = name;
         artists.add(primerArtista);
-        this.description = description;
+        this.workDescription = description;
         this.webSite = webSite;
         
     }
@@ -41,8 +41,8 @@ public class Collective {
         this.name = name;
     }
     
-    public void setDescription (String description) {
-        this.description = description;
+    public void setWorkDescription (String description) {
+        this.workDescription = description;
     }
     
     public void setWebSite (String webSite) {
@@ -69,6 +69,14 @@ public class Collective {
             return false;
         }
         
+    }
+    
+    public String getWorkDescription(){
+        return workDescription;
+    }
+
+    public String getName() {
+        return name;
     }
             
 }

@@ -16,57 +16,60 @@ package GSILabs.BModel;
  */
 public class Location {
     
-    private String name; // Nombre de la localización
-    private int aforoMax; // Aforo máximo 
-    private String posicionGeografica; // Posición geográfica de la localización
-    private String website = ""; // Página web de la localización, puede no tener página web
+    private String name; //Nombre de la localización
+    private int maxCapacity; //Aforo máximo 
+    private String geographicPosition; //Posición geográfica de la localización
+    private String webSite = ""; //Enlace web oficial de la localización, puede no tener
     
-    public Location (String name, int aforoMax, String posicionGeografica, String website){
+    //Localización con enlace web oficial
+    public Location (String name, int maxCapacity, String geographicPosition, String webSite) {
         
         this.name = name;
-        this.aforoMax = aforoMax;
-        this.posicionGeografica = posicionGeografica;
-        this.website = website;
+        this.maxCapacity = maxCapacity;
+        this.geographicPosition = geographicPosition;
+        this.webSite = webSite;
         
     }
     
-    public Location (String name, int aforoMax, String posicionGeografica){
+    //Localización sin enlace web oficial
+    public Location (String name, int maxCapacity, String geographicPosition) {
         
         this.name = name;
-        this.aforoMax = aforoMax;
-        this.posicionGeografica = posicionGeografica;
+        this.maxCapacity = maxCapacity;
+        this.geographicPosition = geographicPosition;
         
     }
     
-    public void setName(String name){
+    public void setName (String name) {
         this.name = name;
-    }
-    
-    public void setAforoMax(int aforoMax){
-        this.aforoMax = aforoMax;
-    }
-    
-    public void setPosicionGeografica(String posicionGeografica){
-        this.posicionGeografica = posicionGeografica;
-    }
-    
-    public void setWebsite(String website){
-        this.website = website;
     }
     
     public String getName(){
         return name;
     }
     
-    public int getAforoMax(){
-        return aforoMax;
+    public void setMaxCapacity (int maxCapacity) {
+        this.maxCapacity = maxCapacity;
     }
     
-    public String getPosicionGeografica(){
-        return posicionGeografica;
+    public int getMaxCapacity () {
+        return maxCapacity;
     }
     
-    public String getWebsite(){
-        return website;
+    public void setGeographicPosition (String geographicPosition) {
+        this.geographicPosition = geographicPosition;
     }
+    
+    public String getGeographicPosition () {
+        return geographicPosition;
+    }
+    
+    public void setWebSite (String webSite) {
+        this.webSite = webSite;
+    }
+    
+    public String getWebSite(){
+        return webSite;
+    }
+    
 }

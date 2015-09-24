@@ -8,7 +8,8 @@
 
 package GSILabs.BModel;
 
-import java.util.ArrayList;
+//import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
 
 /**
@@ -19,7 +20,9 @@ import java.util.Iterator;
  */
 public class Collective extends Artist implements Performer {
     
-    private ArrayList <Artist> artists; // Todos los artistas que componen el colectivo
+    //Ha de ser una colección sin ordenación -> HashSet no tiene ordenación y no permite duplicados
+    //private ArrayList <Artist> artists; // Todos los artistas que componen el colectivo
+    private HashSet <Artist> artists;
     /** ¡HERENCIA!
      * private String name; // Nombre del colectivo de artistas
      * private String workDescription; // Descripción del colectivo de artistas
@@ -30,6 +33,7 @@ public class Collective extends Artist implements Performer {
     public Collective (Artist firstArtist, String name, String workDescription, String webSite) {
         
         super(name, workDescription, webSite);
+        artists = new HashSet();
         artists.add(firstArtist);
         /**
          * this.name = name;

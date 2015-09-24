@@ -81,5 +81,18 @@ public class Collective implements Performer{
     public String getName() {
         return name;
     }
+    
+    //Devuelve true si dos colectivos son iguales y false si no son iguales
+    @Override
+    public boolean equals (Object o) {
+        
+        if (o instanceof Collective) {
+            Collective c = (Collective)o;
+            if (this.getName().equalsIgnoreCase(c.getName())) return true;
+            else return false;
+        }
+        else return false;
+
+    }
             
 }

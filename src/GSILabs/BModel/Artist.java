@@ -55,4 +55,17 @@ public class Artist implements Performer {
         return webSite;
     }
     
+    //Devuelve true si dos artistas son iguales y false si no son iguales
+    @Override
+    public boolean equals (Object o) {
+        
+        if (o instanceof Artist) {
+            Artist a = (Artist)o;
+            if (this.getName().equalsIgnoreCase(a.getName())) return true;
+            else return false;
+        }
+        else return false;
+
+    }
+
 }

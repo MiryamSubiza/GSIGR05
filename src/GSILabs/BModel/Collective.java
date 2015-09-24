@@ -17,19 +17,37 @@ import java.util.Iterator;
  * @author izu.78236
  * @version 1.0 (21/09/2015)
  */
-public class Collective implements Performer{
+public class Collective extends Artist implements Performer {
     
-    private String name; // EL nombre del colectivo de artistas
     private ArrayList <Artist> artists; // Todos los artistas que componen el colectivo
-    private String workDescription; // Descripción del colectivo de artistas
-    private String webSite; // Página web de dicho colectivo de artistas
+    /** ¡HERENCIA!
+     * private String name; // Nombre del colectivo de artistas
+     * private String workDescription; // Descripción del colectivo de artistas
+     * private String webSite; // Página web de dicho colectivo de artistas
+     */
     
-    public Collective (String name, Artist primerArtista, String description, String webSite) {
+    //Colectivo con página web
+    public Collective (Artist firstArtist, String name, String workDescription, String webSite) {
         
-        this.name = name;
-        artists.add(primerArtista);
-        this.workDescription = description;
-        this.webSite = webSite;
+        super(name, workDescription, webSite);
+        artists.add(firstArtist);
+        /**
+         * this.name = name;
+         * this.workDescription = workDescription;
+         * this.webSite = webSite;
+         */
+        
+    }
+    
+    //Colectivo sin página web
+    public Collective (Artist firstArtist, String name, String workDescription) {
+        
+        super(name, workDescription);
+        artists.add(firstArtist);
+        /**
+         * this.name = name;
+         * this.workDescription = workDescription;
+         */
         
     }
     
@@ -37,10 +55,12 @@ public class Collective implements Performer{
         artists.add(newArtist);
     }
     
+    /*
     public void setName (String name) {
         this.name = name;
     }
     
+    //Sobreescribe el método de Performer
     @Override
     public void setWorkDescription (String description) {
         this.workDescription = description;
@@ -49,6 +69,23 @@ public class Collective implements Performer{
     public void setWebSite (String webSite) {
         this.webSite = webSite;
     }
+    
+    //Sobreescribe el método de Performer
+    @Override
+    public String getName() {
+        return name;
+    }
+    
+    //Sobreescribe el método de Performer
+    @Override
+    public String getWorkDescription(){
+        return workDescription;
+    }
+    
+    public String getWebSite () {
+        this.webSite = webSite;
+    }
+    */
     
     /* Devuelve verdadero si el artista se encuentra en el colectivo
     *  y falso en caso contrario
@@ -70,16 +107,6 @@ public class Collective implements Performer{
             return false;
         }
         
-    }
-    
-    @Override
-    public String getWorkDescription(){
-        return workDescription;
-    }
-
-    @Override
-    public String getName() {
-        return name;
     }
     
     //Devuelve true si dos colectivos son iguales y false si no son iguales

@@ -8,8 +8,8 @@
 
 package GSILabs.BModel;
 
-import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 
 /**
  * 
@@ -25,7 +25,7 @@ public class Exhibition implements LastingEvent, Event{
     private Date closingDateExhibition; //Fecha de cierre
     private Date startTimeExhibition; //Hora de apertura
     private Performer p; //Puede ser un artista o varios, en cuyo caso se considerará colectivo
-    private ArrayList <String> webLinks; //Enlaces web (número indeterminado)
+    private HashSet <String> webLinks; //Enlaces web (número indeterminado)
     private Location location;
     
     public Exhibition (String title, String organizerName, Date startDateExhibition, 

@@ -162,7 +162,6 @@ public class Concert implements ImpermanentEvent {
     }
     
     //Sobreescribe el método de Event
-    @Override
     public Performer[] getPerformers() {
         
         Performer[] performers;

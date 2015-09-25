@@ -17,7 +17,7 @@ import java.util.HashSet;
  * @author izu.78236
  * @version 1.0 (22/09/2015)
  */
-public class Festival implements LastingEvent, Event {
+public class Festival implements LastingEvent {
     
     /* Este conjunto no admite duplicados, es decir, no puede contener dos elementos 
     * e1 y e2 tal que e1.equals(e2))
@@ -34,18 +34,18 @@ public class Festival implements LastingEvent, Event {
     // Hora de cierre, que coincide con la hora de cierre del último concierto
     private Date closingTimeFestival;
     // Nombre del festival
-    private String name;
+    private String festivalName;
     
-    public Festival (Concert c, Date startDateFestival, Date closingDateFestival,
-            Date startTimeFestival, Date closingTimeFestival, String name) {
+    public Festival (String festivalName, Concert c, Date startDateFestival, Date closingDateFestival,
+            Date startTimeFestival, Date closingTimeFestival) {
         
+        this.festivalName = festivalName;
         concerts = new HashSet();
         concerts.add(c);
         this.startDateFestival = startDateFestival;
         this.closingDateFestival = closingDateFestival;
         this.startTimeFestival = startTimeFestival;
         this.closingTimeFestival = closingTimeFestival;
-        this.name = name;
         
     }
     
@@ -53,13 +53,13 @@ public class Festival implements LastingEvent, Event {
         concerts.add(c);
     }
     
-    public void setName(String name){
-        this.name = name;
+    public void setFestivalName(String festivalName){
+        this.festivalName = festivalName;
     }
     
     @Override
     public String getName(){
-        return this.name;
+        return this.festivalName;
     }
     
     public void setStartDateFestival (Date startDateFestival) {
@@ -132,7 +132,7 @@ public class Festival implements LastingEvent, Event {
     private int calculateFestivalDays (Date dia1, Date dia2) {
         
         // Variable a devolver que contendrá el número de días de diferencia entre una fecha y otra
-        int numDias = 0;
+        int numDias;
         if ((dia2.getMonth() - dia1.getMonth()) >= 1) {
             numDias = 30*(dia2.getMonth() - dia1.getMonth() - 1) + dia2.getDay() + 
                     (numDiasMes(dia1.getMonth()) - dia1.getDay());
@@ -247,7 +247,7 @@ public class Festival implements LastingEvent, Event {
     
     @Override
     public String toString() {
-        return "FESTIVAL\nFestival's name: " + name + "\nStart date: " + 
+        return "FESTIVAL\nFestival's name: " + festivalName + "\nStart date: " + 
                 startDateFestival.getDay() + "/" + startDateFestival.getMonth() + 
                 "/" + startDateFestival.getYear() + "\nStart time: " + 
                 startTimeFestival.getHours() + ":" + startTimeFestival.getMinutes() + 

@@ -17,30 +17,45 @@ import java.util.HashSet;
  * @author izu.78236
  * @version 1.0 (21/09/2015)
  */
-public class Exhibition implements LastingEvent, Event{
+public class Exhibition implements LastingEvent {
     
-    private String title;
+    /* La exposición puede extenderse durante varios días o semanas */
+    private String exhibitionName; //Nombre de la exposición
+    private String title; //Título de la exposición
     private String organizerName; //Nombre de la entidad organizadora
     private Date startDateExhibition; //Fecha de apertura
     private Date closingDateExhibition; //Fecha de cierre
     private Date startTimeExhibition; //Hora de apertura
+    private Date closingTimeExhibition; //Hora de cierre
     private Performer p; //Puede ser un artista o varios, en cuyo caso se considerará colectivo
     private HashSet <String> webLinks; //Enlaces web (número indeterminado)
-    private Location location;
+    private Location location; //Esta localización es única
     
-    public Exhibition (String title, String organizerName, Date startDateExhibition, 
-            Date closingDateExhibition, Date startTimeExhibition, 
-            Performer p, String webLink, Location location) {
+    public Exhibition (String exhibitionName, String title, String organizerName, 
+            Date startDateExhibition, Date closingDateExhibition, Date startTimeExhibition,
+            Date closingTimeExhibition, Performer p, String webLink, Location location) {
         
+        this.exhibitionName = exhibitionName;
         this.title = title;
         this.organizerName = organizerName;
         this.startDateExhibition = startDateExhibition;
         this.closingDateExhibition = closingDateExhibition;
         this.startTimeExhibition = startTimeExhibition;
+        this.closingTimeExhibition = closingTimeExhibition;
         this.p = p;
+        webLinks = new HashSet();
         webLinks.add(webLink);
         this.location = location;
         
+    }
+    
+    public void setExhibitionName (String exhibitionName) {
+        this.exhibitionName = exhibitionName;
+    }
+    
+    @Override
+    public String getName () {
+        return exhibitionName;
     }
     
     public void setTitle (String title) {
@@ -55,22 +70,24 @@ public class Exhibition implements LastingEvent, Event{
         this.organizerName = organizerName;
     }
     
-    public String getName () {
+    public String getOrganizerName () {
         return organizerName;
     }
     
-    public void setStartDate (Date startDateExhibition) {
+    public void setStartDateExhibition (Date startDateExhibition) {
         this.startDateExhibition = startDateExhibition;
     }
     
+    @Override
     public Date getStartDate () {
         return startDateExhibition;
     }
     
-    public void setEndingDate (Date closingDateExhibition) {
+    public void setClosingDateExhibition (Date closingDateExhibition) {
         this.closingDateExhibition = closingDateExhibition;
     }
     
+    @Override
     public Date getEndingDate () {
         return closingDateExhibition;
     }
@@ -81,6 +98,14 @@ public class Exhibition implements LastingEvent, Event{
     
     public Date getStartTimeExhibition () {
         return startTimeExhibition;
+    }
+    
+    public void setClosingTimeExhibition (Date closingTimeExhibition) {
+        this.closingTimeExhibition = closingTimeExhibition;
+    }
+    
+    public Date getClosingTimeExhibition () {
+        return closingTimeExhibition;
     }
     
     public void setPerformer (Performer p) {
@@ -103,32 +128,33 @@ public class Exhibition implements LastingEvent, Event{
         return location;
     }
     
-    public Date[] getDates(){
+    @Override
+    public Date[] getDates() {
         Date[] datesExhibition = null;
         Date auxDate = startDateExhibition;
-        for(int i=0;i<(calcularDiasExibicion(startDateExhibition, closingDateExhibition));i++){
+        for(int i=0; i<(calculateExhibitionDays(startDateExhibition, closingDateExhibition)); i++) {
             datesExhibition[i] = auxDate;
-            auxDate = aumentarDia(auxDate);
+            auxDate = incrementDay(auxDate);
         }
         return datesExhibition;
     }
     
-    private int calcularDiasExibicion(Date dia1, Date dia2){
+    private int calculateExhibitionDays (Date dia1, Date dia2) {
         
-        int numDias = 0; // Variable a devolver que contendra el numero de dias de diferencia entre una fecha y otra
-        if((dia2.getMonth() - dia1.getMonth()) >= 1){
-
-            numDias = 30*(dia2.getMonth() - dia1.getMonth() - 1) + dia2.getDay() + (numDiasMes(dia1.getMonth()) - dia1.getDay());
-           
+        // Variable a devolver que contendra el numero de dias de diferencia entre una fecha y otra
+        int numDias;
+        if ((dia2.getMonth() - dia1.getMonth()) >= 1) {
+            numDias = 30*(dia2.getMonth() - dia1.getMonth() - 1) + dia2.getDay() + 
+                    (numDiasMes(dia1.getMonth()) - dia1.getDay());
         }
-        else{
+        else {
             numDias = dia2.getDay() - dia1.getDay();
         }
         
         return numDias;
     }
     
-    private int numDiasMes (int mes){
+    private int numDiasMes (int mes) {
         int nDias;
         switch(mes){
             case 1: case 3: case 5: case 7: case 8: case 10: case 12:
@@ -147,46 +173,55 @@ public class Exhibition implements LastingEvent, Event{
         return nDias;
     }
     
-    private Date aumentarDia(Date dia){
-        Date proximoDia = null;
-        switch (dia.getMonth()){
+    private Date incrementDay (Date day) {
+        Date nextDay = null;
+        switch (day.getMonth()) {
             case 1: case 3: case 5: case 7: case 8: case 10: case 12:
-                if(dia.getDay() == 31){
-                    if(dia.getMonth() == 12){
-                        proximoDia = new Date(dia.getYear()+1, 1, 1);
+                if (day.getDay() == 31) {
+                    if (day.getMonth() == 12) {
+                        nextDay = new Date(day.getYear()+1, 1, 1);
                     }
-                    else{
-                        proximoDia = new Date(dia.getYear(), dia.getMonth() + 1, 1);
+                    else {
+                        nextDay = new Date(day.getYear(), day.getMonth() + 1, 1);
                     }
                 }
-                else{
-                    proximoDia = new Date(dia.getYear(), dia.getMonth(), dia.getDay() + 1);
+                else {
+                    nextDay = new Date(day.getYear(), day.getMonth(), day.getDay() + 1);
                 }
                 break;
                 
             case 4: case 6: case 9: case 11:
-                if(dia.getDay() == 30){
-                    proximoDia = new Date(dia.getYear(), dia.getMonth() + 1, 1);
+                if (day.getDay() == 30) {
+                    nextDay = new Date(day.getYear(), day.getMonth() + 1, 1);
                 }
-                else{
-                    proximoDia = new Date(dia.getYear(), dia.getMonth(), dia.getDay() + 1);
+                else {
+                    nextDay = new Date(day.getYear(), day.getMonth(), day.getDay() + 1);
                 }
                 break;
                 
             case 2:
-                if(dia.getDay() == 28){
-                    proximoDia = new Date(dia.getYear(), dia.getMonth() + 1, 1);
+                if (day.getDay() == 28) {
+                    nextDay = new Date(day.getYear(), day.getMonth() + 1, 1);
                 }
-                else{
-                    proximoDia = new Date(dia.getYear(), dia.getMonth(), dia.getDay() + 1);
+                else {
+                    nextDay = new Date(day.getYear(), day.getMonth(), day.getDay() + 1);
                 }
                 break;
         }
         
-        return proximoDia;
+        return nextDay;
     }
     
-    public Performer[] getPerformers(){
+    @Override
+    public boolean involvesPerformer (Performer p) {
+        
+        if (p.equals(this.p)) return true;
+        else return false;
+        
+    }
+    
+    @Override
+    public Performer[] getPerformers() {
         
         Performer[] performers = null;
         performers[0] = p;
@@ -194,17 +229,30 @@ public class Exhibition implements LastingEvent, Event{
         
     }
     
-    public boolean involvesPerformer(Performer p){
+    @Override
+    public boolean equals (Object o) {
         
-        if(p.getName().equalsIgnoreCase(this.p.getName()))
-            return true;
-        else{
-            return false;
+        if (o instanceof Exhibition) {
+            Exhibition e = (Exhibition)o;
+            if (this.getName().equalsIgnoreCase(e.getName())) return true;
+            else return false;
         }
+        else return false;
         
     }
     
-    
-    // HAY QUE IMPLEMENTAR LOS DOS METODOS INVENTADOS DE ARRIBA
+    @Override
+    public String toString() {
+        return "EXHIBITION\nExhibition's name: " + exhibitionName + "\nTitle: " +
+                title + "\nOrganizer name: " + organizerName + "\nStart date: " + 
+                startDateExhibition.getDay() + "/" + startDateExhibition.getMonth() + 
+                "/" + startDateExhibition.getYear() + "\nStart time: " + 
+                startTimeExhibition.getHours() + ":" + startTimeExhibition.getMinutes() + 
+                "h\nClosing date: " + closingDateExhibition.getDay() + "/" + 
+                closingDateExhibition.getMonth() + "/" + closingDateExhibition.getYear() +
+                "\nClosing time: " + closingTimeExhibition.getHours() + ":" +
+                closingTimeExhibition.getMinutes() + "h\nPerformer: " + p.getName() + 
+                "\nLocation: " + location.getName();
+    }
     
 }

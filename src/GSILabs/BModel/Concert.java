@@ -16,7 +16,7 @@ import java.util.Date;
  * @author izu.78236
  * @version 1.0 (21/09/2015)
  */
-public class Concert implements ImpermanentEvent, Event {
+public class Concert implements ImpermanentEvent {
     
     private String concertName; //Nombre asociado con el evento
     private Performer p; //Puede ser Artista o Colectivo, pero solamente uno

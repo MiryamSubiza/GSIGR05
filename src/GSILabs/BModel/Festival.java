@@ -17,7 +17,7 @@ import java.util.HashSet;
  * @author izu.78236
  * @version 1.0 (22/09/2015)
  */
-public class Festival implements LastingEvent, Event{
+public class Festival implements LastingEvent, Event {
     
     /* Este conjunto no admite duplicados, es decir, no puede contener dos elementos 
     * e1 y e2 tal que e1.equals(e2))
@@ -39,6 +39,7 @@ public class Festival implements LastingEvent, Event{
     public Festival (Concert c, Date startDateFestival, Date closingDateFestival,
             Date startTimeFestival, Date closingTimeFestival, String name) {
         
+        concerts = new HashSet();
         concerts.add(c);
         this.startDateFestival = startDateFestival;
         this.closingDateFestival = closingDateFestival;
@@ -56,14 +57,25 @@ public class Festival implements LastingEvent, Event{
         this.name = name;
     }
     
-    public String  getName(){
+    @Override
+    public String getName(){
         return this.name;
+    }
+    
+    public void setStartDateFestival (Date startDateFestival) {
+        this.startDateFestival = startDateFestival;
+    }
+    
+    @Override
+    public Date getStartDate () {
+        return startDateFestival;
     }
     
     public void setClosingDateFestival (Date closingDateFestival) {
         this.closingDateFestival = closingDateFestival;
     }
     
+    @Override
     public Date getEndingDate () {
         return closingDateFestival;
     }
@@ -72,8 +84,16 @@ public class Festival implements LastingEvent, Event{
         this.startTimeFestival = startTimeFestival;
     }
     
-    public Date getStartDate () {
+    public Date getStartTimeFestival () {
         return startTimeFestival;
+    }
+    
+    public void setClosingTimeFestival (Date closingTimeFestival) {
+        this.closingTimeFestival = closingTimeFestival;
+    }
+    
+    public Date getClosingTimeFestival () {
+        return closingTimeFestival;
     }
     
     /* Devuelve verdadero si el concierto se encuentra en el festival
@@ -98,34 +118,35 @@ public class Festival implements LastingEvent, Event{
         
     }
     
-    public Date[] getDates(){
-        Date[] datesExhibition = null;
+    @Override
+    public Date[] getDates() {
+        Date[] datesFestival = null;
         Date auxDate = startDateFestival;
-        for(int i=0;i<(calcularDiasExibicion(startDateFestival, closingDateFestival));i++){
-            datesExhibition[i] = auxDate;
-            auxDate = aumentarDia(auxDate);
+        for (int i=0; i<(calculateFestivalDays(startDateFestival, closingDateFestival)); i++) {
+            datesFestival[i] = auxDate;
+            auxDate = incrementDay(auxDate);
         }
-        return datesExhibition;
+        return datesFestival;
     }
     
-    private int calcularDiasExibicion(Date dia1, Date dia2){
+    private int calculateFestivalDays (Date dia1, Date dia2) {
         
-        int numDias = 0; // Variable a devolver que contendra el numero de dias de diferencia entre una fecha y otra
-        if((dia2.getMonth() - dia1.getMonth()) >= 1){
-
-            numDias = 30*(dia2.getMonth() - dia1.getMonth() - 1) + dia2.getDay() + (numDiasMes(dia1.getMonth()) - dia1.getDay());
-           
+        // Variable a devolver que contendrá el número de días de diferencia entre una fecha y otra
+        int numDias = 0;
+        if ((dia2.getMonth() - dia1.getMonth()) >= 1) {
+            numDias = 30*(dia2.getMonth() - dia1.getMonth() - 1) + dia2.getDay() + 
+                    (numDiasMes(dia1.getMonth()) - dia1.getDay());
         }
-        else{
+        else {
             numDias = dia2.getDay() - dia1.getDay();
         }
         
         return numDias;
     }
     
-    private int numDiasMes (int mes){
+    private int numDiasMes (int mes) {
         int nDias;
-        switch(mes){
+        switch (mes) {
             case 1: case 3: case 5: case 7: case 8: case 10: case 12:
                 nDias = 31;
                 break;
@@ -142,61 +163,58 @@ public class Festival implements LastingEvent, Event{
         return nDias;
     }
     
-    private Date aumentarDia(Date dia){
-        Date proximoDia = null;
-        switch (dia.getMonth()){
+    private Date incrementDay (Date day) {
+        Date nextDay = null;
+        switch (day.getMonth()){
             case 1: case 3: case 5: case 7: case 8: case 10: case 12:
-                if(dia.getDay() == 31){
-                    if(dia.getMonth() == 12){
-                        proximoDia = new Date(dia.getYear()+1, 1, 1);
+                if(day.getDay() == 31){
+                    if(day.getMonth() == 12){
+                        nextDay = new Date(day.getYear()+1, 1, 1);
                     }
                     else{
-                        proximoDia = new Date(dia.getYear(), dia.getMonth() + 1, 1);
+                        nextDay = new Date(day.getYear(), day.getMonth() + 1, 1);
                     }
                 }
                 else{
-                    proximoDia = new Date(dia.getYear(), dia.getMonth(), dia.getDay() + 1);
+                    nextDay = new Date(day.getYear(), day.getMonth(), day.getDay() + 1);
                 }
                 break;
                 
             case 4: case 6: case 9: case 11:
-                if(dia.getDay() == 30){
-                    proximoDia = new Date(dia.getYear(), dia.getMonth() + 1, 1);
+                if(day.getDay() == 30){
+                    nextDay = new Date(day.getYear(), day.getMonth() + 1, 1);
                 }
                 else{
-                    proximoDia = new Date(dia.getYear(), dia.getMonth(), dia.getDay() + 1);
+                    nextDay = new Date(day.getYear(), day.getMonth(), day.getDay() + 1);
                 }
                 break;
                 
             case 2:
-                if(dia.getDay() == 28){
-                    proximoDia = new Date(dia.getYear(), dia.getMonth() + 1, 1);
+                if(day.getDay() == 28){
+                    nextDay = new Date(day.getYear(), day.getMonth() + 1, 1);
                 }
                 else{
-                    proximoDia = new Date(dia.getYear(), dia.getMonth(), dia.getDay() + 1);
+                    nextDay = new Date(day.getYear(), day.getMonth(), day.getDay() + 1);
                 }
                 break;
         }
         
-        return proximoDia;
+        return nextDay;
     }
     
-    public boolean involvesPerformer(Performer p){
+    @Override
+    public boolean involvesPerformer (Performer p) {
         
         Iterator i = concerts.iterator();
         Concert concertAux = null;
-        while(i.hasNext()){
+        while (i.hasNext()) {
             concertAux = (Concert)i.next();
-            if(concertAux.involvesPerformer(p)){
+            if (concertAux.involvesPerformer(p)) {
                 break;
             }
         }
-        if(concertAux.involvesPerformer(p)){
-            return true;
-        }
-        else{
-            return false;
-        }
+        if (concertAux.involvesPerformer(p)) return true;
+        else return false;
         
     }
     
@@ -215,4 +233,28 @@ public class Festival implements LastingEvent, Event{
     
     }
     
+    @Override
+    public boolean equals (Object o) {
+        
+        if (o instanceof Festival) {
+            Festival f = (Festival)o;
+            if (this.getName().equalsIgnoreCase(f.getName())) return true;
+            else return false;
+        }
+        else return false;
+        
+    }
+    
+    @Override
+    public String toString() {
+        return "FESTIVAL\nFestival's name: " + name + "\nStart date: " + 
+                startDateFestival.getDay() + "/" + startDateFestival.getMonth() + 
+                "/" + startDateFestival.getYear() + "\nStart time: " + 
+                startTimeFestival.getHours() + ":" + startTimeFestival.getMinutes() + 
+                "h\nClosing date: " + closingDateFestival.getDay() + "/" + 
+                closingDateFestival.getMonth() + "/" + closingDateFestival.getYear() +
+                "\nClosing time: " + closingTimeFestival.getHours() + ":" + 
+                closingTimeFestival.getMinutes() + "h\n";
+    }
+
 }

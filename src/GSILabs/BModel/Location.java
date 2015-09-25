@@ -19,7 +19,7 @@ public class Location {
     private String name; //Nombre de la localización
     private int maxCapacity; //Aforo máximo 
     private String geographicPosition; //Posición geográfica de la localización
-    private String webSite = ""; //Enlace web oficial de la localización, puede no tener
+    private String webSite = "-"; //Enlace web oficial de la localización, puede no tener
     
     //Localización con enlace web oficial
     public Location (String name, int maxCapacity, String geographicPosition, String webSite) {
@@ -70,6 +70,25 @@ public class Location {
     
     public String getWebSite(){
         return webSite;
+    }
+    
+    @Override
+    public boolean equals (Object o) {
+        
+        if (o instanceof Location) {
+            Location l = (Location)o;
+            if (this.getName().equalsIgnoreCase(l.getName())) return true;
+            else return false;
+        }
+        else return false;
+        
+    }
+    
+    @Override
+    public String toString() {
+        return "LOCATION\nLocation's name: " + name + "\nMaximum capacity: " + 
+                maxCapacity + "\nGeographic position: " + geographicPosition + 
+                "\nWebsite: " + webSite + "\n";
     }
     
 }

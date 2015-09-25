@@ -169,6 +169,18 @@ public class Concert implements ImpermanentEvent, Event {
     }
     
     @Override
+    public boolean equals (Object o) {
+        
+        if (o instanceof Concert) {
+            Concert c = (Concert)o;
+            if (this.getName().equalsIgnoreCase(c.getName())) return true;
+            else return false;
+        }
+        else return false;
+        
+    }
+    
+    @Override
     public String toString() {
         return "CONCERT\nConcert's name: " + concertName + "\nPerformer's name: " +
                 p.getName() + "\nDate: " + startDateConcert.getDay() + "/" +

@@ -19,25 +19,28 @@ import java.util.HashMap;
  */
 public class Ticket {
     
-    private Event event; //Puede ser Concierto, Festival o Exposición
+    private Event event; //Puede ser un Concierto, un Festival o una Exposición
     //Clave: Identificador para una persona
     //Valor: False si no ha entrado y True si ha entrado al evento
     private HashMap people; 
     // PARA ACCEDER A LOS ELEMENTOS LOS BUSCAMOS CON containsKey() Y LUEGO PARA VER 
     //EL VALOR DE LA KEY ASOCIADA USAS get(Key K)
     private ArrayList al;
+    //Cantidad de personas que pueden acceder al evento con esta entrada (una o varias)
+    private int numberOfPeople;
     
-    //identifiers es un ArrayList de identificadores con tantos identificadores como personas puedan acceder con esta entrada
-    public Ticket (Event event, ArrayList <Integer> identifiers) {
+    //al es un ArrayList de identificadores con tantos identificadores 
+    //como personas puedan acceder con esta entrada
+    public Ticket (Event event, ArrayList <Integer> identifiers, int numberOfPeople) {
         
         this.event = event;
         people = new HashMap();
         for (int i = 1; i <= identifiers.size(); i++) {
             people.put(new Integer(identifiers.get(i)), false);
         }
-        //Introducimos los valores del HashMap a un ArrayList para poder acceder a ellos
+        //Introducimos los valores (booleanos) del HashMap a un ArrayList para poder acceder a ellos
         al = new ArrayList(people.values());
-        
+        this.numberOfPeople = numberOfPeople;
     }
     
     public void setEvent (Event event) {
@@ -46,7 +49,15 @@ public class Ticket {
     
     public Event getEvent () {
         return event;
-    }    
+    }
+    
+    public void setNumberOfPeople (int numberOfPeople) {
+        this.numberOfPeople = numberOfPeople;
+    }
+    
+    public int getNumberOfPeople () {
+        return numberOfPeople;
+    }
     
     //Devuelve true si la entrada contiene este identificador
     //y false en caso contrario
@@ -56,8 +67,8 @@ public class Ticket {
     
     //Devuelve true si el identificador ha sido utilizado
     //y false en caso contrario
-    public boolean checkIdentifierIsUsed(int identifier){
-        return (boolean)people.get(identifier);
+    public boolean checkIdentifierIsUsed (int identifier) {
+        return (boolean)people.get(identifier); //Le pasas una Key y te devuelve el Value
     }
     
 }

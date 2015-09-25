@@ -18,7 +18,7 @@ public class Artist implements Performer {
     
     private String name; // Nombre del artista
     private String workDescription; // Descripción de la obra o trabajo que realiza
-    private String webSite = ""; // Página web del artista en concreto, puede no tener
+    private String webSite = "-"; // Página web del artista en concreto, puede no tener
     
     //Artista con página web
     public Artist (String name, String workDescription, String webSite) {
@@ -78,6 +78,12 @@ public class Artist implements Performer {
         }
         else return false;
 
+    }
+    
+    @Override
+    public String toString () {
+        return "ARTIST\nName: " + name + "\nWork description: " + workDescription + 
+                "\nWebsite: " + webSite + "\n";
     }
 
 }

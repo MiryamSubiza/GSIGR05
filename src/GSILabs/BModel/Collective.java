@@ -25,7 +25,7 @@ public class Collective implements Performer {
     private HashSet <Artist> artists;
     private String name; // Nombre del colectivo de artistas
     private String workDescription; // Descripción del colectivo de artistas
-    private String webSite; // Página web de dicho colectivo de artistas
+    private String webSite = "-"; // Página web de dicho colectivo de artistas
     
     //Colectivo con página web
     public Collective (Artist firstArtist, String name, String workDescription, String webSite) {
@@ -115,6 +115,12 @@ public class Collective implements Performer {
         }
         else return false;
 
+    }
+    
+    @Override
+    public String toString () {
+        return "COLLECTIVE\nName: " + name + "\nWork description: " + workDescription + 
+                "\nWebsite: " + webSite + "\n";
     }
             
 }

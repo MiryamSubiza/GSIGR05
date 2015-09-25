@@ -71,4 +71,10 @@ public class Ticket {
         return (boolean)people.get(identifier); //Le pasas una Key y te devuelve el Value
     }
     
+    @Override
+    public String toString() {
+        return "TICKET\nName of the event: " + event.getName() + 
+                "\nNumber of people: " + numberOfPeople + "\n";
+    }
+    
 }

@@ -74,4 +74,11 @@ public class Sales {
         return this.dateSale;
     }
     
+    @Override
+    public String toString() {
+        return "SALE\nClient: " + client.getName() + client.getLastName() + 
+                "\nPrice of the ticket: " + price + "\nCredit card: " +
+                cCard + "\nDate: " + dateSale.getDay() + "/" + 
+                dateSale.getMonth() + "/" + dateSale.getYear() + "\n";
+    }
 }

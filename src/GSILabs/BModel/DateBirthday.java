@@ -5,7 +5,7 @@
  * Universidad Publica de Navarra
  * during the first semester of the Academic Year 2015-2016
  */
-package GSILabs.BModel;
+//package GSILabs.BModel;
 
 /**
  * 
@@ -13,6 +13,7 @@ package GSILabs.BModel;
  * @author izu.78236
  * @version 1.0 (18/09/2015)
  */
+/*******************************************************************************
 public class DateBirthday {
     
     public int day; //1 <= day <= 31
@@ -50,3 +51,4 @@ public class DateBirthday {
     }
     
 }
+*******************************************************************************/

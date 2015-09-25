@@ -189,7 +189,8 @@ public class Concert implements ImpermanentEvent {
                 doorOpeningTimeConcert.getMinutes() + "h\nStart time: " + 
                 startTimeConcert.getHours() + ":" + startTimeConcert.getMinutes() + 
                 "h\nClosing time: " + closingTimeConcert.getHours() + ":" +
-                closingTimeConcert.getMinutes() + "h\nLocation: " + location.getName();
+                closingTimeConcert.getMinutes() + "h\nLocation: " + location.getName()
+                + "\n";
     }
     
 }

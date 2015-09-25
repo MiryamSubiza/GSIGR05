@@ -252,7 +252,7 @@ public class Exhibition implements LastingEvent {
                 closingDateExhibition.getMonth() + "/" + closingDateExhibition.getYear() +
                 "\nClosing time: " + closingTimeExhibition.getHours() + ":" +
                 closingTimeExhibition.getMinutes() + "h\nPerformer: " + p.getName() + 
-                "\nLocation: " + location.getName();
+                "\nLocation: " + location.getName() + "\n";
     }
     
 }

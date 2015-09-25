@@ -18,40 +18,33 @@ import java.util.Iterator;
  * @author izu.78236
  * @version 1.0 (21/09/2015)
  */
-public class Collective extends Artist implements Performer {
+public class Collective implements Performer {
     
     //Ha de ser una colección sin ordenación -> HashSet no tiene ordenación y no permite duplicados
     //private ArrayList <Artist> artists; // Todos los artistas que componen el colectivo
     private HashSet <Artist> artists;
-    /** ¡HERENCIA!
-     * private String name; // Nombre del colectivo de artistas
-     * private String workDescription; // Descripción del colectivo de artistas
-     * private String webSite; // Página web de dicho colectivo de artistas
-     */
+    private String name; // Nombre del colectivo de artistas
+    private String workDescription; // Descripción del colectivo de artistas
+    private String webSite; // Página web de dicho colectivo de artistas
     
     //Colectivo con página web
     public Collective (Artist firstArtist, String name, String workDescription, String webSite) {
         
-        super(name, workDescription, webSite);
         artists = new HashSet();
         artists.add(firstArtist);
-        /**
-         * this.name = name;
-         * this.workDescription = workDescription;
-         * this.webSite = webSite;
-         */
+        this.name = name;
+        this.workDescription = workDescription;
+        this.webSite = webSite;
         
     }
     
     //Colectivo sin página web
     public Collective (Artist firstArtist, String name, String workDescription) {
         
-        super(name, workDescription);
+        artists = new HashSet();
         artists.add(firstArtist);
-        /**
-         * this.name = name;
-         * this.workDescription = workDescription;
-         */
+        this.name = name;
+        this.workDescription = workDescription;
         
     }
     
@@ -59,7 +52,6 @@ public class Collective extends Artist implements Performer {
         artists.add(newArtist);
     }
     
-    /*
     public void setName (String name) {
         this.name = name;
     }
@@ -87,9 +79,8 @@ public class Collective extends Artist implements Performer {
     }
     
     public String getWebSite () {
-        this.webSite = webSite;
+        return webSite;
     }
-    */
     
     /* Devuelve verdadero si el artista se encuentra en el colectivo
     *  y falso en caso contrario

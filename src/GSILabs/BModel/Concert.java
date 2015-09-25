@@ -43,11 +43,7 @@ public class Concert implements ImpermanentEvent, Event {
     public void setConcertName (String concertName) {
         this.concertName = concertName;
     }
-    /*
-    public String getConcertName () {
-        return concertName;
-    }
-    */
+    
     public void setPerformer (Performer p) {
         this.p = p;
     }
@@ -170,6 +166,18 @@ public class Concert implements ImpermanentEvent, Event {
         
         return performers;
         
+    }
+    
+    @Override
+    public String toString() {
+        return "CONCERT\nConcert's name: " + concertName + "\nPerformer's name: " +
+                p.getName() + "\nDate: " + startDateConcert.getDay() + "/" +
+                startDateConcert.getMonth() + "/" + startDateConcert.getYear() +
+                "\nDoor opening: " + doorOpeningTimeConcert.getHours() + ":" +
+                doorOpeningTimeConcert.getMinutes() + "h\nStart time: " + 
+                startTimeConcert.getHours() + ":" + startTimeConcert.getMinutes() + 
+                "h\nClosing time: " + closingTimeConcert.getHours() + ":" +
+                closingTimeConcert.getMinutes() + "h\nLocation: " + location.getName();
     }
     
 }

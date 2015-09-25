@@ -9,7 +9,7 @@ package GSILabs.BModel;
 
 import java.util.Date;
 import java.util.Iterator;
-import java.util.Set;
+import java.util.HashSet;
 
 /**
  * 
@@ -22,7 +22,7 @@ public class Festival {
     /* Este conjunto no admite duplicados, es decir, no puede contener dos elementos 
     * e1 y e2 tal que e1.equals(e2))
     */
-    private Set <Concert> concerts; //Puede haber uno o varios conciertos
+    private HashSet <Concert> concerts; //Puede haber uno o varios conciertos
     /* El festival puede extenderse durante varios días o semanas */
     // Fecha de apertura, que coincide con la fecha del primer concierto
     private Date startDateFestival;

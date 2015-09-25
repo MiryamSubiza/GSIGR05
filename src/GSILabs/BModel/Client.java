@@ -8,8 +8,8 @@
 
 package GSILabs.BModel;
 
-import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 
 /**
  * 
@@ -24,7 +24,7 @@ public class Client {
     private String name;
     private String lastName;
     private DateBirthday birthday;
-    private ArrayList <String> creditCards;
+    private HashSet <String> creditCards;
     
     public Client (int id, String name, String lastName, int day, int month,
             int year, String cCard) {

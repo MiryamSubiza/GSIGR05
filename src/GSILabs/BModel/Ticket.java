@@ -19,6 +19,7 @@ import java.util.HashMap;
  */
 public class Ticket {
     
+    //int id;
     private Event event; //Puede ser un Concierto, un Festival o una Exposición
     //Clave: Identificador para una persona
     //Valor: False si no ha entrado y True si ha entrado al evento

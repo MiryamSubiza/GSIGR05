@@ -23,16 +23,17 @@ public class Client {
     private String dni; //DNI (id + letra dni)
     private String name; //Nombre del cliente
     private String lastName; //Apellido(s) del cliente
-    private Date birthday; //Fecha de nacimiento (>= 18)
+    private Dates birthday; //Fecha de nacimiento (>= 18)
     private HashSet <String> creditCards; //Tarjetas de crédito (puede haber una o varias)
     
-    public Client (int id, String name, String lastName, Date birthday, String cCard) {
+    public Client (int id, String name, String lastName, Dates birthday, String cCard) {
         
         this.id = id;
-        dni = calculateLetterDNI(id);
+        calculateLetterDNI(id);
         this.name = name;
         this.lastName = lastName;
         this.birthday = birthday;
+        //Si quisiera devolver de tipo Date haría this.birthday.fecha
         creditCards = new HashSet();
         creditCards.add(cCard);
         
@@ -47,13 +48,17 @@ public class Client {
     }
     
     //Calcula la letra del dni numérico
-    public String calculateLetterDNI (int id) {
+    public void calculateLetterDNI (int id) {
         
         String letters = "TRWAGMYFPDXBNJZSQVHLCKET";
         int rest = id % 23;
         char letter = letters.charAt(rest);
-        return id + letter + "";
+        this.dni = (id + Character.toString(letter));
         
+    }
+    
+    public String getDNI () {
+        return dni;
     }
     
     public void setName (String name) {
@@ -72,11 +77,11 @@ public class Client {
         return lastName;
     }
     
-    public void setBirthday (Date birthday) {
+    public void setBirthday (Dates birthday) {
         this.birthday = birthday;
     }
     
-    public Date getBirthday () {
+    public Dates getBirthday () {
         return birthday;
     }
     
@@ -99,8 +104,7 @@ public class Client {
     @Override
     public String toString() {
         return "CLIENT\nDNI: " + dni + "\nName: " + name + "\nLast name: " +
-                lastName + "\nBirthday: " + birthday.getDay() + "/" + 
-                birthday.getMonth() + "/" + birthday.getYear() + "\n";
+                lastName + "\nBirthday: " + birthday.toString() + "\n";
     }
 
 }

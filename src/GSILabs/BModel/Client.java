@@ -26,6 +26,7 @@ public class Client {
     private String lastName; //Apellido(s) del cliente
     private Dates birthday; //Fecha de nacimiento (>= 18)
     private HashSet <String> creditCards; //Tarjetas de crédito (puede haber una o varias)
+    private HashSet <Ticket> salesOfTickets; //Tickets vendidos a este cliente
     
     public Client (int id, String name, String lastName, Dates birthday, String cCard) {
         
@@ -37,6 +38,7 @@ public class Client {
         //Si quisiera devolver de tipo Date haría this.birthday.fecha
         creditCards = new HashSet();
         creditCards.add(cCard);
+        salesOfTickets = new HashSet();
         
     }
     
@@ -89,6 +91,11 @@ public class Client {
     //Si la tarjeta de crédito ya existe para ese cliente no la añade
     public void addCreditCard (String cCard) {
         creditCards.add(cCard);
+    }
+    
+    //Añadir la venta de una entrada a este cliente
+    public void addSaleToClient (Ticket t) {
+        salesOfTickets.add(t);
     }
     
     @Override

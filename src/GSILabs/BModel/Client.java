@@ -10,6 +10,7 @@ package GSILabs.BModel;
 
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Iterator;
 
 /**
  * 
@@ -85,6 +86,7 @@ public class Client {
         return birthday;
     }
     
+    //Si la tarjeta de crédito ya existe para ese cliente no la añade
     public void addCreditCard (String cCard) {
         creditCards.add(cCard);
     }
@@ -103,8 +105,19 @@ public class Client {
     
     @Override
     public String toString() {
+        String cards = "";
+        Iterator i = creditCards.iterator();
+        String cCardAux = null;
+        int cont = 0;
+        while (i.hasNext()) {
+            cCardAux = (String)i.next();
+            if (cont == 0) cards = (cards + cCardAux);
+            else cards = (cards + ", " + cCardAux);
+            cont++;
+        }
         return "CLIENT\nDNI: " + dni + "\nName: " + name + "\nLast name: " +
-                lastName + "\nBirthday: " + birthday.toString() + "\n";
+                lastName + "\nBirthday: " + birthday.toString() + "Credit cards: "
+                + cards + "\n";
     }
 
 }

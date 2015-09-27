@@ -10,6 +10,8 @@ package GSILabs.BModel;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Set;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * 
@@ -29,7 +31,7 @@ public class Ticket {
     private ArrayList al;
     //Cantidad de personas que pueden acceder al evento con esta entrada (una o varias)
     private int numberOfPeople;
-    
+    /*
     //al es un ArrayList de identificadores con tantos identificadores 
     //como personas puedan acceder con esta entrada
     public Ticket (Event event, ArrayList <Integer> identifiers, int numberOfPeople) {
@@ -42,6 +44,22 @@ public class Ticket {
         //Introducimos los valores (booleanos) del HashMap a un ArrayList para poder acceder a ellos
         al = new ArrayList(people.values());
         this.numberOfPeople = numberOfPeople;
+    }
+    */
+    
+    public Ticket (Event event, AtomicInteger atomicInteger, int numberOfPeople) {
+        
+        this.event = event;
+        people = new HashMap();
+        for (int i = 1; i <= numberOfPeople; i++) {
+            people.put(atomicInteger.getAndIncrement(), false);
+        }
+        //Introducimos los valores (booleanos) del HashMap a un ArrayList para poder acceder a ellos
+        // ¡¡¡CREO QUE ESTO NO SIRVE!!! PORQUE CUANDO SE MODIFIQUE UN VALOR EN EL HASHMAP,
+        // NO SE MODIFICA EN EL ARRAYLIST. HABRÍA QUE MIRARLO TODO EL RATO, NO EN EL CONSTRUCTOR
+        al = new ArrayList(people.values());
+        this.numberOfPeople = numberOfPeople;
+        
     }
     
     public void setEvent (Event event) {

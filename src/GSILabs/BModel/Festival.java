@@ -25,19 +25,19 @@ public class Festival implements LastingEvent {
     private HashSet <Concert> concerts; //Puede haber uno o varios conciertos
     /* El festival puede extenderse durante varios días o semanas */
     // Fecha de apertura, que coincide con la fecha del primer concierto
-    private Date startDateFestival;
+    private Dates startDateFestival;
     // Fecha de cierre, que coincide con la fecha del último concierto
-    private Date closingDateFestival;
+    private Dates closingDateFestival;
     // Hora de apertura, que coincide con la hora de apertura de puertas
     // del primer concierto
-    private Date startTimeFestival;
+    private Times startTimeFestival;
     // Hora de cierre, que coincide con la hora de cierre del último concierto
-    private Date closingTimeFestival;
+    private Times closingTimeFestival;
     // Nombre del festival
     private String festivalName;
     
-    public Festival (String festivalName, Concert c, Date startDateFestival, Date closingDateFestival,
-            Date startTimeFestival, Date closingTimeFestival) {
+    public Festival (String festivalName, Concert c, Dates startDateFestival, Dates closingDateFestival,
+            Times startTimeFestival, Times closingTimeFestival) {
         
         this.festivalName = festivalName;
         concerts = new HashSet();
@@ -62,38 +62,38 @@ public class Festival implements LastingEvent {
         return this.festivalName;
     }
     
-    public void setStartDateFestival (Date startDateFestival) {
+    public void setStartDateFestival (Dates startDateFestival) {
         this.startDateFestival = startDateFestival;
     }
     
     @Override
     public Date getStartDate () {
-        return startDateFestival;
+        return startDateFestival.getDate();
     }
     
-    public void setClosingDateFestival (Date closingDateFestival) {
+    public void setClosingDateFestival (Dates closingDateFestival) {
         this.closingDateFestival = closingDateFestival;
     }
     
     @Override
     public Date getEndingDate () {
-        return closingDateFestival;
+        return closingDateFestival.getDate();
     }
     
-    public void setStartTimeFestival (Date startTimeFestival) {
+    public void setStartTimeFestival (Times startTimeFestival) {
         this.startTimeFestival = startTimeFestival;
     }
     
     public Date getStartTimeFestival () {
-        return startTimeFestival;
+        return startTimeFestival.getHour();
     }
     
-    public void setClosingTimeFestival (Date closingTimeFestival) {
+    public void setClosingTimeFestival (Times closingTimeFestival) {
         this.closingTimeFestival = closingTimeFestival;
     }
     
     public Date getClosingTimeFestival () {
-        return closingTimeFestival;
+        return closingTimeFestival.getHour();
     }
     
     /* Devuelve verdadero si el concierto se encuentra en el festival
@@ -121,8 +121,8 @@ public class Festival implements LastingEvent {
     @Override
     public Date[] getDates() {
         Date[] datesFestival = null;
-        Date auxDate = startDateFestival;
-        for (int i=0; i<(calculateFestivalDays(startDateFestival, closingDateFestival)); i++) {
+        Date auxDate = startDateFestival.getDate();
+        for (int i=0; i<(calculateFestivalDays(startDateFestival.getDate(), closingDateFestival.getDate())); i++) {
             datesFestival[i] = auxDate;
             auxDate = incrementDay(auxDate);
         }
@@ -248,9 +248,9 @@ public class Festival implements LastingEvent {
     @Override
     public String toString() {
         return "FESTIVAL\nFestival's name: " + festivalName + "\nStart date: " + 
-                startDateFestival + "\nStart time: " + startTimeFestival + 
-                "h\nClosing date: " + closingDateFestival +
-                "\nClosing time: " + closingTimeFestival + "h\n";
+                startDateFestival.getDate() + "\nStart time: " + startTimeFestival.getHour() + 
+                "h\nClosing date: " + closingDateFestival.getDate() +
+                "\nClosing time: " + closingTimeFestival.getHour() + "h\n";
     }
 
 }

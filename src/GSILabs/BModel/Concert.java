@@ -20,15 +20,15 @@ public class Concert implements ImpermanentEvent {
     
     private String concertName; //Nombre asociado con el evento
     private Performer p; //Puede ser Artista o Colectivo, pero solamente uno
-    private Date startDateConcert; //Fecha del concierto (un solo día)
-    private Date startTimeConcert; //Hora de comienzo
-    private Date doorOpeningTimeConcert; //Hora de apertura de puertas
-    private Date closingTimeConcert; //Hora de cierre
+    private Dates startDateConcert; //Fecha del concierto (un solo día)
+    private Times startTimeConcert; //Hora de comienzo
+    private Times doorOpeningTimeConcert; //Hora de apertura de puertas
+    private Times closingTimeConcert; //Hora de cierre
     private Location location; //Esta localización es única
     
-    public Concert (String concertName, Performer p, Date startDateConcert, 
-            Date startTimeConcert, Date doorOpeningTimeConcert, 
-            Date closingTimeConcert, Location location) {
+    public Concert (String concertName, Performer p, Dates startDateConcert, 
+            Times startTimeConcert, Times doorOpeningTimeConcert, 
+            Times closingTimeConcert, Location location) {
         
         this.concertName = concertName;
         this.p = p;
@@ -52,38 +52,38 @@ public class Concert implements ImpermanentEvent {
         return p;
     }
     
-    public void setStartDateConcert (Date startDateConcert) {
+    public void setStartDateConcert (Dates startDateConcert) {
         this.startDateConcert = startDateConcert;
     }
     
     //Sobreescribe el método de ImpermanentEvent
     @Override
     public Date getStartDate () {
-        return startDateConcert;
+        return startDateConcert.getDate();
     }
     
-    public void setStartTimeConcert (Date startTimeConcert) {
+    public void setStartTimeConcert (Times startTimeConcert) {
         this.startTimeConcert = startTimeConcert;
     }
     
     public Date getStartTimeConcert () {
-        return startTimeConcert;
+        return startTimeConcert.getHour();
     }
     
-    public void setDoorOpeningTimeConcert (Date doorOpeningTimeConcert) {
+    public void setDoorOpeningTimeConcert (Times doorOpeningTimeConcert) {
         this.doorOpeningTimeConcert = doorOpeningTimeConcert;
     }
     
     public Date getDoorOpeningTimeConcert () {
-        return doorOpeningTimeConcert;
+        return doorOpeningTimeConcert.getHour();
     }
     
-    public void setClosingTimeConcert (Date closingTimeConcert) {
+    public void setClosingTimeConcert (Times closingTimeConcert) {
         this.closingTimeConcert = closingTimeConcert;
     }
     
     public Date getClosingTimeConcert () {
-        return closingTimeConcert;
+        return closingTimeConcert.getHour();
     }
     
     public void setLocation (Location location) {
@@ -108,7 +108,7 @@ public class Concert implements ImpermanentEvent {
         
         Date[] dates;
         dates = new Date[1];
-        dates[0] = startDateConcert;
+        dates[0] = startDateConcert.getDate();
         
         return dates;
         
@@ -165,6 +165,18 @@ public class Concert implements ImpermanentEvent {
         performers[0] = p;
         
         return performers;
+        
+    }
+    
+    @Override
+    public boolean equals (Object o) {
+        
+        if (o instanceof Concert) {
+            Concert c = (Concert)o;
+            if (this.getName().equalsIgnoreCase(c.getName())) return true;
+            else return false;
+        }
+        else return false;
         
     }
     

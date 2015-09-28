@@ -10,6 +10,8 @@ package GSILabs.BModel;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -31,22 +33,11 @@ public class Ticket {
     private ArrayList al;
     //Cantidad de personas que pueden acceder al evento con esta entrada (una o varias)
     private int numberOfPeople;
-    /*
+    //True si el ticket ha sido vendido a un cliente, false en caso contrario
+    private boolean sold;
+    
     //al es un ArrayList de identificadores con tantos identificadores 
     //como personas puedan acceder con esta entrada
-    public Ticket (Event event, ArrayList <Integer> identifiers, int numberOfPeople) {
-        
-        this.event = event;
-        people = new HashMap();
-        for (int i = 1; i <= identifiers.size(); i++) {
-            people.put(new Integer(identifiers.get(i)), false);
-        }
-        //Introducimos los valores (booleanos) del HashMap a un ArrayList para poder acceder a ellos
-        al = new ArrayList(people.values());
-        this.numberOfPeople = numberOfPeople;
-    }
-    */
-    
     public Ticket (Event event, AtomicInteger atomicInteger, int numberOfPeople) {
         
         this.event = event;
@@ -59,6 +50,7 @@ public class Ticket {
         // NO SE MODIFICA EN EL ARRAYLIST. HABRÍA QUE MIRARLO TODO EL RATO, NO EN EL CONSTRUCTOR
         al = new ArrayList(people.values());
         this.numberOfPeople = numberOfPeople;
+        this.sold = false;
         
     }
     
@@ -78,6 +70,14 @@ public class Ticket {
         return numberOfPeople;
     }
     
+    public void setSold (boolean sold) {
+        this.sold = sold;
+    }
+    
+    public boolean isSold () {
+        return sold;
+    }
+    
     //Devuelve true si la entrada contiene este identificador
     //y false en caso contrario
     public boolean checkIdentifierInTicket (int identifier) {
@@ -90,10 +90,30 @@ public class Ticket {
         return (boolean)people.get(identifier); //Le pasas una Key y te devuelve el Value
     }
     
+    //Devuelve un array de enteros con los identificadores que hay en este ticket
+    public int[] getIdentifiers () {
+        Set ids = people.keySet();
+        int[] idsArray;
+        idsArray = new int[people.size()];
+        Iterator i = ids.iterator();
+        int idAux;
+        int j = 0;
+        while (i.hasNext()) {
+            idAux = (int)i.next();
+            idsArray[j] = idAux;
+            j++;
+        }
+        return idsArray;
+    }
+    
     @Override
     public String toString() {
+        String availability;
+        if (sold) availability = "Sold";
+        else availability = "Not sold";
         return "TICKET\nName of the event: " + event.getName() + 
-                "\nNumber of people: " + numberOfPeople + "\n";
+                "\nNumber of people: " + numberOfPeople + "\nAvailability: "
+                + availability + "\n";
     }
     
 }

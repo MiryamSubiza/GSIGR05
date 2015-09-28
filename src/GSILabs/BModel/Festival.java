@@ -25,19 +25,19 @@ public class Festival implements LastingEvent {
     private HashSet <Concert> concerts; //Puede haber uno o varios conciertos
     /* El festival puede extenderse durante varios días o semanas */
     // Fecha de apertura, que coincide con la fecha del primer concierto
-    private Dates startDateFestival;
+    private Date startDateFestival;
     // Fecha de cierre, que coincide con la fecha del último concierto
-    private Dates closingDateFestival;
+    private Date closingDateFestival;
     // Hora de apertura, que coincide con la hora de apertura de puertas
     // del primer concierto
-    private Times startTimeFestival;
+    private Date startTimeFestival;
     // Hora de cierre, que coincide con la hora de cierre del último concierto
-    private Times closingTimeFestival;
+    private Date closingTimeFestival;
     // Nombre del festival
     private String festivalName;
     
-    public Festival (String festivalName, Concert c, Dates startDateFestival, Dates closingDateFestival,
-            Times startTimeFestival, Times closingTimeFestival) {
+    public Festival (String festivalName, Concert c, Date startDateFestival, Date closingDateFestival,
+            Date startTimeFestival, Date closingTimeFestival) {
         
         this.festivalName = festivalName;
         concerts = new HashSet();
@@ -62,38 +62,38 @@ public class Festival implements LastingEvent {
         return this.festivalName;
     }
     
-    public void setStartDateFestival (Dates startDateFestival) {
+    public void setStartDateFestival (Date startDateFestival) {
         this.startDateFestival = startDateFestival;
     }
     
     @Override
     public Date getStartDate () {
-        return startDateFestival.getDate();
+        return startDateFestival;
     }
     
-    public void setClosingDateFestival (Dates closingDateFestival) {
+    public void setClosingDateFestival (Date closingDateFestival) {
         this.closingDateFestival = closingDateFestival;
     }
     
     @Override
     public Date getEndingDate () {
-        return closingDateFestival.getDate();
+        return closingDateFestival;
     }
     
-    public void setStartTimeFestival (Times startTimeFestival) {
+    public void setStartTimeFestival (Date startTimeFestival) {
         this.startTimeFestival = startTimeFestival;
     }
     
     public Date getStartTimeFestival () {
-        return startTimeFestival.getHour();
+        return startTimeFestival;
     }
     
-    public void setClosingTimeFestival (Times closingTimeFestival) {
+    public void setClosingTimeFestival (Date closingTimeFestival) {
         this.closingTimeFestival = closingTimeFestival;
     }
     
     public Date getClosingTimeFestival () {
-        return closingTimeFestival.getHour();
+        return closingTimeFestival;
     }
     
     /* Devuelve verdadero si el concierto se encuentra en el festival
@@ -121,8 +121,8 @@ public class Festival implements LastingEvent {
     @Override
     public Date[] getDates() {
         Date[] datesFestival = null;
-        Date auxDate = startDateFestival.getDate();
-        for (int i=0; i<(calculateFestivalDays(startDateFestival.getDate(), closingDateFestival.getDate())); i++) {
+        Date auxDate = startDateFestival;
+        for (int i=0; i<(calculateFestivalDays(startDateFestival, closingDateFestival)); i++) {
             datesFestival[i] = auxDate;
             auxDate = incrementDay(auxDate);
         }
@@ -248,9 +248,9 @@ public class Festival implements LastingEvent {
     @Override
     public String toString() {
         return "FESTIVAL\nFestival's name: " + festivalName + "\nStart date: " + 
-                startDateFestival.getDate() + "\nStart time: " + startTimeFestival.getHour() + 
-                "h\nClosing date: " + closingDateFestival.getDate() +
-                "\nClosing time: " + closingTimeFestival.getHour() + "h\n";
+                startDateFestival + "\nStart time: " + startTimeFestival + 
+                "h\nClosing date: " + closingDateFestival +
+                "\nClosing time: " + closingTimeFestival + "h\n";
     }
 
 }

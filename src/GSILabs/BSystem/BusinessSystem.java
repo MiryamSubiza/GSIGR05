@@ -54,9 +54,11 @@ public class BusinessSystem implements TicketOffice {
     
     // Añadir un nuevo concierto siempre y cuando no sea null o
     // tenga el mismo nombre que otro evento guardado
+    @Override
     public boolean addNewConcert(Concert c){
         
         if(c != null){ // si el concierto c no es nulo compruebo si se puede introducir
+            
             
             // Si el performer pertenece o a un colectivo o a un artista y ademas la localizacion existe procedo a añadir el concierto
             if( (artists.contains(c.getPerformer()) || collectives.contains(c.getPerformer())) && (locations.contains(c.getLocation())) ){
@@ -92,6 +94,7 @@ public class BusinessSystem implements TicketOffice {
         
     }
     
+    @Override
     public boolean replaceConcert(Concert c){ // NO ESTA BIEN DEL TODO CREO
         
         if(c != null){ // si el concierto no es null continuo
@@ -121,6 +124,7 @@ public class BusinessSystem implements TicketOffice {
         
     }
     
+    @Override
     public boolean deleteConcert(Concert c){ // NO ESTOY SEGURO SI ESTA BIEN HECHO
         
         if(c !=null){ // Si el concierto c no es nulo procedo a su eliminacion
@@ -160,6 +164,12 @@ public class BusinessSystem implements TicketOffice {
         }
     }
     
+    public boolean addNewFestival(Festival f){
+        
+        
+    }
+    
+    @Override
     public boolean existsEvent(Event e){
         
         if(e instanceof Concert){

@@ -25,13 +25,6 @@ public class BusinessSystem implements TicketOffice {
     
     private HashSet <Client> clients;
     private HashSet <Sales> sales;
-    /*
-    //Almacenamos los tickets que aún NO han sido vendidos a ningún cliente
-    //Cuando vendamos un ticket lo eliminamos de este HashSet
-    private HashSet <Ticket> notSoldTickets;
-    //Almacenamos los tickets vendidos (utilizamos dos hashset para mirar los ids en hasIDCollision)
-    private HashSet <Ticket> soldTickets;
-    */
     private HashSet <Ticket> tickets;
     private AtomicInteger atomicInteger;
     private HashSet <Artist> artists;
@@ -495,29 +488,35 @@ public class BusinessSystem implements TicketOffice {
     * @return True if and only if the Event e exists in the system, and no ticket
     *      includes the identifier id
     */
-    boolean availableTicketID(Event e, int id) {
+    public boolean availableTicketID(Event e, int id) {
 
-       if (concerts.contains(e)) {
-
-       }
-       else if (festivals.contains(e)) {
-
-       }
-       else if (exhibitions.contains(e)) {
-
-       }
-       else return false; //Si el evento no existe en el sistema
-
-       Iterator i = tickets.iterator();
-       Ticket ticketAux = null;
-       while (i.hasNext()) {
-           ticketAux = (Ticket)i.next();
-           if (ticketAux.getEvent().equals(e)) {
-
-               return true;
-           }
-       }
-
+        if (existsEvent(e)) {
+            Iterator i = tickets.iterator();
+            Ticket ticketAux = null;
+            while (i.hasNext()) {
+                ticketAux = (Ticket)i.next();
+                if (ticketAux.getEvent().equals(e)) {
+                    if (ticketAux.checkIdentifierInTicket(id)) return false;
+                }
+            }
+            return true;
+        }
+        else return false;
+        
+    }
+    
+    /**
+     * Let the system know that the identifier id, as part of the ticket t,
+     *  has been used to access the event e.
+     * @param t The ticket
+     * @param e The event
+     * @param id    The identifier
+     * @return True if and only if the Ticket exists, is associated with the Event e,
+     *      contains the identifier id and it was not used before.
+     */
+    public boolean setIDUsed(Ticket t,Event e, int id) {
+        //if ()
+        //if (t.setIDUsed(id)) //Si no había sido usado
     }
     
     /*

@@ -27,7 +27,7 @@ public class Ticket {
     private Event event; //Puede ser un Concierto, un Festival o una Exposición
     //Clave: Identificador para una persona
     //Valor: False si no ha entrado y True si ha entrado al evento
-    private HashMap people; 
+    private HashMap<Integer,Boolean> people; 
     // PARA ACCEDER A LOS ELEMENTOS LOS BUSCAMOS CON containsKey() Y LUEGO PARA VER 
     //EL VALOR DE LA KEY ASOCIADA USAS get(Key K)
     private ArrayList al;
@@ -88,6 +88,15 @@ public class Ticket {
     //y false en caso contrario
     public boolean checkIdentifierIsUsed (int identifier) {
         return (boolean)people.get(identifier); //Le pasas una Key y te devuelve el Value
+    }
+    
+    //Devuelve verdadero si el id no había sido usado previamente
+    public boolean setIDUsed (int id) {
+        if (!people.get(id)) { //No había sido usado
+            people.put(id, true);
+            return true;
+        }
+        else return false;
     }
     
     //Devuelve un array de enteros con los identificadores que hay en este ticket

@@ -23,17 +23,17 @@ public class Exhibition implements LastingEvent {
     private String exhibitionName; //Nombre de la exposición
     private String title; //Título de la exposición
     private String organizerName; //Nombre de la entidad organizadora
-    private Dates startDateExhibition; //Fecha de apertura
-    private Dates closingDateExhibition; //Fecha de cierre
-    private Times startTimeExhibition; //Hora de apertura
-    private Times closingTimeExhibition; //Hora de cierre
+    private Date startDateExhibition; //Fecha de apertura
+    private Date closingDateExhibition; //Fecha de cierre
+    private Date startTimeExhibition; //Hora de apertura
+    private Date closingTimeExhibition; //Hora de cierre
     private Performer p; //Puede ser un artista o varios, en cuyo caso se considerará colectivo
     private HashSet <String> webLinks; //Enlaces web (número indeterminado)
     private Location location; //Esta localización es única
     
     public Exhibition (String exhibitionName, String title, String organizerName, 
-            Dates startDateExhibition, Dates closingDateExhibition, Times startTimeExhibition,
-            Times closingTimeExhibition, Performer p, String webLink, Location location) {
+            Date startDateExhibition, Date closingDateExhibition, Date startTimeExhibition,
+            Date closingTimeExhibition, Performer p, String webLink, Location location) {
         
         this.exhibitionName = exhibitionName;
         this.title = title;
@@ -74,37 +74,37 @@ public class Exhibition implements LastingEvent {
         return organizerName;
     }
     
-    public void setStartDateExhibition (Dates startDateExhibition) {
+    public void setStartDateExhibition (Date startDateExhibition) {
         this.startDateExhibition = startDateExhibition;
     }
     
     @Override
     public Date getStartDate () {
-        return startDateExhibition.getDate();
+        return startDateExhibition;
     }
     
-    public void setClosingDateExhibition (Dates closingDateExhibition) {
+    public void setClosingDateExhibition (Date closingDateExhibition) {
         this.closingDateExhibition = closingDateExhibition;
     }
     
     @Override
     public Date getEndingDate () {
-        return closingDateExhibition.getDate();
+        return closingDateExhibition;
     }
     
-    public void setStartTimeExhibition (Times startTimeExhibition) {
+    public void setStartTimeExhibition (Date startTimeExhibition) {
         this.startTimeExhibition = startTimeExhibition;
     }
     
     public Date getStartTimeExhibition () {
-        return startTimeExhibition.getHour();
+        return startTimeExhibition;
     }
     
-    public void setClosingTimeExhibition (Times closingTimeExhibition) {
+    public void setClosingTimeExhibition (Date closingTimeExhibition) {
         this.closingTimeExhibition = closingTimeExhibition;
     }
     
-    public Times getClosingTimeExhibition () {
+    public Date getClosingTimeExhibition () {
         return closingTimeExhibition;
     }
     
@@ -131,8 +131,8 @@ public class Exhibition implements LastingEvent {
     @Override
     public Date[] getDates() {
         Date[] datesExhibition = null;
-        Date auxDate = startDateExhibition.getDate();
-        for(int i=0; i<(calculateExhibitionDays(startDateExhibition.getDate(), closingDateExhibition.getDate())); i++) {
+        Date auxDate = startDateExhibition;
+        for(int i=0; i<(calculateExhibitionDays(startDateExhibition, closingDateExhibition)); i++) {
             datesExhibition[i] = auxDate;
             auxDate = incrementDay(auxDate);
         }
@@ -245,10 +245,10 @@ public class Exhibition implements LastingEvent {
     public String toString() {
         return "EXHIBITION\nExhibition's name: " + exhibitionName + "\nTitle: " +
                 title + "\nOrganizer name: " + organizerName + "\nStart date: " + 
-                startDateExhibition.getDate() + "\nStart time: " + 
-                startTimeExhibition.getHour() + "h\nClosing date: " + 
-                closingDateExhibition.getDate() + "\nClosing time: " + 
-                closingTimeExhibition.getHour()+ "h\nPerformer: " + p.getName() + 
+                startDateExhibition + "\nStart time: " + 
+                startTimeExhibition + "h\nClosing date: " + 
+                closingDateExhibition + "\nClosing time: " + 
+                closingTimeExhibition+ "h\nPerformer: " + p.getName() + 
                 "\nLocation: " + location.getName() + "\n";
     }
     

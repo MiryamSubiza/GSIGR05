@@ -24,11 +24,11 @@ public class Client {
     private String dni; //DNI (id + letra dni)
     private String name; //Nombre del cliente
     private String lastName; //Apellido(s) del cliente
-    private Dates birthday; //Fecha de nacimiento (>= 18)
+    private Date birthday; //Fecha de nacimiento (>= 18)
     private HashSet <String> creditCards; //Tarjetas de crédito (puede haber una o varias)
     private HashSet <Ticket> salesOfTickets; //Tickets vendidos a este cliente
     
-    public Client (int id, String name, String lastName, Dates birthday, String cCard) {
+    public Client (int id, String name, String lastName, Date birthday, String cCard) {
         
         this.id = id;
         calculateLetterDNI(id);
@@ -80,11 +80,11 @@ public class Client {
         return lastName;
     }
     
-    public void setBirthday (Dates birthday) {
+    public void setBirthday (Date birthday) {
         this.birthday = birthday;
     }
     
-    public Dates getBirthday () {
+    public Date getBirthday () {
         return birthday;
     }
     
@@ -123,7 +123,7 @@ public class Client {
             cont++;
         }
         return "CLIENT\nDNI: " + dni + "\nName: " + name + "\nLast name: " +
-                lastName + "\nBirthday: " + birthday.toString() + "Credit cards: "
+                lastName + "\nBirthday: " + birthday + "Credit cards: "
                 + cards + "\n";
     }
 

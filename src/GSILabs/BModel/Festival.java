@@ -65,11 +65,11 @@ public class Festival implements LastingEvent {
         concerts.add(c);
     }
 	
-	public boolean removeConcert (Concert c) {
+    public boolean removeConcert (Concert c) {
         return concerts.remove(c);
     }
 	
-	public HashSet<Concert> getConcerts(){
+    public HashSet<Concert> getConcerts(){
         return concerts;
     }
     
@@ -258,7 +258,7 @@ public class Festival implements LastingEvent {
     @Override
     public String toString() {
         return "FESTIVAL\nFestival's name: " + festivalName + "\nStart date: " + 
-                startDateFestival.getDate() + "\nStart time: " + startTimeFestival + 
+                startDateFestival + "\nStart time: " + startTimeFestival + 
                 "h\nClosing date: " + closingDateFestival +
                 "\nClosing time: " + closingTimeFestival + "h\n";
     }

@@ -25,21 +25,236 @@ public class BusinessSystem implements TicketOffice {
     
     private HashSet <Client> clients;
     private HashSet <Sales> sales;
+    /*
     //Almacenamos los tickets que aún NO han sido vendidos a ningún cliente
     //Cuando vendamos un ticket lo eliminamos de este HashSet
     private HashSet <Ticket> notSoldTickets;
     //Almacenamos los tickets vendidos (utilizamos dos hashset para mirar los ids en hasIDCollision)
     private HashSet <Ticket> soldTickets;
+    */
+    private HashSet <Ticket> tickets;
     private AtomicInteger atomicInteger;
+    private HashSet <Artist> artists;
+    private HashSet <Collective> collectives;
+    private HashSet <Concert> concerts;
+    private HashSet <Exhibition> exhibitions;
+    private HashSet <Festival> festivals;
+    private HashSet <Location> locations;
     
     public BusinessSystem () {
         clients = new HashSet();
         sales = new HashSet();
+        tickets = new HashSet();
         atomicInteger = new AtomicInteger();
     }
     
     public AtomicInteger getAtomicInteger () {
         return atomicInteger;
+    }
+    
+    // Añadir un nuevo concierto siempre y cuando no sea null o
+    // tenga el mismo nombre que otro evento guardado
+    public boolean addNewConcert(Concert c){
+        
+        if(c != null){ // si el concierto c no es nulo compruebo si se puede introducir
+            
+            Iterator i = concerts.iterator();
+            Concert concertAux = null;
+            boolean respuesta = true;
+            while(i.hasNext()){
+
+                concertAux = (Concert)i.next();
+                if(concertAux.equals(c)){
+                    respuesta = false;
+                    break;
+                }
+
+            }
+            if(respuesta){ // Si la respuesta es true entonces puedo añadir el concierto
+                concerts.add(c);
+            }
+            return respuesta;
+            
+        }
+        else{ // el concierto c es nulo y por tanto no se puede introducir
+            
+            return false;
+            
+        }
+        
+    }
+    
+    public boolean replaceConcert(Concert c){ // NO ESTA BIEN DEL TODO CREO
+        
+        if(c != null){ // si el concierto no es null continuo
+            
+            Iterator i = concerts.iterator();
+            Concert concertAux = null;
+            boolean respuesta = false;
+            while(i.hasNext()){
+                
+                concertAux = (Concert)i.next();
+                if(concertAux.getName().equalsIgnoreCase(c.getName())){
+                    // Una vez he encontrado el antiguo concierto lo elimino y añado el editado
+                    concerts.remove(concertAux);
+                    concerts.add(c);
+                    respuesta = true;
+                }
+                
+            }
+            return respuesta;
+            
+        }
+        else{
+            
+            return false;
+            
+        }
+        
+    }
+    
+    public boolean deleteConcert(Concert c){ // NO ESTOY SEGURO SI ESTA BIEN HECHO
+        
+        if(c !=null){ // Si el concierto c no es nulo procedo a su eliminacion
+            
+            if(concerts.contains(c)){ // Si el concierto existe en el HashSet lo eliminará
+                
+                Iterator i = festivals.iterator();
+                Festival festivalAux = null;
+                while(i.hasNext()){     
+                    festivalAux = (Festival)i.next();
+                    if(festivalAux.isConcertInFestival(c)){
+                        break;
+                    }
+                }
+                if(festivalAux.isConcertInFestival(c)){ // Si entro querra decir que hemos encontrado el concierto en un festival
+                    
+                    // HABRIA QUE ACCEDER AL FESTIVAL EN MI HASHSET Y ENTONCES ACCEDER AL SU HASHSET
+                    // DE CONCIERTOS Y BORRAR EL CONCIERTO CON UN METODO YA IMPLEMENTADO EN LA CLASE FESTIVAL
+                    
+                    festivals.remove(festivalAux); // NO ESTOY SEGURO SI HAY QUE BORRARLO ASI O NO
+                    festivalAux.removeConcert(c);
+                    Festival festivalEditado = new Festival(festivalAux.getName(), festivalAux.getConcerts(), festivalAux.getStartDate(), festivalAux.getEndingDate(), festivalAux.getStartDate(), festivalAux.getEndingDate());
+                    festivals.add(festivalEditado);
+                    
+                }
+                return concerts.remove(c); // Devolvera true si esta y lo borra false en caso contrario
+            }
+            else{
+                return false;
+            }
+            
+        }
+        else{
+            
+            return false;
+           
+        }
+    }
+    
+    public boolean existsEvent(Event e){
+        
+        if(e instanceof Concert){
+            return concerts.contains(e);
+        }
+        else if(e instanceof Festival){
+            return festivals.contains(e);
+        }
+        else if(e instanceof Exhibition){
+            return exhibitions.contains(e);
+        }
+        return false;
+        
+    }
+    
+    public Event[] retrieveEvents(String name){
+        
+        Iterator i = concerts.iterator();
+        Iterator j = festivals.iterator();
+        Iterator z = exhibitions.iterator();
+        int x = 0; // Contador para ir añadiendo eventos al array
+        Event[] eventos = null;
+        
+        while(i.hasNext()){
+            Concert concertAux = (Concert)i.next();
+            if(concertAux.getName().equalsIgnoreCase(name)){
+                eventos[x] = concertAux;
+                x = x + 1;
+            }
+        }
+        while(j.hasNext()){
+            Festival festivalAux = (Festival)j.next();
+            if(festivalAux.getName().equalsIgnoreCase(name)){
+                eventos[x] = festivalAux;
+                x = x + 1;
+            }
+        }
+        while(z.hasNext()){
+            Exhibition exhibitionAux = (Exhibition)z.next();
+            if(exhibitionAux.getName().equalsIgnoreCase(name)){
+                eventos[x] = exhibitionAux;
+                x = x + 1;
+            }
+        }
+        return eventos;
+        
+    }
+    
+    public Event[] retrieveEvents(Location loc){
+        
+        Iterator i = concerts.iterator();
+        Iterator z = exhibitions.iterator();
+        int x = 0; // Contador para ir añadiendo eventos al array
+        Event[] eventos = null;
+        
+        while(i.hasNext()){
+            Concert concertAux = (Concert)i.next();
+            if(concertAux.getLocation().equals(loc)){
+                eventos[x] = concertAux;
+                x = x + 1;
+            }
+        }
+        while(z.hasNext()){
+            Exhibition exhibitionAux = (Exhibition)z.next();
+            if(exhibitionAux.getLocation().equals(loc)){
+                eventos[x] = exhibitionAux;
+                x = x + 1;
+            }
+        }
+        return eventos;
+        
+    }
+    
+    public Event[] retreiveEvent(Date d){
+        
+        Iterator i = concerts.iterator();
+        Iterator j = festivals.iterator();
+        Iterator z = exhibitions.iterator();
+        int x = 0; // Contador para ir añadiendo eventos al array
+        Event[] eventos = null;
+        
+        while(i.hasNext()){
+            Concert concertAux = (Concert)i.next();
+            if(concertAux.getStartDate().equals(d)){
+                eventos[x] = concertAux;
+                x = x + 1;
+            }
+        }
+        while(j.hasNext()){
+            Festival festivalAux = (Festival)j.next();
+            if(festivalAux.getStartDate().equals(d)){
+                eventos[x] = festivalAux;
+                x = x + 1;
+            }
+        }
+        while(z.hasNext()){
+            Exhibition exhibitionAux = (Exhibition)z.next();
+            if(exhibitionAux.getStartDate().equals(d)){
+                eventos[x] = exhibitionAux;
+                x = x + 1;
+            }
+        }
+        return eventos;
     }
     
     // Client introduction, update and modification
@@ -227,7 +442,7 @@ public class BusinessSystem implements TicketOffice {
      */
     public boolean addNewTicket(Ticket t) {
         if (t != null) {
-            notSoldTickets.add(t);
+            tickets.add(t);
             return true;
         }
         else return false;
@@ -241,21 +456,24 @@ public class BusinessSystem implements TicketOffice {
      *      part of another ticket.
      */
     public boolean hasIDCollision(Ticket t) {
-        /*Iterator i = notSoldTickets.iterator();
-        Ticket ticketAux = null;
-        while (i.hasNext()) {
-            ticketAux = (Ticket)i.next();
-            if (ticketAux.checkIdentifierInTicket(t.) .getClient().equals(c)) {
-                totalSpent += saleAux.getPrice();
+        int[] identifiers = t.getIdentifiers();
+        for (int j = 0; j < identifiers.length; j++) {
+            Iterator i = tickets.iterator();
+            Ticket ticketAux = null;
+            while (i.hasNext()) {
+                ticketAux = (Ticket)i.next();
+                if (ticketAux.checkIdentifierInTicket(identifiers[j])) {
+                    return true;
+                }
             }
-        }*/
+        }
+        return false;
     }
     
     /*
     boolean addSale(Ticket t,Client c,Float price,String cCard);
     En este método llamar a c.addSaleToClient(t);
-    Eliminamos el ticket de notSoldTickets, y lo metemos en soldTickets
+    Modificamos el atributo sold a true
     */
-    
     
 }

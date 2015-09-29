@@ -58,22 +58,30 @@ public class BusinessSystem implements TicketOffice {
         
         if(c != null){ // si el concierto c no es nulo compruebo si se puede introducir
             
-            Iterator i = concerts.iterator();
-            Concert concertAux = null;
-            boolean respuesta = true;
-            while(i.hasNext()){
+            // Si el performer pertenece o a un colectivo o a un artista y ademas la localizacion existe procedo a añadir el concierto
+            if( (artists.contains(c.getPerformer()) || collectives.contains(c.getPerformer())) && (locations.contains(c.getLocation())) ){
+                
+                Iterator i = concerts.iterator();
+                Concert concertAux = null;
+                boolean respuesta = true;
+                while(i.hasNext()){
 
-                concertAux = (Concert)i.next();
-                if(concertAux.equals(c)){
-                    respuesta = false;
-                    break;
+                    concertAux = (Concert)i.next();
+                    if(concertAux.equals(c)){
+                        respuesta = false;
+                        break;
+                    }
+
                 }
-
+                if(respuesta){ // Si la respuesta es true entonces puedo añadir el concierto
+                    concerts.add(c);
+                }
+                return respuesta;
+                
             }
-            if(respuesta){ // Si la respuesta es true entonces puedo añadir el concierto
-                concerts.add(c);
+            else{ // el performer o la localizacion no existe por lo tanto el concierto no se puede añadir
+                return false;
             }
-            return respuesta;
             
         }
         else{ // el concierto c es nulo y por tanto no se puede introducir

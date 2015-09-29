@@ -276,7 +276,7 @@ public class BusinessSystem implements TicketOffice {
     @Override
     public boolean addClient(Client c) {
         Date actualDate = new Date();
-        if ((c != null) && ((actualDate.getYear() + 1900) - (c.getBirthday().getDate().getYear() + 1900) >= 18)) {
+        if ((c != null) && ((actualDate.getYear() + 1900) - (c.getBirthday().getYear() + 1900) >= 18)) {
             clients.add(c);
             return true;
         }
@@ -476,6 +476,17 @@ public class BusinessSystem implements TicketOffice {
             }
         }
         return false;
+    }
+    
+    /**
+     * Checks whether an identifier is not assigned to any ticket.
+     * @param e The event of interest
+     * @param id    The identifier of interest
+     * @return True if and only if the Event e exists in the system, and no ticket
+     *      includes the identifier id
+     */
+    boolean availableTicketID(Event e, int id) {
+        
     }
     
     /*

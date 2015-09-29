@@ -94,6 +94,7 @@ public class BusinessSystem implements TicketOffice {
         
     }
     
+    @Override
     public boolean replaceConcert(Concert c){ // NO ESTA BIEN DEL TODO CREO
         
         if(c != null){ // si el concierto no es null continuo
@@ -123,6 +124,7 @@ public class BusinessSystem implements TicketOffice {
         
     }
     
+    @Override
     public boolean deleteConcert(Concert c){ // NO ESTOY SEGURO SI ESTA BIEN HECHO
         
         if(c !=null){ // Si el concierto c no es nulo procedo a su eliminacion
@@ -162,6 +164,12 @@ public class BusinessSystem implements TicketOffice {
         }
     }
     
+    public boolean addNewFestival(Festival f){
+        
+        
+    }
+    
+    @Override
     public boolean existsEvent(Event e){
         
         if(e instanceof Concert){

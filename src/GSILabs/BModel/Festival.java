@@ -25,19 +25,19 @@ public class Festival implements LastingEvent {
     private HashSet <Concert> concerts; //Puede haber uno o varios conciertos
     /* El festival puede extenderse durante varios días o semanas */
     // Fecha de apertura, que coincide con la fecha del primer concierto
-    private Date startDateFestival;
+    private Dates startDateFestival;
     // Fecha de cierre, que coincide con la fecha del último concierto
-    private Date closingDateFestival;
+    private Dates closingDateFestival;
     // Hora de apertura, que coincide con la hora de apertura de puertas
     // del primer concierto
-    private Date startTimeFestival;
+    private Times startTimeFestival;
     // Hora de cierre, que coincide con la hora de cierre del último concierto
-    private Date closingTimeFestival;
+    private Times closingTimeFestival;
     // Nombre del festival
     private String festivalName;
     
-    public Festival (String festivalName, Concert c, Date startDateFestival, Date closingDateFestival,
-            Date startTimeFestival, Date closingTimeFestival) {
+    public Festival (String festivalName, Concert c, Dates startDateFestival, Dates closingDateFestival,
+            Times startTimeFestival, Times closingTimeFestival) {
         
         this.festivalName = festivalName;
         concerts = new HashSet();
@@ -48,52 +48,72 @@ public class Festival implements LastingEvent {
         this.closingTimeFestival = closingTimeFestival;
         
     }
+	
+	public Festival (String festivalName, HashSet<Concert> concerts, Dates startDateFestival, Dates closingDateFestival,
+            Times startTimeFestival, Times closingTimeFestival) {
+        
+		this.festivalName = festivalName;
+        this.concerts = concerts;
+        this.startDateFestival = startDateFestival;
+        this.closingDateFestival = closingDateFestival;
+        this.startTimeFestival = startTimeFestival;
+        this.closingTimeFestival = closingTimeFestival;
+        
+    }
     
     public void addConcert (Concert c) {
         concerts.add(c);
     }
+	
+	public boolean removeConcert (Concert c) {
+        return concerts.remove(c);
+    }
+	
+	public HashSet<Concert> getConcerts(){
+        return concerts;
+    }
     
-    public void setFestivalName(String festivalName){
+    public void setFestivalName(String festivalName) {
         this.festivalName = festivalName;
     }
     
     @Override
-    public String getName(){
+    public String getName() {
         return this.festivalName;
     }
     
-    public void setStartDateFestival (Date startDateFestival) {
+    public void setStartDateFestival (Dates startDateFestival) {
         this.startDateFestival = startDateFestival;
     }
     
     @Override
     public Date getStartDate () {
-        return startDateFestival;
+        return startDateFestival.getDate();
     }
     
-    public void setClosingDateFestival (Date closingDateFestival) {
+    public void setClosingDateFestival (Dates closingDateFestival) {
         this.closingDateFestival = closingDateFestival;
     }
     
     @Override
     public Date getEndingDate () {
-        return closingDateFestival;
+        return closingDateFestival.getDate();
     }
     
-    public void setStartTimeFestival (Date startTimeFestival) {
+    public void setStartTimeFestival (Times startTimeFestival) {
         this.startTimeFestival = startTimeFestival;
     }
     
     public Date getStartTimeFestival () {
-        return startTimeFestival;
+        return startTimeFestival.getHour();
     }
     
-    public void setClosingTimeFestival (Date closingTimeFestival) {
+    public void setClosingTimeFestival (Times closingTimeFestival) {
         this.closingTimeFestival = closingTimeFestival;
     }
     
     public Date getClosingTimeFestival () {
-        return closingTimeFestival;
+        return closingTimeFestival.getHour();
     }
     
     /* Devuelve verdadero si el concierto se encuentra en el festival
@@ -101,28 +121,16 @@ public class Festival implements LastingEvent {
     */
     public boolean isConcertInFestival (Concert auxConcert) {
         
-        Iterator i = concerts.iterator();
-        Concert concert = null;
-        while (i.hasNext()) {
-            concert = (Concert)i.next();
-            if (auxConcert.equals(concert)) {
-                break;
-            }
-        }
-        if (auxConcert.equals(concert)) {
-            return true;
-        }
-        else {
-            return false;
-        }
+        if (concerts.contains(auxConcert)) return true;
+        else return false;
         
     }
     
     @Override
     public Date[] getDates() {
         Date[] datesFestival = null;
-        Date auxDate = startDateFestival;
-        for (int i=0; i<(calculateFestivalDays(startDateFestival, closingDateFestival)); i++) {
+        Date auxDate = startDateFestival.getDate();
+        for (int i=0; i<(calculateFestivalDays(startDateFestival.getDate(), closingDateFestival.getDate())); i++) {
             datesFestival[i] = auxDate;
             auxDate = incrementDay(auxDate);
         }
@@ -163,6 +171,8 @@ public class Festival implements LastingEvent {
         return nDias;
     }
     
+	// El método coge la fecha que se le pasa como argumento y
+    // aumenta un día (cambiando si es necesario el mes o año de la fecha)
     private Date incrementDay (Date day) {
         Date nextDay = null;
         switch (day.getMonth()){
@@ -248,9 +258,9 @@ public class Festival implements LastingEvent {
     @Override
     public String toString() {
         return "FESTIVAL\nFestival's name: " + festivalName + "\nStart date: " + 
-                startDateFestival + "\nStart time: " + startTimeFestival + 
-                "h\nClosing date: " + closingDateFestival +
-                "\nClosing time: " + closingTimeFestival + "h\n";
+                startDateFestival.getDate() + "\nStart time: " + startTimeFestival.getHour() + 
+                "h\nClosing date: " + closingDateFestival.getDate() +
+                "\nClosing time: " + closingTimeFestival.getHour() + "h\n";
     }
 
 }

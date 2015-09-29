@@ -54,9 +54,11 @@ public class BusinessSystem implements TicketOffice {
     
     // Añadir un nuevo concierto siempre y cuando no sea null o
     // tenga el mismo nombre que otro evento guardado
+    @Override
     public boolean addNewConcert(Concert c){
         
         if(c != null){ // si el concierto c no es nulo compruebo si se puede introducir
+            
             
             // Si el performer pertenece o a un colectivo o a un artista y ademas la localizacion existe procedo a añadir el concierto
             if( (artists.contains(c.getPerformer()) || collectives.contains(c.getPerformer())) && (locations.contains(c.getLocation())) ){
@@ -470,7 +472,7 @@ public class BusinessSystem implements TicketOffice {
             Ticket ticketAux = null;
             while (i.hasNext()) {
                 ticketAux = (Ticket)i.next();
-                if (ticketAux.checkIdentifierInTicket(identifiers[j])) {
+                if ((ticketAux.checkIdentifierInTicket(identifiers[j])) && (ticketAux.getEvent().equals(t.getEvent()))) {
                     return true;
                 }
             }
@@ -479,14 +481,35 @@ public class BusinessSystem implements TicketOffice {
     }
     
     /**
-     * Checks whether an identifier is not assigned to any ticket.
-     * @param e The event of interest
-     * @param id    The identifier of interest
-     * @return True if and only if the Event e exists in the system, and no ticket
-     *      includes the identifier id
-     */
+    * Checks whether an identifier is not assigned to any ticket.
+    * @param e The event of interest
+    * @param id    The identifier of interest
+    * @return True if and only if the Event e exists in the system, and no ticket
+    *      includes the identifier id
+    */
     boolean availableTicketID(Event e, int id) {
-        
+
+       if (concerts.contains(e)) {
+
+       }
+       else if (festivals.contains(e)) {
+
+       }
+       else if (exhibitions.contains(e)) {
+
+       }
+       else return false; //Si el evento no existe en el sistema
+
+       Iterator i = tickets.iterator();
+       Ticket ticketAux = null;
+       while (i.hasNext()) {
+           ticketAux = (Ticket)i.next();
+           if (ticketAux.getEvent().equals(e)) {
+
+               return true;
+           }
+       }
+
     }
     
     /*

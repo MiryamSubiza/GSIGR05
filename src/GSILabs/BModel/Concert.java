@@ -172,6 +172,7 @@ public class Concert implements ImpermanentEvent {
     // Redefino el método equals() si un concierto contiene el mismo performer
     // y además actúa en la misma fecha lo considero como conciertos iguales
     // ya que un mismo artista no puede estar en dos conciertos el mismo día
+    @Override
     public boolean equals (Object o) {
         
         if (o instanceof Concert) {

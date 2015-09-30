@@ -24,23 +24,33 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 public class BusinessSystem implements TicketOffice {
     
-    private HashMap<String,Client> clients;
-    private HashMap sales;
-    private HashMap<Integer,Ticket> tickets;
+    private HashMap <Integer, Client> clients;
+    private HashSet <Sales> sales;
+    private HashMap <Integer, Ticket> tickets;
     private AtomicInteger atomicInteger;
-    private HashMap<String, Artist> artists;
-    private HashMap<String, Collective> collectives;
-    private HashMap<String, Concert> concerts;
-    private HashMap<String, Exhibition> exhibitions;
-    private HashMap<String, Festival> festivals;
-    private HashMap<String, Location> locations;
+    private HashMap <String, Artist> artists;
+    private HashMap <String, Collective> collectives;
+    private HashMap <String, Concert> concerts;
+    private HashMap <String, Exhibition> exhibitions;
+    private HashMap <String, Festival> festivals;
+    private HashMap <String, Location> locations;
+    private AtomicInteger AISales;
+    private AtomicInteger AITickets;
     
-    /*public BusinessSystem () {
-        clients = new HashSet();
+    public BusinessSystem () {
+        clients = new HashMap();
         sales = new HashSet();
-        tickets = new HashSet();
+        tickets = new HashMap();
         atomicInteger = new AtomicInteger();
-    }*/
+        artists = new HashMap();
+        collectives = new HashMap();
+        concerts = new HashMap();
+        exhibitions = new HashMap();
+        festivals = new HashMap();
+        locations = new HashMap();
+        AISales = new AtomicInteger();
+        AITickets = new AtomicInteger();
+    }
     
     public AtomicInteger getAtomicInteger () {
         return atomicInteger;
@@ -315,7 +325,7 @@ public class BusinessSystem implements TicketOffice {
     public boolean addClient(Client c) {
         Date actualDate = new Date();
         if ((c != null) && ((actualDate.getYear() + 1900) - (c.getBirthday().getYear() + 1900) >= 18)) {
-            clients.add(c);
+            clients.put(c.getId(), c);
             return true;
         }
         else return false;
@@ -329,20 +339,15 @@ public class BusinessSystem implements TicketOffice {
      *  in the system.
      */
     public boolean modifyClient(Client c) {
-        
-        Iterator i = clients.iterator();
-        Client clientAux = null;
-        while (i.hasNext()) {
-            clientAux = (Client)i.next();
-            if (clientAux.equals(c)) {
-                break;
+        Date actualDate = new Date();
+        if (clients.containsKey(c.getId())) { //Si una versión previa del cliente existe
+            if ((actualDate.getYear() + 1900) - (c.getBirthday().getYear() + 1900) >= 18) {
+                clients.replace(c.getId(), clients.get(c.getId()), c);
+                return true;
             }
+            else return false;
         }
-        if (clientAux.equals(c)) {
-            clients.remove(clientAux);
-            clients.add(c);
-            return true;
-        }
+        
         else return false;
         
     }
@@ -356,20 +361,9 @@ public class BusinessSystem implements TicketOffice {
      */
     public boolean addCardToClient(Client c, String cCard) {
         
-        Iterator i = clients.iterator();
-        Client clientAux = null;
-        while (i.hasNext()) {
-            clientAux = (Client)i.next();
-            if (clientAux.equals(c)) {
-                break;
-            }
-        }
-        if (clientAux.equals(c)) {
-            if (cCard != null) {
-                c.addCreditCard(cCard);
-                return true;
-            }
-            else return false;
+        if (clients.containsKey(c.getId())) { //Si el cliente existe
+            clients.get(c.getId()).addCreditCard(cCard);
+            return true;
         }
         else return false;
         
@@ -382,16 +376,7 @@ public class BusinessSystem implements TicketOffice {
      */
     public boolean containsClient(Client c) {
         if (c != null) {
-            Iterator i = clients.iterator();
-            Client clientAux = null;
-            while (i.hasNext()) {
-                clientAux = (Client)i.next();
-                if (clientAux.equals(c)) {
-                    break;
-                }
-            }
-            if (clientAux.equals(c)) return true;
-            else return false;
+            return clients.containsKey(c.getId());
         }
         else return false;
     }
@@ -402,16 +387,7 @@ public class BusinessSystem implements TicketOffice {
      * @return True if an only if a client has the given identifier
      */
     public boolean containsClient(int id) {
-        Iterator i = clients.iterator();
-        Client clientAux = null;
-        while (i.hasNext()) {
-            clientAux = (Client)i.next();
-            if (clientAux.getId() == id) {
-                break;
-            }
-        }
-        if (clientAux.getId() == id) return true;
-        else return false;
+        return clients.containsKey(id);
     }
     
     /**
@@ -420,15 +396,9 @@ public class BusinessSystem implements TicketOffice {
      * @return The client, or null if no such Client exists
      */
     public Client retrieveClient(int identifier) {
-        Iterator i = clients.iterator();
-        Client clientAux = null;
-        while (i.hasNext()) {
-            clientAux = (Client)i.next();
-            if (clientAux.getId() == identifier) {
-                break;
-            }
+        if (clients.containsKey(identifier)) {
+            return clients.get(identifier);
         }
-        if (clientAux.getId() == identifier) return clientAux;
         else return null;
     }
     
@@ -488,7 +458,7 @@ public class BusinessSystem implements TicketOffice {
      */
     public boolean addNewTicket(Ticket t) {
         if (t != null) {
-            tickets.add(t);
+            tickets.put(AITickets.getAndIncrement(), t);
             return true;
         }
         else return false;
@@ -502,9 +472,12 @@ public class BusinessSystem implements TicketOffice {
      *      part of another ticket.
      */
     public boolean hasIDCollision(Ticket t) {
+        
+        HashSet<Ticket> ticketsObjects = (HashSet<Ticket>) tickets.values();
+
         int[] identifiers = t.getIdentifiers();
         for (int j = 0; j < identifiers.length; j++) {
-            Iterator i = tickets.iterator();
+            Iterator i = ticketsObjects.iterator();
             Ticket ticketAux = null;
             while (i.hasNext()) {
                 ticketAux = (Ticket)i.next();
@@ -526,7 +499,8 @@ public class BusinessSystem implements TicketOffice {
     public boolean availableTicketID(Event e, int id) {
 
         if (existsEvent(e)) {
-            Iterator i = tickets.iterator();
+            HashSet<Ticket> ticketsObjects = (HashSet<Ticket>) tickets.values();
+            Iterator i = ticketsObjects.iterator();
             Ticket ticketAux = null;
             while (i.hasNext()) {
                 ticketAux = (Ticket)i.next();
@@ -550,15 +524,38 @@ public class BusinessSystem implements TicketOffice {
      *      contains the identifier id and it was not used before.
      */
     public boolean setIDUsed(Ticket t,Event e, int id) {
-        //if ()
-        //if (t.setIDUsed(id)) //Si no había sido usado
+        if (tickets.containsValue(t)) { //Si el ticket existe
+            if (t.getEvent().equals(e)) { //Si el ticket está asociado al evento e
+                if (t.checkIdentifierInTicket(id)) { //Si el ticket contiene el identificador
+                    return (t.setIDUsed(id)); //Devuelve verdadero si el id no había sido usado previamente
+                }
+                else return false;
+            }
+            else return false;
+        }
+        else return false;
     }
     
-    /*
-    boolean addSale(Ticket t,Client c,Float price,String cCard);
-    En este método llamar a c.addSaleToClient(t);
-    Modificamos el atributo sold a true
-    */
+    //Sales and so
+    /**
+     * Registers the sale of an existing ticket to an existing client.
+     * @param t     The ticket to be sold
+     * @param c     The client who buys the ticket
+     * @param price The price of the sale
+     * @param cCard The card the transaction was performed with
+     * @return  True if and only if the ticket, client and card existed, and the 
+     *      sale could be registered (e.g. the ticket was not sold in beforehand, etc.)
+     */
+    public boolean addSale(Ticket t,Client c,Float price,String cCard) {
+        Date actualDate = new Date();
+        if (tickets.containsValue(t) && clients.containsValue(c) && c.isCreditCard(cCard) && !t.isSold()) {
+            c.addSaleToClient(t);
+            t.setSold(true);
+            sales.add(new Sales(t, c, price, cCard, actualDate));
+            return true;
+        }
+        else return false;
+    }
     
     
     // Mira si un concierto cumple los requisitos para poder ser añadido al sistema

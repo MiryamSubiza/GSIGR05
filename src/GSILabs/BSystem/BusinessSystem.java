@@ -11,6 +11,7 @@ package GSILabs.BSystem;
 import GSILabs.BModel.*;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -23,23 +24,23 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 public class BusinessSystem implements TicketOffice {
     
-    private HashSet <Client> clients;
-    private HashSet <Sales> sales;
-    private HashSet <Ticket> tickets;
+    private HashMap<String,Client> clients;
+    private HashMap sales;
+    private HashMap<Integer,Ticket> tickets;
     private AtomicInteger atomicInteger;
-    private HashSet <Artist> artists;
-    private HashSet <Collective> collectives;
-    private HashSet <Concert> concerts;
-    private HashSet <Exhibition> exhibitions;
-    private HashSet <Festival> festivals;
-    private HashSet <Location> locations;
+    private HashMap<String, Artist> artists;
+    private HashMap<String, Collective> collectives;
+    private HashMap<String, Concert> concerts;
+    private HashMap<String, Exhibition> exhibitions;
+    private HashMap<String, Festival> festivals;
+    private HashMap<String, Location> locations;
     
-    public BusinessSystem () {
+    /*public BusinessSystem () {
         clients = new HashSet();
         sales = new HashSet();
         tickets = new HashSet();
         atomicInteger = new AtomicInteger();
-    }
+    }*/
     
     public AtomicInteger getAtomicInteger () {
         return atomicInteger;
@@ -50,39 +51,26 @@ public class BusinessSystem implements TicketOffice {
     @Override
     public boolean addNewConcert(Concert c){
         
-        if(c != null){ // si el concierto c no es nulo compruebo si se puede introducir
+        if(c != null){ // si el concierto c no es nulo compruebo si se puede introducir                               
+            if(!(concerts.containsKey(c.getName()) && festivals.containsKey(c.getName()) && exhibitions.containsKey(c.getName()))){// Si la respuesta es true entonces puedo añadir el concierto
             
-            
-            // Si el performer pertenece o a un colectivo o a un artista y ademas la localizacion existe procedo a añadir el concierto
-            if( (artists.contains(c.getPerformer()) || collectives.contains(c.getPerformer())) && (locations.contains(c.getLocation())) ){
-                
-                Iterator i = concerts.iterator();
-                Concert concertAux = null;
-                boolean respuesta = true;
-                while(i.hasNext()){
-
-                    concertAux = (Concert)i.next();
-                    if(concertAux.equals(c)){
-                        respuesta = false;
-                        break;
-                    }
-
+                if(isConcertOK(c)){
+                // Dentro del metodo comprueba que las condiciones para añadir el concierto son correctas
+                    concerts.put(c.getName(), c);
+                    return true;
+                }                
+                else{
+                    return false;
                 }
-                if(respuesta){ // Si la respuesta es true entonces puedo añadir el concierto
-                    concerts.add(c);
-                }
-                return respuesta;
                 
             }
-            else{ // el performer o la localizacion no existe por lo tanto el concierto no se puede añadir
+            else{ // El nombre del concierto ya existe
                 return false;
             }
             
         }
-        else{ // el concierto c es nulo y por tanto no se puede introducir
-            
-            return false;
-            
+        else{ // el concierto c es nulo y por tanto no se puede introducir            
+            return false;           
         }
         
     }
@@ -92,23 +80,22 @@ public class BusinessSystem implements TicketOffice {
         
         if(c != null){ // si el concierto no es null continuo
             
-            Iterator i = concerts.iterator();
-            Concert concertAux = null;
-            boolean respuesta = false;
-            while(i.hasNext()){
-                
-                concertAux = (Concert)i.next();
-                if(concertAux.getName().equalsIgnoreCase(c.getName())){
-                    // Una vez he encontrado el antiguo concierto lo elimino y añado el editado
-                    concerts.remove(concertAux);
-                    concerts.add(c);
-                    respuesta = true;
+            if(concerts.containsKey(c.getName())){ 
+            // Si encuentra el concierto a reemplazar procede a mirar si es correcto dicho concierto
+                if(isConcertOK(c)){
+                // Dentro del metodo comprueba que las condiciones para reemplazar el concierto son correctas
+                    concerts.replace(c.getName(),c);
+                    return true;
                 }
-                
+                else{ // El concierto a reemplazar no es correcto
+                    return false;
+                }
             }
-            return respuesta;
+            else{ // El conciert no lo ha encontrado
+                return false;
+            }
             
-        }
+        } // El concierto es nulo
         else{
             
             return false;
@@ -122,28 +109,21 @@ public class BusinessSystem implements TicketOffice {
         
         if(c !=null){ // Si el concierto c no es nulo procedo a su eliminacion
             
-            if(concerts.contains(c)){ // Si el concierto existe en el HashSet lo eliminará
+            if(concerts.containsKey(c.getName())){ // Si el concierto existe en el HashMap lo eliminará
                 
-                Iterator i = festivals.iterator();
+                ArrayList al = new ArrayList(festivals.values());
+                Iterator i = al.iterator();
                 Festival festivalAux = null;
                 while(i.hasNext()){     
                     festivalAux = (Festival)i.next();
                     if(festivalAux.isConcertInFestival(c)){
-                        break;
+                        // Si entro querra decir que hemos encontrado el concierto en un festival
+                        festivalAux.removeConcert(c);
+                        festivals.replace(festivalAux.getName(), festivalAux);;
                     }
                 }
-                if(festivalAux.isConcertInFestival(c)){ // Si entro querra decir que hemos encontrado el concierto en un festival
-                    
-                    // HABRIA QUE ACCEDER AL FESTIVAL EN MI HASHSET Y ENTONCES ACCEDER AL SU HASHSET
-                    // DE CONCIERTOS Y BORRAR EL CONCIERTO CON UN METODO YA IMPLEMENTADO EN LA CLASE FESTIVAL
-                    
-                    festivals.remove(festivalAux); // NO ESTOY SEGURO SI HAY QUE BORRARLO ASI O NO
-                    festivalAux.removeConcert(c);
-                    Festival festivalEditado = new Festival(festivalAux.getName(), festivalAux.getConcerts(), festivalAux.getStartDate(), festivalAux.getEndingDate(), festivalAux.getStartDate(), festivalAux.getEndingDate());
-                    festivals.add(festivalEditado);
-                    
-                }
-                return concerts.remove(c); // Devolvera true si esta y lo borra false en caso contrario
+                
+                return concerts.remove(c.getName(),c); // Devolvera true si esta y lo borra false en caso contrario
             }
             else{
                 return false;
@@ -157,9 +137,64 @@ public class BusinessSystem implements TicketOffice {
         }
     }
     
+    @Override
     public boolean addNewFestival(Festival f){
         
+        if(f != null){ // si el concierto c no es nulo compruebo si se puede introducir                               
+            if(!(concerts.containsKey(f.getName()) && festivals.containsKey(f.getName()) && exhibitions.containsKey(f.getName()))){// Si la respuesta es true entonces puedo añadir el concierto
+                
+                festivals.put(f.getName(), f); 
+                return true;
+                
+            }
+            else{ // El nombre del concierto ya existe
+                return false;
+            }
+            
+        }
+        else{ // el concierto c es nulo y por tanto no se puede introducir            
+            return false;           
+        }
         
+    }
+    
+    @Override
+    public boolean addConcertToFestival(Festival f, Concert c){
+        
+        if((f != null) && (c != null)){ // Si los argumentos no son nulos procedo en el metodo
+            if(festivals.containsKey(f.getName()) && concerts.containsKey(c.getName())){
+                // Si el festival y el concierto existen procedo a mirar si dicho concierto esta en ese festival
+                HashSet <Concert> concertsFestival = f.getConcerts();
+                if(concertsFestival.contains(c)){
+                    // El concierto existe dentro del festival
+                    return false;
+                }
+                else{ // El concierto no existe dentro del festival
+                    f.addConcert(c);
+                    if(f.getEndingDate().before(c.getClosingTimeConcert())){
+                        // Si la fecha del ultimo concierto del festival es antes que el concierto añadido
+                        // actualizo la hora de fin del festival
+                        f.setClosingDateFestival(c.getClosingTimeConcert());
+                        f.setClosingTimeFestival(c.getClosingTimeConcert());                        
+                    }
+                    else if(f.getStartDate().after(c.getStartDate())){
+                        // Si la fecha del concierto que abre el festival es posterior a la
+                        // fecha del nuevo concierto añadido al festival actualizo las fechas
+                        f.setStartDateFestival(c.getStartDate());
+                        f.setStartTimeFestival(c.getStartTimeConcert());  
+                    }
+                    return true;
+                    
+                }
+                
+            }
+            else{ // Si el concierto o el festival no existen en el sistema
+                return false;
+            }
+        }
+        else{ // Alguno de los argumentos o ambos son nulos
+            return false;
+        }
     }
     
     @Override
@@ -524,5 +559,35 @@ public class BusinessSystem implements TicketOffice {
     En este método llamar a c.addSaleToClient(t);
     Modificamos el atributo sold a true
     */
+    
+    
+    // Mira si un concierto cumple los requisitos para poder ser añadido al sistema
+    private boolean isConcertOK(Concert c){
+        
+        // Si el performer pertenece o a un colectivo o a un artista y ademas la localizacion existe procedo a añadir el concierto
+        if( (artists.containsValue(c.getPerformer()) || collectives.containsValue(c.getPerformer())) && (locations.containsValue(c.getLocation())) ){        
+
+            ArrayList al = new ArrayList(concerts.values());
+            Iterator i = al.iterator();
+            while(i.hasNext()){
+                Concert concertAux = (Concert)i.next();
+                if(concertAux.getPerformer().equals(c.getPerformer()) && concertAux.getStartDate().equals(c.getStartDate())){
+
+                    //Quiere decir que el performer de dicho concierto actua el mismo dia
+                    //por lo tanto no puede introducirse el concierto
+                    return false;
+
+                }
+            }
+            // Si ha salido del bucle y el programa sigue leyendo quiere decir no ha encontrado
+            // un concierto donde el performer del concierto c actue el mismo día 
+            return true;
+
+        }
+        else{ // El nombre del concierto ya existe por lo tanto no se puede introducir
+            return false;
+        }        
+        
+    }
     
 }

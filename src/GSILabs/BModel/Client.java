@@ -98,6 +98,11 @@ public class Client {
         salesOfTickets.add(t);
     }
     
+    //Comprueba si existe una tarjeta de crédito para el cliente dado
+    public boolean isCreditCard (String cCard) {
+        return creditCards.contains(cCard);
+    }
+    
     @Override
     public boolean equals (Object o) {
         

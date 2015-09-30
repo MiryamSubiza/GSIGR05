@@ -27,7 +27,7 @@ public class Ticket {
     private Event event; //Puede ser un Concierto, un Festival o una Exposición
     //Clave: Identificador para una persona
     //Valor: False si no ha entrado y True si ha entrado al evento
-    private HashMap<Integer,Boolean> people; 
+    private HashMap <Integer,Boolean> people; 
     // PARA ACCEDER A LOS ELEMENTOS LOS BUSCAMOS CON containsKey() Y LUEGO PARA VER 
     //EL VALOR DE LA KEY ASOCIADA USAS get(Key K)
     private ArrayList al;

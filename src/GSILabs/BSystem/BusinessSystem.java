@@ -211,43 +211,46 @@ public class BusinessSystem implements TicketOffice {
     public boolean existsEvent(Event e){
         
         if(e instanceof Concert){
-            return concerts.contains(e);
+            return concerts.containsValue(e);
         }
         else if(e instanceof Festival){
-            return festivals.contains(e);
+            return festivals.containsValue(e);
         }
         else if(e instanceof Exhibition){
-            return exhibitions.contains(e);
+            return exhibitions.containsValue(e);
         }
         return false;
         
     }
     
+    @Override
     public Event[] retrieveEvents(String name){
         
-        Iterator i = concerts.iterator();
-        Iterator j = festivals.iterator();
-        Iterator z = exhibitions.iterator();
+        Iterator i = concerts.values().iterator();
+        Iterator j = festivals.values().iterator();
+        Iterator z = exhibitions.values().iterator();
         int x = 0; // Contador para ir añadiendo eventos al array
         Event[] eventos = null;
-        
+        // Recorro todos los eventos mirando uno a uno si los nombres de los mismos
+        // tiene parcial o totalmente el nombre que me pasan como argumento y los guardo
+        // en el array de eventos
         while(i.hasNext()){
             Concert concertAux = (Concert)i.next();
-            if(concertAux.getName().equalsIgnoreCase(name)){
+            if(concertAux.getName().contains(name)){
                 eventos[x] = concertAux;
                 x = x + 1;
             }
         }
         while(j.hasNext()){
             Festival festivalAux = (Festival)j.next();
-            if(festivalAux.getName().equalsIgnoreCase(name)){
+            if(festivalAux.getName().contains(name)){
                 eventos[x] = festivalAux;
                 x = x + 1;
             }
         }
         while(z.hasNext()){
             Exhibition exhibitionAux = (Exhibition)z.next();
-            if(exhibitionAux.getName().equalsIgnoreCase(name)){
+            if(exhibitionAux.getName().contains(name)){
                 eventos[x] = exhibitionAux;
                 x = x + 1;
             }
@@ -256,13 +259,16 @@ public class BusinessSystem implements TicketOffice {
         
     }
     
+    @Override
     public Event[] retrieveEvents(Location loc){
         
-        Iterator i = concerts.iterator();
-        Iterator z = exhibitions.iterator();
-        int x = 0; // Contador para ir añadiendo eventos al array
+        Iterator i = concerts.values().iterator();
+        Iterator z = exhibitions.values().iterator();
+        int x = 0; // Contador para ir añadiendo localizaciones al array
         Event[] eventos = null;
-        
+        // Miro las localizaciones de todos los conciertos y exhibiciones y las comparo
+        // con la localizacion que han pasado como argumento a ver si es la que busco
+        // en tal caso lo guardo en mi array de localizaciones
         while(i.hasNext()){
             Concert concertAux = (Concert)i.next();
             if(concertAux.getLocation().equals(loc)){
@@ -281,14 +287,22 @@ public class BusinessSystem implements TicketOffice {
         
     }
     
-    public Event[] retreiveEvent(Date d){
+    /**
+     *
+     * @param d
+     * @return
+     */
+    @Override
+    public Event[] retrieveEvents(Date d){
         
-        Iterator i = concerts.iterator();
-        Iterator j = festivals.iterator();
-        Iterator z = exhibitions.iterator();
+        Iterator i = concerts.values().iterator();
+        Iterator j = festivals.values().iterator();
+        Iterator z = exhibitions.values().iterator();
         int x = 0; // Contador para ir añadiendo eventos al array
         Event[] eventos = null;
-        
+        // Compruebo todos los eventos comparando su fecha de inicio con la fecha
+        // que me han pasado como argumento y los que coincidan los introduzco en
+        // el array de eventos
         while(i.hasNext()){
             Concert concertAux = (Concert)i.next();
             if(concertAux.getStartDate().equals(d)){

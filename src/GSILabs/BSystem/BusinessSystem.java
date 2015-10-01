@@ -56,8 +56,13 @@ public class BusinessSystem implements TicketOffice {
         return atomicInteger;
     }
     
-    // Añadir un nuevo concierto siempre y cuando no sea null o
-    // tenga el mismo nombre que otro evento guardado
+    /**
+     * Adds a new concert to the system. Note that setting up the concert should not produce
+     *  any kind of clash with the existing concerts, etc.
+     * @param c The concert to be added
+     * @return True if an only if the concert c was not null, was well formed and did
+     *  not clash with the information already in the system. False otherwise.
+     */
     @Override
     public boolean addNewConcert(Concert c){
         
@@ -85,6 +90,13 @@ public class BusinessSystem implements TicketOffice {
         
     }
     
+    /**
+     * Replace an existing concert. The system must be able to indentify the concert
+     *  as "already existing", then proceed for its replacement.
+     * @param c The concert to be added
+     * @return True if an only if the concert c was not null, was well formed and did
+     *  not clash with the information already in the system. False otherwise.
+     */
     @Override
     public boolean replaceConcert(Concert c){ // NO ESTA BIEN DEL TODO CREO
         
@@ -114,6 +126,13 @@ public class BusinessSystem implements TicketOffice {
         
     }
     
+    /**
+     * Deletes a concert from the system. In case c did not exist in the system, 
+     *  this action has no impact.
+     * @param c The concert to be removed
+     * @return True if an only if the concert c was not null, and existed 
+     *  already in the system. False otherwise.
+     */
     @Override
     public boolean deleteConcert(Concert c){ // NO ESTOY SEGURO SI ESTA BIEN HECHO
         
@@ -148,6 +167,11 @@ public class BusinessSystem implements TicketOffice {
         }
     }
     
+    /**
+     * Adds a new festival to the system
+     * @param f The festival to be added
+     * @return True if an only if f is not null, well formed and could be added to the system
+     */
     @Override
     public boolean addNewFestival(Festival f){
         
@@ -169,6 +193,13 @@ public class BusinessSystem implements TicketOffice {
         
     }
     
+    /**
+     * Adds a new concert to an existing festival
+     * @param f The festival to which the concert is to be added
+     * @param c The concert itself
+     * @return True if and only if both arguments are not null, both are well formed 
+     *  and the information could be added not causing any clash with the existing information
+     */
     @Override
     public boolean addConcertToFestival(Festival f, Concert c){
         
@@ -208,6 +239,13 @@ public class BusinessSystem implements TicketOffice {
         }
     }
     
+    /**
+     * Replaces the information in the sytem related to the Festival f.
+     * @param f The new version of the festival
+     * @return True if an only if a previous version of the festival existed,
+     *  f is well formed, and it does not produce clashes with the information already
+     *  in the system.
+     */
     @Override
     public boolean replaceFestival(Festival f){
         
@@ -227,6 +265,13 @@ public class BusinessSystem implements TicketOffice {
         
     }
     
+    /**
+     * Deletes the festival f from the system. It also deletes all of the concerts 
+     *      associated with it.
+     * @param f The festival to be removed
+     * @return True if the festival existed and could be removed, together with all 
+     *  the concerts it was composed of.
+     */
     @Override
     public boolean deleteFestival(Festival f){
         
@@ -258,6 +303,12 @@ public class BusinessSystem implements TicketOffice {
         }
     }
     
+    /**
+     * Adds an exhibition to the system.
+     * @param e The exhibition to be added.
+     * @return True if e is not null, well formed and does not produce a clash with 
+     *  the information already in the system.
+     */
     @Override
     public boolean addNewExhibition(Exhibition e){
         
@@ -288,6 +339,13 @@ public class BusinessSystem implements TicketOffice {
         }
     }
     
+    /**
+     * Replaces the information in the sytem related to the Exhibition e.
+     * @param e The new version of the exhibition
+     * @return True if an only if a previous version of the exhibition existed,
+     *  e is well formed, and it does not produce clashes with the information already
+     *  in the system.
+     */
     @Override
     public boolean replaceExhibition(Exhibition e){
         
@@ -320,6 +378,12 @@ public class BusinessSystem implements TicketOffice {
         }
     }
     
+    /**
+     * Deletes an exhibition from the system
+     * @param e The exhibition to be deleted
+     * @return True if and only if e is not null, e existed in the systema and it could be
+     *  removed from the system
+     */
     @Override
     public boolean deleteExhibition(Exhibition e){
         
@@ -340,6 +404,11 @@ public class BusinessSystem implements TicketOffice {
         
     }
     
+    /**
+     * Checks whether an event is already registered in the system
+     * @param e The event to be checked
+     * @return True if and only if e is not null, well formed and did exist in the system
+     */
     @Override
     public boolean existsEvent(Event e){
         
@@ -356,6 +425,11 @@ public class BusinessSystem implements TicketOffice {
         
     }
     
+    /**
+     * Retrieves all the events whose name matches (partially) with the name
+     * @param name Full or partial name of the events
+     * @return A list of events, potentially being empty
+     */
     @Override
     public Event[] retrieveEvents(String name){
         
@@ -387,6 +461,11 @@ public class BusinessSystem implements TicketOffice {
         
     }
     
+    /**
+     * Retrieves all the events associated with an specific location
+     * @param loc Location of interest
+     * @return A list of events, potentially being empty
+     */
     @Override
     public Event[] retrieveEvents(Location loc){
         
@@ -413,9 +492,9 @@ public class BusinessSystem implements TicketOffice {
     }
     
     /**
-     *
-     * @param d
-     * @return
+     * Retrieves all the events at some given date
+     * @param d Date of interest
+     * @return A list of events, potentially being empty
      */
     @Override
     public Event[] retrieveEvents(Date d){
@@ -444,6 +523,245 @@ public class BusinessSystem implements TicketOffice {
         Event[] eventos = new Event[al.size()];
         al.toArray();
         return eventos;
+    }
+    
+    /**
+     * Adds a new artist to the system
+     * @param a The new artist
+     * @return True if the artist a is not null, is well formed and could be added to the
+     *  system
+     */
+    @Override
+    public boolean addArtist(Artist a){
+        if(a != null){ // Si el artista a no es nulo procedo a añadirlo
+            
+            if(!(artists.containsKey(a.getName())) || collectives.containsKey(a.getName())){
+                // Si el nombre del nuevo artista no esta cogido por otro artista
+                // o colectivo procedo a añadir
+                artists.put(a.getName(), a);
+                return true;
+            }
+            else{
+                // El nombre del artista a añadir ya esta cogido
+                return false;
+            }
+            
+        }
+        else{
+            // El artista a es nulo
+            return false;
+        }
+    }
+    
+    /**
+     * Adds a new collective of artists to the system
+     * @param c The new collective
+     * @return True if the collective c is not null, is well formed and could be added to the
+     *  system
+     */
+    @Override
+    public boolean addCollective(Collective c){
+        if(c != null){ // Si el colectivo a no es nulo procedo a añadirlo
+            
+            if(!(artists.containsKey(c.getName())) || collectives.containsKey(c.getName())){
+                // Si el nombre del nuevo colectivo no esta cogido por otro artista
+                // o colectivo procedo a añadir
+                collectives.put(c.getName(), c);
+                return true;
+            }
+            else{
+                // El nombre del colectivo a añadir ya esta cogido
+                return false;
+            }
+            
+        }
+        else{
+            // El colectivo c es nulo
+            return false;
+        }
+    }
+    
+    /**
+     * Replaces the information in the sytem related to the artist e.
+     * @param a The new version of the artist
+     * @return True if an only if a previous version of the artist existed,
+     *  e is well formed, and it does not produce clashes with the information already
+     *  in the system.
+     */
+    @Override
+    public boolean modifyArtist(Artist a){
+        
+        if(a != null){ // Si el artista a no es nulo procedo a ver si puedo modificarlo            
+            if(artists.containsKey(a.getName())){
+                // Si el artista a modificar existe en el sistema
+                // procedo a modificarlo
+                artists.replace(a.getName(), a);
+                return true;
+            }
+            else{
+                // El artista a no existe en el sistema
+                return false;
+            }
+        }
+        else{
+            // El artista a es nulo
+            return false;
+        }
+        
+    }
+    
+    /**
+     * Replaces the information in the sytem related to the collective e.
+     * @param c The new version of the collective
+     * @return True if an only if a previous version of the collective existed,
+     *  e is well formed, and it does not produce clashes with the information already
+     *  in the system.
+     */
+    @Override
+    public boolean modifyCollective(Collective c){
+        
+        if(c != null){ // Si el colectivo c no es nulo procedo a ver si puedo modificarlo            
+            if(artists.containsKey(c.getName())){
+                // Si el colectivo a modificar existe en el sistema
+                // procedo a modificarlo
+                collectives.replace(c.getName(), c);
+                return true;
+            }
+            else{
+                // El colectivo c no existe en el sistema
+                return false;
+            }
+        }
+        else{
+            // El colectivo c es nulo
+            return false;
+        }
+        
+    }
+    
+    /**
+     * Deletes the record of a performer from the system, provided it has no
+     *  events to which it is associated
+     * @param performerName The name of the performer
+     * @return True if and only if the performer with that name existed and could be removed.
+     */
+    @Override
+    public boolean removePerformer(String performerName){
+        
+        if(artists.containsKey(performerName)){
+            // Si entro aqui quiere decir que el performer a eliminar
+            // es un artista, ahora procedo a eliminar los eventos
+            Artist artista = artists.get(performerName);
+            removeEventsOfPerformer(artista);
+            // Ahora miro con un iterador a ver si dicho artista pertenecia a algun colectivo
+            // en tal caso lo eliminare del colectivo
+            Iterator i = collectives.values().iterator();
+            Collective collectiveAux = null;
+            while(i.hasNext()){
+                collectiveAux = (Collective)i.next();
+                if(collectiveAux.isArtistInCollective(artista)){
+                    // Si el artista pertence al colectivo lo elimino
+                    // de su HashSet de artistas
+                    collectiveAux.removeArtist(artista);
+                    break;
+                }                              
+            }
+            return artists.remove(performerName, artista);
+        }
+        else if(collectives.containsKey(performerName)){
+            // Si entro aqui quiere decir que el performer a eliminar
+            // es un colectivo, ahora procedo a eliminar los eventos
+            Collective colectivo = collectives.get(performerName);
+            removeEventsOfPerformer(colectivo);
+            return collectives.remove(performerName, colectivo);
+        }
+        else{
+            // El nombre del performer no coincide con ningún performer
+            // del sistema, por lo tanto no lo eliminamos
+            return false;
+        }
+        
+    }
+    
+    /**
+     * Checkes whether there exist a performer with that name in the system
+     * @param performerName Name of interest
+     * @return True if and only if it exists
+     */
+    @Override
+    public boolean existsPerformer(String performerName){
+        
+        if(artists.containsKey(performerName) || collectives.containsKey(performerName)){
+            // Si el performerName coincide con algún nombre de
+            // algún artista o colectivo entro aquí
+            return true;
+        }
+        else{
+            // El performer no existe
+            return false;
+        }
+        
+    }
+    
+    /**
+     * Checkes whether there exist a performer with that name in the system
+     * @param artistName Name of interest
+     * @return True if and only if it exists
+     */
+    @Override
+    public boolean existsArtist(String artistName){
+        
+        if(artists.containsKey(artistName)){
+            // Si el performerName coincide con algún nombre de
+            // algún artista o colectivo entro aquí
+            return true;
+        }
+        else{
+            // El performer no existe
+            return false;
+        }
+    }
+    
+    /**
+     * Checkes whether there exist a performer with that name in the system
+     * @param artistName Name of interest
+     * @return True if and only if it exists
+     */
+    public boolean existsCollective(String artistName){
+        
+        if(collectives.containsKey(artistName)){
+            // Si el performerName coincide con algún nombre de
+            // algún artista o colectivo entro aquí
+            return true;
+        }
+        else{
+            // El performer no existe
+            return false;
+        }
+        
+    }
+    
+    /**
+     * Retrieves the record of a performer from the system by its name.
+     * @param performerName The name of the performer
+     * @return The performer, if existing. Null otherwise.
+     */
+    @Override
+    public Performer retrievePerformer(String performerName){
+        
+        if(artists.containsKey(performerName)){
+            // Si el performer es un artista
+            return artists.get(performerName);
+        }
+        else if(collectives.containsKey(performerName)){
+            // Si el performer es un colectivo
+            return collectives.get(performerName);
+        }
+        else{
+            // Si el performer no existe envio un performer nulo
+            return null;
+        }
+        
     }
     
     // Client introduction, update and modification
@@ -917,6 +1235,41 @@ public class BusinessSystem implements TicketOffice {
         else{ // El performer o la localizacion de la exhibicion no existen en el sistema
             return false;
         }  
+        
+    }
+
+    private void removeEventsOfPerformer(Performer p) {
+        
+        // Creo los iteradores para poder recorrer mis colecciones en busca
+        // de los eventos que contengan al performer para eliminarlos del sistema.
+        Iterator i = concerts.values().iterator();        
+        Iterator j = exhibitions.values().iterator(); 
+        
+        // Voy a eliminar solo conciertos y exhibiciones ya que los festivales al
+        // tener mas de un concierto no se puede suspende todo el festival porque se vaya
+        // un concierto, además al eliminar el concierto este se elimina en cascada
+        // del festival al que perteneciese en el caso que estuviera en algún festival
+        Concert concertAux = null;
+        Festival festivalAux = null;
+        Exhibition exhibitionAux = null;
+        // Elimino conciertos
+        while(i.hasNext()){
+            concertAux = (Concert)i.next();
+            if(concertAux.involvesPerformer(p)){
+                // Como el concierto involucra el performer elimino
+                // dicho concierto
+                deleteConcert(concertAux);
+            }
+        }
+        // Elimino exhibiciones
+        while(j.hasNext()){
+            exhibitionAux = (Exhibition)j.next();
+            if(exhibitionAux.involvesPerformer(p)){
+                // Como el concierto involucra el performer elimino
+                // dicho concierto
+                deleteExhibition(exhibitionAux);
+            }
+        }
         
     }
     

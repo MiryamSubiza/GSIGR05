@@ -8,6 +8,7 @@
 
 package GSILabs.BModel;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 
@@ -130,12 +131,14 @@ public class Exhibition implements LastingEvent {
     
     @Override
     public Date[] getDates() {
-        Date[] datesExhibition = null;
+        ArrayList <Date> al = new ArrayList();
         Date auxDate = startDateExhibition;
         for(int i=0; i<(calculateExhibitionDays(startDateExhibition, closingDateExhibition)); i++) {
-            datesExhibition[i] = auxDate;
+            al.add(auxDate);
             auxDate = incrementDay(auxDate);
         }
+        Date[] datesExhibition = new Date[al.size()];
+        al.toArray();
         return datesExhibition;
     }
     

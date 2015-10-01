@@ -92,7 +92,7 @@ public class BusinessSystem implements TicketOffice {
             
             if(concerts.containsKey(c.getName())){ 
             // Si encuentra el concierto a reemplazar procede a mirar si es correcto dicho concierto
-                if(isConcertOK(c)){
+                if(isConcertOKToReplace(c)){
                 // Dentro del metodo comprueba que las condiciones para reemplazar el concierto son correctas
                     concerts.replace(c.getName(),c);
                     return true;
@@ -297,11 +297,47 @@ public class BusinessSystem implements TicketOffice {
                 // Si entra quiere decir que ha encontrado la exhibicion en el sistema
                 // ahora procedo a comprobar que la exhibicion e es correcta para poder
                 // reemplazarla
-                if(isExhibitionOK(e)){
-                    // Si ha pasado por aqui quiere decir que cumple 
+                if(isExhibitionOKToReplace(e)){
+                    // Si ha pasado por aqui quiere decir que cumple los requisitos
+                    // para poder ser reemplazado
+                    exhibitions.replace(e.getName(), e);
+                    return true;
+                }
+                else{
+                    // La exhibicion no es correcta y por lo tanto no se puede
+                    // reemplazar
+                    return false;
                 }
             }
+            else{
+                // La exhibicion a reemplazar no se encuentra en el sistema
+                return false;                        
+            }
         }
+        else{
+            // La exhibicion a reemplazar es nula
+            return false;
+        }
+    }
+    
+    @Override
+    public boolean deleteExhibition(Exhibition e){
+        
+        if(e != null){ // Compruebo que la exhibicion e no sea nula
+            if(exhibitions.containsValue(e)){
+                // Si el sistema contiene la exhibicion a eliminar procedemos a eliminarla
+                return exhibitions.remove(e.getName(), e);
+            }
+            else{
+                // El sistema no contiene a la exhibicion
+                return false;
+            }
+        }
+        else{
+            // La exhibicion a eliminar es nula
+            return false;
+        }
+        
     }
     
     @Override
@@ -761,6 +797,45 @@ public class BusinessSystem implements TicketOffice {
         }        
         
     }
+    
+    // Mira si un concierto cumple los requisitos para poder ser reemplazado al sistema
+    private boolean isConcertOKToReplace(Concert c){
+        
+        // Si el performer pertenece o a un colectivo o a un artista y ademas la localizacion existe procedo a añadir el concierto
+        if( (artists.containsValue(c.getPerformer()) || collectives.containsValue(c.getPerformer())) && (locations.containsValue(c.getLocation())) ){        
+
+            ArrayList al = new ArrayList(concerts.values());
+            Iterator i = al.iterator();
+            while(i.hasNext()){
+                Concert concertAux = (Concert)i.next();
+                if(!concertAux.getName().equalsIgnoreCase(c.getName())){
+                    // Si no es el concierto que quiero reemplazar miro si es correcta
+                    if(concertAux.getPerformer().equals(c.getPerformer()) && concertAux.getStartDate().equals(c.getStartDate())){
+
+                        //Quiere decir que el performer de dicho concierto actua el mismo dia
+                        //por lo tanto no puede introducirse el concierto
+                        return false;
+
+                    }
+                    else if(concertAux.getLocation().equals(c.getLocation()) && concertAux.getStartDate().equals(c.getStartDate())){
+
+                        //Quiere decir que ambos conciertos tienen lugar en la
+                        //misma localizacion en la misma fecha
+                        return false;
+
+                    }
+                }
+            }
+            // Si ha salido del bucle y el programa sigue leyendo quiere decir no ha encontrado
+            // un concierto donde el performer del concierto c actue el mismo día 
+            return true;
+
+        }
+        else{ // El performer o la localizacion del concierto no existen en el sistema
+            return false;
+        }        
+        
+    }
 
     // Mira si un exhibición cumple los requisitos para poder ser añadido al sistema
     private boolean isExhibitionOK(Exhibition e) {
@@ -788,6 +863,49 @@ public class BusinessSystem implements TicketOffice {
                     //misma localizacion en la misma fecha
                     return false;
                     
+                }
+            }
+            // Si ha salido del bucle y el programa sigue leyendo quiere decir no ha encontrado
+            // una exhibicion donde el performer de la exhibicion e actue el mismo día o la localizacion
+            // donde se situa se encuentra ocupada el mismo dia
+            return true;
+
+        }
+        else{ // El performer o la localizacion de la exhibicion no existen en el sistema
+            return false;
+        }  
+        
+    }
+    
+    // Mira si un exhibición cumple los requisitos para poder ser reemplazado al sistema
+    private boolean isExhibitionOKToReplace(Exhibition e) {
+       
+        // Si el performer pertenece o a un colectivo o a un artista y ademas la localizacion existe
+        // procedo a seguir comprobando la exhibicion
+        if( (artists.containsValue(e.getPerformer()) || collectives.containsValue(e.getPerformer())) && (locations.containsValue(e.getLocation())) ){        
+
+            // Creo un iterador para recorrer todas las exhibiciones del sistema
+            // y poder comprobar que la exhibicion e es correcta para poder ser
+            // añadida al sistema
+            Iterator i = exhibitions.values().iterator();
+            while(i.hasNext()){
+                Exhibition exhibitionAux = (Exhibition)i.next();
+                if(!exhibitionAux.getName().equalsIgnoreCase(e.getName())){ 
+                    // Si no es la exhibicion que quiero reemplazar miro si es correcta
+                    if(exhibitionAux.getPerformer().equals(e.getPerformer()) && exhibitionAux.getStartDate().equals(e.getStartDate())){
+
+                        //Quiere decir que el performer de dicha exhibicion actua el mismo dia
+                        //por lo tanto no puede introducirse la exhibicion
+                        return false;
+
+                    }
+                    else if(exhibitionAux.getLocation().equals(e.getLocation()) && exhibitionAux.getStartDate().equals(e.getStartDate())){
+
+                        //Quiere decir que ambas exhibiciones tienen lugar en la
+                        //misma localizacion en la misma fecha
+                        return false;
+
+                    }
                 }
             }
             // Si ha salido del bucle y el programa sigue leyendo quiere decir no ha encontrado

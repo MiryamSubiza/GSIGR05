@@ -7,6 +7,7 @@
  */
 package GSILabs.BModel;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.HashSet;
@@ -128,12 +129,14 @@ public class Festival implements LastingEvent {
     
     @Override
     public Date[] getDates() {
-        Date[] datesFestival = null;
+        ArrayList <Date> al = new ArrayList();
         Date auxDate = startDateFestival;
         for (int i=0; i<(calculateFestivalDays(startDateFestival, closingDateFestival)); i++) {
-            datesFestival[i] = auxDate;
+            al.add(auxDate);
             auxDate = incrementDay(auxDate);
         }
+        Date[] datesFestival = new Date[al.size()];
+        al.toArray();
         return datesFestival;
     }
     
@@ -228,19 +231,21 @@ public class Festival implements LastingEvent {
         
     }
     
-    public Performer[] getPerformers(){
+    public Performer[] getPerformers() {
         
+        ArrayList <Performer> al = new ArrayList();
         Iterator i = concerts.iterator();
-        Performer[] performers = null;
         Concert concertAux = null;
         int j = 0;
         while(i.hasNext()){
             concertAux = (Concert)i.next();
-            performers[j] = concertAux.getPerformer();
+            al.add(concertAux.getPerformer());
             j = j + 1;
         }
+        Performer[] performers = new Performer[al.size()];
+        al.toArray();
         return performers;
-    
+        
     }
     
     @Override

@@ -97,17 +97,4 @@ public class FechasHoras extends java.util.Date {
         return hora + ":" + minuto;
     }
     
-    //MÉTODOS PARA COMPARAR FECHAS
-    
-    /**
-     * 
-     * @param fhAComparar fecha a comparar con el objeto invocado
-     * @return 1 si this es posterior a fhAComparar, 0 si this es igual a fhAComparar,
-     *         -1 si this es anterior a fhAComparar
-     */
-    public int compararCon (FechasHoras fhAComparar) {
-        
-    }
-            
-    
 }

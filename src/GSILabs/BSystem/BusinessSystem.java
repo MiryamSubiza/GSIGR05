@@ -323,35 +323,30 @@ public class BusinessSystem implements TicketOffice {
     @Override
     public Event[] retrieveEvents(String name){
         
+        //Creamos un ArrayList porque un array no es dinámico
+        ArrayList <Event> al = new ArrayList();
         Iterator i = concerts.values().iterator();
         Iterator j = festivals.values().iterator();
         Iterator z = exhibitions.values().iterator();
-        int x = 0; // Contador para ir añadiendo eventos al array
-        Event[] eventos = null;
+
         // Recorro todos los eventos mirando uno a uno si los nombres de los mismos
         // tiene parcial o totalmente el nombre que me pasan como argumento y los guardo
         // en el array de eventos
-        while(i.hasNext()){
+        while (i.hasNext()) {
             Concert concertAux = (Concert)i.next();
-            if(concertAux.getName().contains(name)){
-                eventos[x] = concertAux;
-                x = x + 1;
-            }
+            if (concertAux.getName().contains(name)) al.add(concertAux);
         }
-        while(j.hasNext()){
+        while (j.hasNext()){
             Festival festivalAux = (Festival)j.next();
-            if(festivalAux.getName().contains(name)){
-                eventos[x] = festivalAux;
-                x = x + 1;
-            }
+            if (festivalAux.getName().contains(name)) al.add(festivalAux);
+            
         }
-        while(z.hasNext()){
+        while (z.hasNext()) {
             Exhibition exhibitionAux = (Exhibition)z.next();
-            if(exhibitionAux.getName().contains(name)){
-                eventos[x] = exhibitionAux;
-                x = x + 1;
-            }
+            if (exhibitionAux.getName().contains(name)) al.add(exhibitionAux);
         }
+        Event[] eventos = new Event[al.size()];
+        al.toArray();
         return eventos;
         
     }
@@ -359,27 +354,24 @@ public class BusinessSystem implements TicketOffice {
     @Override
     public Event[] retrieveEvents(Location loc){
         
+        //Creamos un ArrayList porque un array no es dinámico
+        ArrayList <Event> al = new ArrayList();
         Iterator i = concerts.values().iterator();
         Iterator z = exhibitions.values().iterator();
-        int x = 0; // Contador para ir añadiendo localizaciones al array
-        Event[] eventos = null;
+        
         // Miro las localizaciones de todos los conciertos y exhibiciones y las comparo
         // con la localizacion que han pasado como argumento a ver si es la que busco
         // en tal caso lo guardo en mi array de localizaciones
-        while(i.hasNext()){
+        while (i.hasNext()) {
             Concert concertAux = (Concert)i.next();
-            if(concertAux.getLocation().equals(loc)){
-                eventos[x] = concertAux;
-                x = x + 1;
-            }
+            if (concertAux.getLocation().equals(loc)) al.add(concertAux);
         }
-        while(z.hasNext()){
+        while (z.hasNext()) {
             Exhibition exhibitionAux = (Exhibition)z.next();
-            if(exhibitionAux.getLocation().equals(loc)){
-                eventos[x] = exhibitionAux;
-                x = x + 1;
-            }
+            if (exhibitionAux.getLocation().equals(loc)) al.add(exhibitionAux);
         }
+        Event[] eventos = new Event[al.size()];
+        al.toArray();
         return eventos;
         
     }
@@ -392,35 +384,29 @@ public class BusinessSystem implements TicketOffice {
     @Override
     public Event[] retrieveEvents(Date d){
         
+        //Creamos un ArrayList porque un array no es dinámico
+        ArrayList <Event> al = new ArrayList();
         Iterator i = concerts.values().iterator();
         Iterator j = festivals.values().iterator();
         Iterator z = exhibitions.values().iterator();
-        int x = 0; // Contador para ir añadiendo eventos al array
-        Event[] eventos = null;
+        
         // Compruebo todos los eventos comparando su fecha de inicio con la fecha
         // que me han pasado como argumento y los que coincidan los introduzco en
         // el array de eventos
-        while(i.hasNext()){
+        while (i.hasNext()) {
             Concert concertAux = (Concert)i.next();
-            if(concertAux.getStartDate().equals(d)){
-                eventos[x] = concertAux;
-                x = x + 1;
-            }
+            if (concertAux.getStartDate().equals(d)) al.add(concertAux);
         }
-        while(j.hasNext()){
+        while (j.hasNext()) {
             Festival festivalAux = (Festival)j.next();
-            if(festivalAux.getStartDate().equals(d)){
-                eventos[x] = festivalAux;
-                x = x + 1;
-            }
+            if (festivalAux.getStartDate().equals(d)) al.add(festivalAux);
         }
-        while(z.hasNext()){
+        while (z.hasNext()) {
             Exhibition exhibitionAux = (Exhibition)z.next();
-            if(exhibitionAux.getStartDate().equals(d)){
-                eventos[x] = exhibitionAux;
-                x = x + 1;
-            }
+            if (exhibitionAux.getStartDate().equals(d)) al.add(exhibitionAux);
         }
+        Event[] eventos = new Event[al.size()];
+        al.toArray();
         return eventos;
     }
     
@@ -583,12 +569,9 @@ public class BusinessSystem implements TicketOffice {
      *      part of another ticket.
      */
     public boolean hasIDCollision(Ticket t) {
-        
-        HashSet<Ticket> ticketsObjects = (HashSet<Ticket>) tickets.values();
-
         int[] identifiers = t.getIdentifiers();
         for (int j = 0; j < identifiers.length; j++) {
-            Iterator i = ticketsObjects.iterator();
+            Iterator i = tickets.values().iterator();
             Ticket ticketAux = null;
             while (i.hasNext()) {
                 ticketAux = (Ticket)i.next();
@@ -610,8 +593,7 @@ public class BusinessSystem implements TicketOffice {
     public boolean availableTicketID(Event e, int id) {
 
         if (existsEvent(e)) {
-            HashSet<Ticket> ticketsObjects = (HashSet<Ticket>) tickets.values();
-            Iterator i = ticketsObjects.iterator();
+            Iterator i = tickets.values().iterator();
             Ticket ticketAux = null;
             while (i.hasNext()) {
                 ticketAux = (Ticket)i.next();
@@ -668,6 +650,81 @@ public class BusinessSystem implements TicketOffice {
         else return false;
     }
     
+    // Locations
+    
+    /**
+     * Adds a new location to the system
+     * @param loc   The location
+     * @return  True if and only if the location is not null, is well formed and 
+     *  could be added to the system.
+     */
+    public boolean addLocation(Location loc) {
+        if (loc != null) {
+            locations.put(loc.getName(), loc);
+            return true;
+        }
+        else return false;
+    }
+    
+    /**
+     * Retrieves a location by its exact name
+     * @param name  The name of the location
+     * @return  The location with that name, or null if it does not exist.
+     */
+    public Location getLocation(String name) {
+        if (locations.containsKey(name)) return locations.get(name);
+        else return null;
+    }
+    
+    /**
+     * Deletes a location from the system. This can only be done if there is no events
+     *  associated with that location.
+     * @param loc   The location to be removed
+     * @return  True if an only if the location loc existed and could be removed.
+     */
+    public boolean deleteLocation(Location loc) {
+        //exhibition y concert
+        if (locations.containsValue(loc)) { //If loc exists
+            Iterator i = concerts.values().iterator();
+            Concert concertAux = null;
+            while (i.hasNext()) {
+                concertAux = (Concert)i.next();
+                //If there is a concert associated with loc
+                if (concertAux.getLocation().equals(loc)) {
+                    return false;
+                }
+            }
+            Iterator j = exhibitions.values().iterator();
+            Exhibition exhibitionAux = null;
+            while (i.hasNext()) {
+                exhibitionAux = (Exhibition)j.next();
+                //If there is an exhibition associated with loc
+                if (exhibitionAux.getLocation().equals(loc)) {
+                    return false;
+                }
+            }
+            if (locations.remove(loc.getName(), loc)) return true;
+            else return false;
+        }
+        else return false;        
+    }
+    
+    /**
+     * Retrieve the locations in the system with, at least, minCapacity attendance limit.
+     * @param minCapacity   Attendance threshold
+     * @return A list of 0+ locations
+     */
+    public Location[] getLocations(int minCapacity) {
+        Location[] locsMinCapacity;
+        Iterator i = locations.values().iterator();
+        Location locationAux = null;
+        while (i.hasNext()) {
+            locationAux = (Location)i.next();
+            if (locationAux.getMaxCapacity() >= minCapacity) {
+                
+            }
+        }
+    }
     
     // Mira si un concierto cumple los requisitos para poder ser añadido al sistema
     private boolean isConcertOK(Concert c){

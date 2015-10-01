@@ -104,6 +104,21 @@ public class Collective implements Performer {
         
     }
     
+    // Elimina el artista del HashSet de artistas
+    public boolean removeArtist(Artist a){
+        
+        if(artists.contains(a)){
+            // Si el HashSet de artistas contiene dicho artista
+            // lo elimino
+            return artists.remove(a);
+        }
+        else{
+            // El artista no esta en el HashSet
+            return false;
+        }
+        
+    }
+    
     //Devuelve true si dos colectivos son iguales y false si no son iguales
     @Override
     public boolean equals (Object o) {

@@ -13,21 +13,29 @@ import java.util.HashSet;
 import java.util.Iterator;
 
 /**
- * 
+ * Información sobre clientes, que pueden comprar entradas para asistir a eventos
  * @author subiza.79082
  * @author izu.78236
  * @version 1.0 (18/09/2015)
  */
 public class Client {
     
-    private int id; //Identificador numérico único
-    private String dni; //DNI (id + letra dni)
-    private String name; //Nombre del cliente
-    private String lastName; //Apellido(s) del cliente
-    private Date birthday; //Fecha de nacimiento (>= 18)
+    private int id;
+    private String dni;
+    private String name;
+    private String lastName;
+    private Date birthday;
     private HashSet <String> creditCards; //Tarjetas de crédito (puede haber una o varias)
     private HashSet <Ticket> salesOfTickets; //Tickets vendidos a este cliente
     
+    /**
+     * Método constructor, inicialización de variables
+     * @param id Identificador numérico único
+     * @param name Nombre del cliente
+     * @param lastName Apellido(s) del cliente
+     * @param birthday Fecha de nacimiento (>= 18)
+     * @param cCard Número de una tarjeta de crédito
+     */
     public Client (int id, String name, String lastName, Date birthday, String cCard) {
         
         this.id = id;
@@ -35,22 +43,32 @@ public class Client {
         this.name = name;
         this.lastName = lastName;
         this.birthday = birthday;
-        //Si quisiera devolver de tipo Date haría this.birthday.fecha
         creditCards = new HashSet();
         creditCards.add(cCard);
         salesOfTickets = new HashSet();
         
     }
     
+    /**
+     * Establecer identificador numérico
+     * @param id Identificador numérico único
+     */
     public void setId (int id) {
         this.id = id;
     }
     
+    /**
+     * Obtener identificador numérico
+     * @return Identificador numérico único
+     */
     public int getId () {
         return id;
     }
     
-    //Calcula la letra del dni numérico
+    /**
+     * Calcular la letra del dni numérico y asignar id + letra a la variable dni
+     * @param id Identificador numérico único
+     */
     public void calculateLetterDNI (int id) {
         
         String letters = "TRWAGMYFPDXBNJZSQVHLCKET";
@@ -60,45 +78,85 @@ public class Client {
         
     }
     
+    /**
+     * Obtener DNI
+     * @return DNI = id + letra
+     */
     public String getDNI () {
         return dni;
     }
     
+    /**
+     * Establecer nombre de cliente
+     * @param name Nombre del cliente
+     */
     public void setName (String name) {
         this.name = name;
     }
     
+    /**
+     * Obtener nombre de cliente
+     * @return Nombre del cliente
+     */
     public String getName () {
         return name;
     }
     
+    /**
+     * Establecer apellidos o apellidos de cliente
+     * @param lastName Apellido o apellidos del cliente
+     */
     public void setLastName (String lastName) {
         this.lastName = lastName;
     }
     
+    /**
+     * Obtener apellido o apellidos de cliente
+     * @return Apellido o apellidos del cliente
+     */
     public String getLastName () {
         return lastName;
     }
     
+    /**
+     * Establecer fecha de nacimiento
+     * @param birthday Fecha de nacimiento, ha de ser >= 18
+     */
     public void setBirthday (Date birthday) {
-        this.birthday = birthday;
+        Date actualDate = new Date();
+        if ((actualDate.getYear() + 1900) - (birthday.getYear() + 1900) >= 18)
+            this.birthday = birthday;
     }
     
+    /**
+     * Obtener fecha de nacimiento
+     * @return Fecha de nacimiento
+     */
     public Date getBirthday () {
         return birthday;
     }
     
-    //Si la tarjeta de crédito ya existe para ese cliente no la añade
+    /**
+     * Añadir tarjeta de crédito, si el número ya existe para este cliente no se añade
+     * @param cCard Número de tarjeta de crédito a añadir
+     */
     public void addCreditCard (String cCard) {
         creditCards.add(cCard);
     }
     
-    //Añadir la venta de una entrada a este cliente
+    /**
+     * Añadir la venta de una entrada a este cliente
+     * @param t Ticket comprado por el cliente
+     */
     public void addSaleToClient (Ticket t) {
         salesOfTickets.add(t);
     }
     
-    //Comprueba si existe una tarjeta de crédito para el cliente dado
+    /**
+     * Comprobar si existe una tarjeta de crédito para el cliente dado
+     * @param cCard Número de tarjeta de crédito a comprobar
+     * @return True si el cliente ya tenía almacenado este número de tarjeta de crédito
+     */
     public boolean isCreditCard (String cCard) {
         return creditCards.contains(cCard);
     }

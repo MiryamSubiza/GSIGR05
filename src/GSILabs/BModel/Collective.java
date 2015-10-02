@@ -21,8 +21,7 @@ import java.util.Iterator;
 public class Collective implements Performer {
     
     //Ha de ser una colección sin ordenación -> HashSet no tiene ordenación y no permite duplicados
-    //private ArrayList <Artist> artists; // Todos los artistas que componen el colectivo
-    private HashSet <Artist> artists;
+    private HashSet <Artist> artists; // Todos los artistas que componen el colectivo
     private String name; // Nombre del colectivo de artistas
     private String workDescription; // Descripción del colectivo de artistas
     private String webSite = "-"; // Página web de dicho colectivo de artistas

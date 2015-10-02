@@ -32,8 +32,6 @@ public class Ticket {
     //True si el ticket ha sido vendido a un cliente, false en caso contrario
     private boolean sold;
     
-    //al es un ArrayList de identificadores con tantos identificadores 
-    //como personas puedan acceder con esta entrada
     public Ticket (Event event, AtomicInteger atomicInteger, int numberOfPeople) {
         
         this.event = event;

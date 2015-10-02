@@ -169,8 +169,16 @@ public class P01Tester {
     //Comprobar y mostrar por línea de comandos varios sucesos
     public static void comprobacionDatos () {
         
-        
-        
+        System.out.println("Compruebo si el concierto esta bien o mal");
+        Concert conciertoNew = new Concert("Hola hola", bussinessSystem.retrievePerformer("Nach"), new FechasHoras("14/11/2015", "20:30"),
+        new FechasHoras("14/11/2015", "20:30"), new FechasHoras("14/11/2015", "20:00"),
+        new FechasHoras("14/11/2015", "23:30"), bussinessSystem.getLocation("Carpa Universitaria"));
+        if(bussinessSystem.addNewConcert(conciertoNew)){
+            System.out.println("El concierto se ha introducido bieeen");        
+        }
+        else{
+            System.out.println("No se ha introducido el concierto");        
+        }
     }
     
     

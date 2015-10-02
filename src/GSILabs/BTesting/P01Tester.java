@@ -158,7 +158,67 @@ public class P01Tester {
         bussinessSystem.addNewExhibition(ex3);
         
         //Tickets
+        Ticket t1 = new Ticket(con1, bussinessSystem.getAtomicInteger(), 1);
+        Ticket t2 = new Ticket(con2, bussinessSystem.getAtomicInteger(), 2);
+        Ticket t3 = new Ticket(con3, bussinessSystem.getAtomicInteger(), 1);
+        Ticket t4 = new Ticket(con4, bussinessSystem.getAtomicInteger(), 1);
+        Ticket t5 = new Ticket(con5, bussinessSystem.getAtomicInteger(), 4);
+        Ticket t6 = new Ticket(con6, bussinessSystem.getAtomicInteger(), 1);
+        Ticket t7 = new Ticket(con7, bussinessSystem.getAtomicInteger(), 1);
+        Ticket t8 = new Ticket(f1, bussinessSystem.getAtomicInteger(), 1);
+        Ticket t9 = new Ticket(f2, bussinessSystem.getAtomicInteger(), 3);
+        Ticket t10 = new Ticket(ex1, bussinessSystem.getAtomicInteger(), 1);
+        Ticket t11 = new Ticket(ex2, bussinessSystem.getAtomicInteger(), 1);
+        Ticket t12 = new Ticket(ex3, bussinessSystem.getAtomicInteger(), 1);
         
+        bussinessSystem.addNewTicket(t1);
+        bussinessSystem.addNewTicket(t2);
+        bussinessSystem.addNewTicket(t3);
+        bussinessSystem.addNewTicket(t4);
+        bussinessSystem.addNewTicket(t5);
+        bussinessSystem.addNewTicket(t6);
+        bussinessSystem.addNewTicket(t7);
+        bussinessSystem.addNewTicket(t8);
+        bussinessSystem.addNewTicket(t9);
+        bussinessSystem.addNewTicket(t10);
+        bussinessSystem.addNewTicket(t11);
+        bussinessSystem.addNewTicket(t12);
+        
+        //Clients
+        Client cli1 = new Client(11111111, "Alexandre", "Izu Carmona", new FechasHoras("25/01/1994", "00:00"),
+            "1111 1111 1111 1111");
+        Client cli2 = new Client(22222222, "Miryam", "Subiza Erro", new FechasHoras("02/06/1994", "00:00"),
+            "2222 2222 2222 2222");
+        Client cli3 = new Client(33333333, "Ana", "Larráyoz Jiménez", new FechasHoras("09/07/1994", "00:00"),
+            "3333 3333 3333 3333");
+        Client cli4 = new Client(44444444, "Diego", "Razquin Elcano", new FechasHoras("24/08/1994", "00:00"),
+            "4444 4444 4444 4444");
+        Client cli5 = new Client(55555555, "Christian", "Goñi Rebollo", new FechasHoras("14/08/1989", "00:00"),
+            "5555 5555 5555 5555");
+        Client cli6 = new Client(66666666, "Raquel", "Castillo Pérez", new FechasHoras("26/12/1992", "00:00"),
+            "6666 6666 6666 6666");
+        Client cli7 = new Client(77777777, "José Miguel", "Carrillo", new FechasHoras("21/09/1993", "00:00"),
+            "7777 7777 7777 7777");
+        Client cli8 = new Client(88888888, "Josu", "Goñi", new FechasHoras("02/02/1991", "00:00"),
+            "8888 8888 8888 8888");
+        
+        cli1.addCreditCard("1000 1000 1000 1000");
+        bussinessSystem.addClient(cli1);
+        cli2.addCreditCard("2000 2000 2000 2000");
+        cli2.addCreditCard("2111 2111 2111 2111");
+        bussinessSystem.addClient(cli2);
+        bussinessSystem.addClient(cli3);
+        bussinessSystem.addClient(cli4);
+        bussinessSystem.addClient(cli5);
+        bussinessSystem.addClient(cli6);
+        cli7.addCreditCard("7000 7000 7000 7000");
+        bussinessSystem.addClient(cli7);
+        bussinessSystem.addClient(cli8);
+        
+        //Sales
+        Sales s1 = new Sales(t1, cli1, (float)13.5, "1111 1111 1111 1111", new FechasHoras("02/10/2015", "19:43"));
+        Sales s2 = new Sales(t2, cli1, 27, "1000 1000 1000 1000", new FechasHoras("03/10/2015", "10:00"));
+        Sales s3 = new Sales(t3, cli2, 17, "2222 2222 2222 2222", new FechasHoras("05/11/2015", "17:13"));
         /*
         
         */

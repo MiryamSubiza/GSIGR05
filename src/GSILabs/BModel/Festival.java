@@ -26,19 +26,19 @@ public class Festival implements LastingEvent {
     private HashSet <Concert> concerts; //Puede haber uno o varios conciertos
     /* El festival puede extenderse durante varios días o semanas */
     // Fecha de apertura, que coincide con la fecha del primer concierto
-    private Date startDateFestival;
+    private FechasHoras startDateFestival;
     // Fecha de cierre, que coincide con la fecha del último concierto
-    private Date closingDateFestival;
+    private FechasHoras closingDateFestival;
     // Hora de apertura, que coincide con la hora de apertura de puertas
     // del primer concierto
-    private Date startTimeFestival;
+    private FechasHoras startTimeFestival;
     // Hora de cierre, que coincide con la hora de cierre del último concierto
-    private Date closingTimeFestival;
+    private FechasHoras closingTimeFestival;
     // Nombre del festival
     private String festivalName;
     
-    public Festival (String festivalName, Concert c, Date startDateFestival, Date closingDateFestival,
-            Date startTimeFestival, Date closingTimeFestival) {
+    public Festival (String festivalName, Concert c, FechasHoras startDateFestival, FechasHoras closingDateFestival,
+            FechasHoras startTimeFestival, FechasHoras closingTimeFestival) {
         
         this.festivalName = festivalName;
         concerts = new HashSet();
@@ -50,8 +50,8 @@ public class Festival implements LastingEvent {
         
     }
 	
-    public Festival (String festivalName, HashSet<Concert> concerts, Date startDateFestival, Date closingDateFestival,
-        Date startTimeFestival, Date closingTimeFestival) {
+    public Festival (String festivalName, HashSet<Concert> concerts, FechasHoras startDateFestival, FechasHoras closingDateFestival,
+        FechasHoras startTimeFestival, FechasHoras closingTimeFestival) {
 
         this.festivalName = festivalName;
         this.concerts = concerts;
@@ -83,7 +83,7 @@ public class Festival implements LastingEvent {
         return this.festivalName;
     }
     
-    public void setStartDateFestival (Date startDateFestival) {
+    public void setStartDateFestival (FechasHoras startDateFestival) {
         this.startDateFestival = startDateFestival;
     }
     
@@ -92,7 +92,7 @@ public class Festival implements LastingEvent {
         return startDateFestival;
     }
     
-    public void setClosingDateFestival (Date closingDateFestival) {
+    public void setClosingDateFestival (FechasHoras closingDateFestival) {
         this.closingDateFestival = closingDateFestival;
     }
     
@@ -101,7 +101,7 @@ public class Festival implements LastingEvent {
         return closingDateFestival;
     }
     
-    public void setStartTimeFestival (Date startTimeFestival) {
+    public void setStartTimeFestival (FechasHoras startTimeFestival) {
         this.startTimeFestival = startTimeFestival;
     }
     
@@ -109,7 +109,7 @@ public class Festival implements LastingEvent {
         return startTimeFestival;
     }
     
-    public void setClosingTimeFestival (Date closingTimeFestival) {
+    public void setClosingTimeFestival (FechasHoras closingTimeFestival) {
         this.closingTimeFestival = closingTimeFestival;
     }
     
@@ -130,7 +130,7 @@ public class Festival implements LastingEvent {
     @Override
     public Date[] getDates() {
         ArrayList <Date> al = new ArrayList();
-        Date auxDate = startDateFestival;
+        FechasHoras auxDate = startDateFestival;
         for (int i=0; i<(calculateFestivalDays(startDateFestival, closingDateFestival)); i++) {
             al.add(auxDate);
             auxDate = incrementDay(auxDate);
@@ -140,16 +140,16 @@ public class Festival implements LastingEvent {
         return datesFestival;
     }
     
-    private int calculateFestivalDays (Date dia1, Date dia2) {
+    private int calculateFestivalDays (FechasHoras dia1, FechasHoras dia2) {
         
         // Variable a devolver que contendrá el número de días de diferencia entre una fecha y otra
         int numDias;
-        if ((dia2.getMonth() - dia1.getMonth()) >= 1) {
-            numDias = 30*(dia2.getMonth() - dia1.getMonth() - 1) + dia2.getDay() + 
-                    (numDiasMes(dia1.getMonth()) - dia1.getDay());
+        if ((dia2.getMes() - dia1.getMes()) >= 1) {
+            numDias = 30*(dia2.getMes() - dia1.getMes() - 1) + dia2.getDia() + 
+                    (numDiasMes(dia1.getMes()) - dia1.getDia());
         }
         else {
-            numDias = dia2.getDay() - dia1.getDay();
+            numDias = dia2.getDia() - dia1.getDia();
         }
         
         return numDias;
@@ -174,40 +174,40 @@ public class Festival implements LastingEvent {
         return nDias;
     }
     
-	// El método coge la fecha que se le pasa como argumento y
+    // El método coge la fecha que se le pasa como argumento y
     // aumenta un día (cambiando si es necesario el mes o año de la fecha)
-    private Date incrementDay (Date day) {
-        Date nextDay = null;
-        switch (day.getMonth()){
+    private FechasHoras incrementDay (FechasHoras day) {
+        FechasHoras nextDay = null;
+        switch (day.getMes()){
             case 1: case 3: case 5: case 7: case 8: case 10: case 12:
-                if(day.getDay() == 31){
-                    if(day.getMonth() == 12){
-                        nextDay = new Date(day.getYear()+1, 1, 1);
+                if(day.getDia() == 31){
+                    if(day.getMes() == 12){
+                        nextDay = new FechasHoras(1, 1, day.getAnio()+1, day.getHora(), day.getMinuto());
                     }
                     else{
-                        nextDay = new Date(day.getYear(), day.getMonth() + 1, 1);
+                        nextDay = new FechasHoras(1, day.getMes() + 1, day.getAnio(), day.getHora(), day.getMinuto());
                     }
                 }
                 else{
-                    nextDay = new Date(day.getYear(), day.getMonth(), day.getDay() + 1);
+                    nextDay = new FechasHoras(day.getDay() + 1, day.getMes(), day.getAnio(), day.getHora(), day.getMinuto());
                 }
                 break;
                 
             case 4: case 6: case 9: case 11:
-                if(day.getDay() == 30){
-                    nextDay = new Date(day.getYear(), day.getMonth() + 1, 1);
+                if(day.getDia() == 30){
+                    nextDay = new FechasHoras(1, day.getMes() + 1, day.getAnio(), day.getHora(), day.getMinuto());
                 }
                 else{
-                    nextDay = new Date(day.getYear(), day.getMonth(), day.getDay() + 1);
+                    nextDay = new FechasHoras(day.getDia() + 1, day.getMes(), day.getAnio(), day.getHora(), day.getMinuto());
                 }
                 break;
                 
             case 2:
-                if(day.getDay() == 28){
-                    nextDay = new Date(day.getYear(), day.getMonth() + 1, 1);
+                if(day.getDia() == 28){
+                    nextDay = new FechasHoras(1, day.getMes() + 1, day.getAnio(), day.getHora(), day.getMinuto());
                 }
                 else{
-                    nextDay = new Date(day.getYear(), day.getMonth(), day.getDay() + 1);
+                    nextDay = new FechasHoras(day.getDia() + 1, day.getMes(), day.getAnio(), day.getHora(), day.getMinuto());
                 }
                 break;
         }

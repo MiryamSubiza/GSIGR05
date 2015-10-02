@@ -155,7 +155,8 @@ public class Client {
     /**
      * Comprobar si existe una tarjeta de crédito para el cliente dado
      * @param cCard Número de tarjeta de crédito a comprobar
-     * @return True si el cliente ya tenía almacenado este número de tarjeta de crédito
+     * @return True si el cliente ya tenía almacenado este número de tarjeta de crédito.
+     *  False en caso contrario
      */
     public boolean isCreditCard (String cCard) {
         return creditCards.contains(cCard);

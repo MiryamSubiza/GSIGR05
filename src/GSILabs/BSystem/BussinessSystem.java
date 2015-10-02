@@ -74,19 +74,24 @@ public class BussinessSystem implements TicketOffice {
                 if(isConcertOK(c)){
                 // Dentro del metodo comprueba que las condiciones para añadir el concierto son correctas
                     concerts.put(c.getName(), c);
+                    System.out.println("El concierto esta bien");
                     return true;
                 }                
                 else{
+                    // El concierto esta mal
+                    System.out.println("El concierto esta mal");
                     return false;
                 }
                 
             }
             else{ // El nombre del concierto ya existe
+                System.out.println("El concierto existe ya");
                 return false;
             }
             
         }
-        else{ // el concierto c es nulo y por tanto no se puede introducir            
+        else{ // el concierto c es nulo y por tanto no se puede introducir   
+            System.out.println("El concierto es nulo");
             return false;           
         }
         

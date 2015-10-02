@@ -97,4 +97,14 @@ public class FechasHoras extends java.util.Date {
         return hora + ":" + minuto;
     }
     
+    @Override
+    public boolean equals (Object o) {
+        if (o instanceof FechasHoras) {
+            FechasHoras fh = (FechasHoras)o;
+            return (this.getAnio() == fh.getAnio()) && (this.getMes() == fh.getMes())
+                    && (this.getDia() == fh.getDia());
+        }
+        else return false;
+    }
+    
 }

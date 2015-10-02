@@ -135,9 +135,7 @@ public class Festival implements LastingEvent {
             al.add(auxDate);
             auxDate = incrementDay(auxDate);
         }
-        Date[] datesFestival = new Date[al.size()];
-        al.toArray();
-        return datesFestival;
+        return (Date[]) al.toArray();
     }
     
     private int calculateFestivalDays (FechasHoras dia1, FechasHoras dia2) {

@@ -44,6 +44,8 @@ public class P01Tester {
         Artist a6 = new Artist("Lírico", "David Gilaberte, MC zaragozano");
         Artist a7 = new Artist("Sho-Hai", "Sergio Rodríguez, MC zaragozano");
         Artist a8 = new Artist("R de Rumba", "Rubén Cuevas, DJ zaragozano");
+        Artist a9 = new Artist("Alex Papito", "Master BOSS del Karoke");
+        Artist a10 = new Artist("Rasking", "Coros del famoso grupo Alex y los Rebujitos");
         
         bussinessSystem.addArtist(a1);
         bussinessSystem.addArtist(a2);
@@ -52,19 +54,25 @@ public class P01Tester {
         bussinessSystem.addArtist(a5);
         bussinessSystem.addArtist(a6);
         bussinessSystem.addArtist(a7);
-        bussinessSystem.addArtist(a8);        
+        bussinessSystem.addArtist(a8);
+        bussinessSystem.addArtist(a9);
+        bussinessSystem.addArtist(a10);
         
         //Collectives
         Collective col1 = new Collective(a1, "Cantautores", "Conjunto de cantautores");
         Collective col2 = new Collective(a5, "Violadores del verso", "Grupo de RAP", "violadoresdelverso.org");
+        Collective col3 = new Collective(a9, "Alex y los Rebujitos", "Grupo number ONE en el canto de Karaoke", "www.losrebujitoslapetan.com");
         
-        bussinessSystem.addCollective(col1);
         col1.addArtistToCollective(a2);
         col1.addArtistToCollective(a3);
-        bussinessSystem.addCollective(col2);
+        bussinessSystem.addCollective(col1);
         col2.addArtistToCollective(a6);
         col2.addArtistToCollective(a7);
         col2.addArtistToCollective(a8);
+        bussinessSystem.addCollective(col2);
+        col3.addArtistToCollective(a10);
+        bussinessSystem.addCollective(col3);
+        
         
         //Locations
         Location l1 = new Location("Interpeñas", 25000, "Zaragoza", "www.interpeñas.es");
@@ -114,11 +122,12 @@ public class P01Tester {
             new FechasHoras("03/02/2016", "23:50"), new FechasHoras("01/02/2016", "21:00"),
             new FechasHoras("03/02/2016", "23:50"));
         
-        bussinessSystem.addNewFestival(f1);
         f1.addConcert(con4);
-        bussinessSystem.addNewFestival(f2);
+        bussinessSystem.addNewFestival(f1);
         f2.addConcert(con3);
         f2.addConcert(con5);
+        bussinessSystem.addNewFestival(f2);
+        
         
         
         

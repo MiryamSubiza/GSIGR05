@@ -137,9 +137,7 @@ public class Exhibition implements LastingEvent {
             al.add(auxDate);
             auxDate = incrementDay(auxDate);
         }
-        Date[] datesExhibition = new Date[al.size()];
-        al.toArray();
-        return datesExhibition;
+        return (Date[]) al.toArray();
     }
     
     private int calculateExhibitionDays (FechasHoras dia1, FechasHoras dia2) {

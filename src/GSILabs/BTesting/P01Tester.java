@@ -81,6 +81,7 @@ public class P01Tester {
         Location l4 = new Location("Palau Olimpic", 12500, "Barcelona");
         Location l5 = new Location("Sala Totem", 200, "Pamplona", "www.salatotem.com");
         Location l6 = new Location("Kursaal", 1800, "San Sebastián", "www.kursaal.eus/es");
+        Location l7 = new Location("Carpa Universitaria", 10000, "Pamplona", "www.carpauniversitaria.com");
         
         bussinessSystem.addLocation(l1);
         bussinessSystem.addLocation(l2);
@@ -108,6 +109,9 @@ public class P01Tester {
         Concert con6 = new Concert("Concierto seis", a8, new FechasHoras("02/06/2016", "21:15"),
             new FechasHoras("02/06/2016", "21:15"), new FechasHoras("02/06/2016", "20:15"),
             new FechasHoras("02/06/2016", "23:50"), l2);
+        Concert con7 = new Concert("We are Back Rebujitos", col3, new FechasHoras("06/11/2015", "12:00"),
+            new FechasHoras("06/11/2015", "12:00"), new FechasHoras("06/11/2015", "10:00"),
+            new FechasHoras("06/11/2015", "14:00"), l7);
         
         bussinessSystem.addNewConcert(con1);
         bussinessSystem.addNewConcert(con2);

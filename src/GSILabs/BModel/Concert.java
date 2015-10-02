@@ -213,10 +213,10 @@ public class Concert implements ImpermanentEvent {
     @Override
     public String toString() {
         return "CONCERT\nConcert's name: " + concertName + "\nPerformer's name: " +
-                p.getName() + "\nDate: " + startDateConcert.toString() +
-                "\nDoor opening: " + doorOpeningTimeConcert.toString() + 
-                "h\nStart time: " + startTimeConcert.toString() + 
-                "h\nClosing time: " + closingTimeConcert.toString() + 
+                p.getName() + "\nDate: " + startDateConcert.fechaToString() +
+                "\nDoor opening: " + doorOpeningTimeConcert.horaToString() + 
+                "h\nStart time: " + startTimeConcert.horaToString() + 
+                "h\nClosing time: " + closingTimeConcert.horaToString() + 
                 "h\nLocation: " + location.getName() + "\n";
     }
     

@@ -74,24 +74,20 @@ public class BussinessSystem implements TicketOffice {
                 if(isConcertOK(c)){
                 // Dentro del metodo comprueba que las condiciones para añadir el concierto son correctas
                     concerts.put(c.getName(), c);
-                    System.out.println("El concierto esta bien");
                     return true;
                 }                
                 else{
                     // El concierto esta mal
-                    System.out.println("El concierto esta mal");
                     return false;
                 }
                 
             }
             else{ // El nombre del concierto ya existe
-                System.out.println("El concierto existe ya");
                 return false;
             }
             
         }
         else{ // el concierto c es nulo y por tanto no se puede introducir   
-            System.out.println("El concierto es nulo");
             return false;           
         }
         
@@ -1095,7 +1091,6 @@ public class BussinessSystem implements TicketOffice {
 
                     //Quiere decir que el performer de dicho concierto actua el mismo dia
                     //por lo tanto no puede introducirse el concierto
-                    System.out.println("El concierto esta mal por performer y fecha");
                     return false;
 
                 }
@@ -1103,7 +1098,6 @@ public class BussinessSystem implements TicketOffice {
                     
                     //Quiere decir que ambos conciertos tienen lugar en la
                     //misma localizacion en la misma fecha
-                    System.out.println("El concierto esta mal por performer y fecha");
                     return false;
                     
                 }
@@ -1113,8 +1107,7 @@ public class BussinessSystem implements TicketOffice {
             return true;
 
         }
-        else{ // El performer o la localizacion del concierto no existen en el sistema
-            System.out.println("El performer o location no existen");
+        else{ // El performer o la localizacion del concierto no existen en el sistema         
             return false;
         }        
         

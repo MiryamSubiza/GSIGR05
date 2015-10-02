@@ -169,15 +169,19 @@ public class P01Tester {
     //Comprobar y mostrar por línea de comandos varios sucesos
     public static void comprobacionDatos () {
         
-        System.out.println("Compruebo si el concierto esta bien o mal");
+        System.out.println("Intento introducir el siguiente concierto:");
         Concert conciertoNew = new Concert("Hola hola", bussinessSystem.retrievePerformer("Nach"), new FechasHoras("14/11/2015", "20:30"),
         new FechasHoras("14/11/2015", "20:30"), new FechasHoras("14/11/2015", "20:00"),
         new FechasHoras("14/11/2015", "23:30"), bussinessSystem.getLocation("Carpa Universitaria"));
+        System.out.print(conciertoNew.toString());
+        // Compruebo si el concierto se puede introducir o no
         if(bussinessSystem.addNewConcert(conciertoNew)){
-            System.out.println("El concierto se ha introducido bieeen");        
+            System.out.println("El concierto se ha introducido correctamente");        
         }
         else{
-            System.out.println("No se ha introducido el concierto");        
+            System.out.println("No se ha introducido el concierto porque el performer actua\nel mismo dia en la misma fecha en otro concierto");
+            System.out.println("Aqui esta el concierto que ya existia de dicho performer:");
+            //System.out.print(bussinessSystem.);
         }
     }
     

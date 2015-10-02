@@ -258,6 +258,17 @@ public class Festival implements LastingEvent {
         
     }
     
+    // Escribe por pantalla todos los conciertos del festivals
+    /*public String writeConcerts(){
+        Iterator i = concerts.iterator();
+        String conciertos = new String("Conciertos:\n");
+        while(i.hasNext()){
+            Concert concertAux = (Concert)i.next();
+            conciertos.concat("    -"+concertAux.getName());
+        }
+        return conciertos;
+    }*/
+    
     @Override
     public String toString() {
         return "FESTIVAL\nFestival's name: " + festivalName + "\nStart date: " + 

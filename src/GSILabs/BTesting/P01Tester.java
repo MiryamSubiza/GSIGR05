@@ -25,7 +25,10 @@ public class P01Tester {
     
     public static void main (String[] args) {
         
+        System.out.println("Bienvenido a la clase Tester01 para la realizacion\nde pruebas sobre nuestra práctica 1\n");
+        System.out.println("Creo algunos datos con los que empezar el testeo...");
         bussinessSystem = introduccionDatos();
+        System.out.println("Una vez creados, empiezo el testeo:\n\n");
         comprobacionDatos();
         
     }
@@ -229,6 +232,49 @@ public class P01Tester {
     //Comprobar y mostrar por línea de comandos varios sucesos
     public static void comprobacionDatos () {
         
+        // PRUEBA S3)
+        System.out.println("PRUEBA S3)");
+        System.out.println("Intento introducir el siguiente Artista:");
+        Artist artistaNew = new Artist("Stardust", "Cantante de rock");
+        System.out.print(artistaNew.toString());
+        if(bussinessSystem.addArtist(artistaNew)){
+            System.out.println("El artista ha sido añadido correctamente");
+        }
+        else{
+            System.out.println("El nombre del artista ya existe por otro arista o un colectivo\n");
+        }
+        System.out.println("Intento introducir el siguiente Colectivo:");
+        Collective collectiveNew = new Collective(artistaNew, "Stardust", "Cantante de rock");
+        System.out.print(collectiveNew.toString());
+        if(bussinessSystem.addArtist(artistaNew)){
+            System.out.println("El colectivo ha sido añadido correctamente");
+        }
+        else{
+            System.out.println("El colectivo no se ha introducido porque el nombre del colectivo\nya existe por otro colectivo o un artista\n");
+        }
+        
+        // PRUEBA S4)
+        System.out.println("PRUEBA S4)");
+        System.out.println("Ahora elimino el artista anterior y asi comprobar que puedo añadir\nel colectivo");
+        System.out.println("El artista a eliminar es:");
+        System.out.print(artistaNew.toString());
+        if(bussinessSystem.removePerformer(artistaNew.getName())){
+            System.out.println("El artista se ha eliminado correctamente.");
+        }
+        else{
+            System.out.println("El artista no ha podido ser eliminado.");
+        }
+        System.out.println("Procedo a añadir el siguiente Colectivo:");        
+        System.out.print(collectiveNew.toString());
+        if(bussinessSystem.addArtist(artistaNew)){
+            System.out.println("El colectivo ha sido añadido correctamente");
+        }
+        else{
+            System.out.println("El colectivo no se ha introducido porque el nombre del colectivo\nya existe por otro colectivo o un artista\n");
+        }
+        
+        // PRUEBA S5)
+        System.out.println("PRUEBA S5)");
         System.out.println("Intento introducir el siguiente concierto:");
         Concert conciertoNew = new Concert("Hola hola", bussinessSystem.retrievePerformer("Nach"), new FechasHoras("14/11/2015", "20:30"),
         new FechasHoras("14/11/2015", "20:30"), new FechasHoras("14/11/2015", "20:00"),
@@ -239,9 +285,39 @@ public class P01Tester {
             System.out.println("El concierto se ha introducido correctamente");        
         }
         else{
-            System.out.println("No se ha introducido el concierto porque el performer actua\nel mismo dia en la misma fecha en otro concierto");
-            System.out.println("Aqui esta el concierto que ya existia de dicho performer:");
-            //System.out.print(bussinessSystem.);
+            System.out.println("No se ha introducido el concierto porque el performer actua\nel mismo dia en la misma fecha en otro concierto");            
+        }
+        
+        // PRUEBA S7)
+        System.out.println("PRUEBA S5)");
+        System.out.println("Intento introducir el siguiente concierto:");
+        conciertoNew = new Concert("Hola hola", bussinessSystem.retrievePerformer("Alex y los Rebujitos"), new FechasHoras("14/11/2015", "20:30"),
+        new FechasHoras("14/11/2015", "20:30"), new FechasHoras("14/11/2015", "20:00"),
+        new FechasHoras("14/11/2015", "23:30"), bussinessSystem.getLocation("BEC"));
+        System.out.print(conciertoNew.toString());
+        // Compruebo si el concierto se puede introducir o no
+        if(bussinessSystem.addNewConcert(conciertoNew)){
+            System.out.println("El concierto se ha introducido correctamente");        
+        }
+        else{
+            System.out.println("No se ha introducido el concierto porque la localizacion esta\nocupada para esa fecha.");            
+        }
+        
+        // PRUEBA S8)
+        System.out.println("PRUEBA S8)");
+        System.out.println("Intento introducir el siguiente concierto al siguiente festival:");
+        conciertoNew = new Concert("Concierto cinco", bussinessSystem.retrievePerformer("Sho-Hai"), new FechasHoras("03/02/2016", "21:15"),
+            new FechasHoras("03/02/2016", "21:15"), new FechasHoras("03/02/2016", "20:15"),
+            new FechasHoras("03/02/2016", "23:50"), bussinessSystem.getLocation("BEC"));
+        System.out.println(conciertoNew.toString());
+        System.out.println(bussinessSystem.getEvent("Festival dos").toString());
+        System.out.println(bussinessSystem.getEvent("Festival dos").toString());
+        
+        if(bussinessSystem.addConcertToFestival((Festival)bussinessSystem.getEvent("Festival dos"), conciertoNew)){
+            System.out.println("El concierto se ha añadido perfectamente al festival");
+        }
+        else{
+            System.out.println("El concierto no se puede añadir al festival porque ya existe\ndentro del festival");
         }
     }
     

@@ -463,6 +463,37 @@ public class BussinessSystem implements TicketOffice {
     }
     
     /**
+     * Retrieves the event whose name matches with the name
+     * @param name Full name of the event
+     * @return The event that matches with the name given
+     */
+    public Event getEvent(String name){
+        
+        //Creamos un ArrayList porque un array no es dinámico
+        Iterator i = concerts.values().iterator();
+        Iterator j = festivals.values().iterator();
+        Iterator z = exhibitions.values().iterator();
+
+        // Recorro todos los eventos mirando uno a uno si los nombres de los mismos
+        // tiene parcial o totalmente el nombre que me pasan como argumento y los guardo
+        // en el array de eventos
+        while (i.hasNext()) {
+            Concert concertAux = (Concert)i.next();
+            if (concertAux.getName().contains(name)) return concertAux;
+        }
+        while (j.hasNext()){
+            Festival festivalAux = (Festival)j.next();
+            if (festivalAux.getName().contains(name)) return festivalAux;
+            
+        }
+        while (z.hasNext()) {
+            Exhibition exhibitionAux = (Exhibition)z.next();
+            if (exhibitionAux.getName().contains(name)) return exhibitionAux;
+        }
+        return null;
+    }
+    
+    /**
      * Retrieves all the events associated with an specific location
      * @param loc Location of interest
      * @return A list of events, potentially being empty
@@ -992,7 +1023,7 @@ public class BussinessSystem implements TicketOffice {
         if (tickets.containsValue(t) && clients.containsValue(c) && c.isCreditCard(cCard) && !t.isSold()) {
             c.addSaleToClient(t);
             t.setSold(true);
-            sales.add(new Sales(t, c, price, cCard, actualDate));
+            sales.add(new Sales(t, c, price, cCard, (FechasHoras)actualDate));
             return true;
         }
         else return false;

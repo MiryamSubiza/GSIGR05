@@ -216,14 +216,14 @@ public class BusinessSystem implements TicketOffice {
                     if(f.getEndingDate().before(c.getClosingTimeConcert())){
                         // Si la fecha del ultimo concierto del festival es antes que el concierto añadido
                         // actualizo la hora de fin del festival
-                        f.setClosingDateFestival(c.getClosingTimeConcert());
-                        f.setClosingTimeFestival(c.getClosingTimeConcert());                        
+                        f.setClosingDateFestival((FechasHoras)c.getClosingTimeConcert());
+                        f.setClosingTimeFestival((FechasHoras)c.getClosingTimeConcert());                        
                     }
                     else if(f.getStartDate().after(c.getStartDate())){
                         // Si la fecha del concierto que abre el festival es posterior a la
                         // fecha del nuevo concierto añadido al festival actualizo las fechas
-                        f.setStartDateFestival(c.getStartDate());
-                        f.setStartTimeFestival(c.getStartTimeConcert());  
+                        f.setStartDateFestival((FechasHoras)c.getStartDate());
+                        f.setStartTimeFestival((FechasHoras)c.getStartTimeConcert());  
                     }
                     return true;
                     

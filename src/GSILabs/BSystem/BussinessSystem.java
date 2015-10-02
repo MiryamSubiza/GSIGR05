@@ -1091,17 +1091,19 @@ public class BussinessSystem implements TicketOffice {
             Iterator i = al.iterator();
             while(i.hasNext()){
                 Concert concertAux = (Concert)i.next();
-                if(concertAux.getPerformer().equals(c.getPerformer()) && concertAux.getStartDate().equals(c.getStartDate())){
+                if(concertAux.getPerformer().getName().equalsIgnoreCase(c.getPerformer().getName()) && concertAux.getStartDate().equals(c.getStartDate())){
 
                     //Quiere decir que el performer de dicho concierto actua el mismo dia
                     //por lo tanto no puede introducirse el concierto
+                    System.out.println("El concierto esta mal por performer y fecha");
                     return false;
 
                 }
-                else if(concertAux.getLocation().equals(c.getLocation()) && concertAux.getStartDate().equals(c.getStartDate())){
+                else if(concertAux.getLocation().getName().equalsIgnoreCase(c.getLocation().getName()) && concertAux.getStartDate().equals(c.getStartDate())){
                     
                     //Quiere decir que ambos conciertos tienen lugar en la
                     //misma localizacion en la misma fecha
+                    System.out.println("El concierto esta mal por performer y fecha");
                     return false;
                     
                 }
@@ -1112,6 +1114,7 @@ public class BussinessSystem implements TicketOffice {
 
         }
         else{ // El performer o la localizacion del concierto no existen en el sistema
+            System.out.println("El performer o location no existen");
             return false;
         }        
         

@@ -455,9 +455,7 @@ public class BusinessSystem implements TicketOffice {
             Exhibition exhibitionAux = (Exhibition)z.next();
             if (exhibitionAux.getName().contains(name)) al.add(exhibitionAux);
         }
-        Event[] eventos = new Event[al.size()];
-        al.toArray();
-        return eventos;
+        return (Event[])al.toArray();
         
     }
     
@@ -485,9 +483,7 @@ public class BusinessSystem implements TicketOffice {
             Exhibition exhibitionAux = (Exhibition)z.next();
             if (exhibitionAux.getLocation().equals(loc)) al.add(exhibitionAux);
         }
-        Event[] eventos = new Event[al.size()];
-        al.toArray();
-        return eventos;
+        return (Event[])al.toArray();
         
     }
     
@@ -520,9 +516,7 @@ public class BusinessSystem implements TicketOffice {
             Exhibition exhibitionAux = (Exhibition)z.next();
             if (exhibitionAux.getStartDate().equals(d)) al.add(exhibitionAux);
         }
-        Event[] eventos = new Event[al.size()];
-        al.toArray();
-        return eventos;
+        return (Event[])al.toArray();
     }
     
     /**
@@ -874,10 +868,7 @@ public class BusinessSystem implements TicketOffice {
         Ticket[] tickets;
         //Si no hay tickets vendidos al cliente dado, devolvemos null
         if (alTickets.isEmpty()) return null;
-        else { 
-            tickets = (Ticket[]) alTickets.toArray();
-            return tickets;
-        }
+        else return (Ticket[]) alTickets.toArray();
     }
     
     /**
@@ -1069,15 +1060,18 @@ public class BusinessSystem implements TicketOffice {
      * @return A list of 0+ locations
      */
     public Location[] getLocations(int minCapacity) {
-        Location[] locsMinCapacity;
+        
+        ArrayList <Location> al = new ArrayList();
         Iterator i = locations.values().iterator();
         Location locationAux = null;
         while (i.hasNext()) {
             locationAux = (Location)i.next();
-            if (locationAux.getMaxCapacity() >= minCapacity) {
-                
-            }
+            if (locationAux.getMaxCapacity() >= minCapacity) al.add(locationAux);
         }
+        /*Location[] locsMinCapacity = new Location[al.size()];
+        locsMinCapacity = (Location[]) al.toArray();*/
+        return (Location[]) al.toArray();
+        
     }
     
     // Mira si un concierto cumple los requisitos para poder ser añadido al sistema

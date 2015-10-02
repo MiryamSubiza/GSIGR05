@@ -23,14 +23,10 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 public class Ticket {
     
-    //int id;
     private Event event; //Puede ser un Concierto, un Festival o una Exposición
     //Clave: Identificador para una persona
     //Valor: False si no ha entrado y True si ha entrado al evento
     private HashMap <Integer,Boolean> people; 
-    // PARA ACCEDER A LOS ELEMENTOS LOS BUSCAMOS CON containsKey() Y LUEGO PARA VER 
-    //EL VALOR DE LA KEY ASOCIADA USAS get(Key K)
-    private ArrayList al;
     //Cantidad de personas que pueden acceder al evento con esta entrada (una o varias)
     private int numberOfPeople;
     //True si el ticket ha sido vendido a un cliente, false en caso contrario
@@ -45,10 +41,6 @@ public class Ticket {
         for (int i = 1; i <= numberOfPeople; i++) {
             people.put(atomicInteger.getAndIncrement(), false);
         }
-        //Introducimos los valores (booleanos) del HashMap a un ArrayList para poder acceder a ellos
-        // ¡¡¡CREO QUE ESTO NO SIRVE!!! PORQUE CUANDO SE MODIFIQUE UN VALOR EN EL HASHMAP,
-        // NO SE MODIFICA EN EL ARRAYLIST. HABRÍA QUE MIRARLO TODO EL RATO, NO EN EL CONSTRUCTOR
-        al = new ArrayList(people.values());
         this.numberOfPeople = numberOfPeople;
         this.sold = false;
         

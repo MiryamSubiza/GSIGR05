@@ -31,14 +31,14 @@ public class FechasHoras extends java.util.Date {
     }
     
     public FechasHoras (String fecha, String hora) {
-        //Suponemos que el String fecha recibido tiene el formato "dd/mm/aaaa"
+        //Asumimos que el String fecha recibido tiene el formato "dd/mm/aaaa"
         String dd = fecha.substring(0,2);
         this.dia = Integer.parseInt(dd);
         String mm = fecha.substring(3,5);
         this.mes = Integer.parseInt(mm);
         String aaaa = fecha.substring(6,10);
         this.anio = Integer.parseInt(aaaa);
-        //Suponemos que el String hora recibido tiene el formato "hh:mm"
+        //Asumimos que el String hora recibido tiene el formato "hh:mm"
         String hh = hora.substring(0,2);
         this.hora = Integer.parseInt(hh);
         String min = hora.substring(3,5);

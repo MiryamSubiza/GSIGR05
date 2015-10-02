@@ -22,9 +22,9 @@ public class Sales {
     private Client client; //Cliente que ha realizado la compra
     private float price; //Precio de la entrada que se ha comprado
     private String cCard; //Tarjeta de crédito con la que se ha realizado la compra
-    private Date dateSale; //Momento en el que la venta se ha producido
+    private FechasHoras dateSale; //Momento en el que la venta se ha producido
     
-    public Sales (Ticket ticket, Client client, float price, String cCard, Date dateSale) {
+    public Sales (Ticket ticket, Client client, float price, String cCard, FechasHoras dateSale) {
         
         this.ticket = ticket;
         this.client = client;
@@ -66,11 +66,11 @@ public class Sales {
         return this.cCard;
     }
     
-    public void setDateSale (Date dateSale) {
+    public void setDateSale (FechasHoras dateSale) {
         this.dateSale = dateSale;
     }
     
-    public Date getDateSale () {
+    public FechasHoras getDateSale () {
         return this.dateSale;
     }
     

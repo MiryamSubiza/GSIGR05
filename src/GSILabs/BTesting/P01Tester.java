@@ -44,7 +44,7 @@ public class P01Tester {
         Artist a6 = new Artist("Lírico", "David Gilaberte, MC zaragozano");
         Artist a7 = new Artist("Sho-Hai", "Sergio Rodríguez, MC zaragozano");
         Artist a8 = new Artist("R de Rumba", "Rubén Cuevas, DJ zaragozano");
-        Artist a9 = new Artist("Alex Papito", "Master BOSS del Karoke");
+        Artist a9 = new Artist("Alex Papito", "Master BOSS del Karaoke");
         Artist a10 = new Artist("Rasking", "Coros del famoso grupo Alex y los Rebujitos");
         
         bussinessSystem.addArtist(a1);
@@ -89,6 +89,7 @@ public class P01Tester {
         bussinessSystem.addLocation(l4);
         bussinessSystem.addLocation(l5);
         bussinessSystem.addLocation(l6);
+        bussinessSystem.addLocation(l7);
         
         //Concerts
         Concert con1 = new Concert("Concierto uno", col1, new FechasHoras("01/02/2016", "22:00"),
@@ -105,10 +106,10 @@ public class P01Tester {
             new FechasHoras("15/11/2015", "23:50"), l2);
         Concert con5 = new Concert("Concierto cinco", a7, new FechasHoras("03/02/2016", "21:15"),
             new FechasHoras("03/02/2016", "21:15"), new FechasHoras("03/02/2016", "20:15"),
-            new FechasHoras("03/02/2016", "23:50"), l2);
+            new FechasHoras("03/02/2016", "23:50"), l3);
         Concert con6 = new Concert("Concierto seis", a8, new FechasHoras("02/06/2016", "21:15"),
             new FechasHoras("02/06/2016", "21:15"), new FechasHoras("02/06/2016", "20:15"),
-            new FechasHoras("02/06/2016", "23:50"), l2);
+            new FechasHoras("02/06/2016", "23:50"), l5);
         Concert con7 = new Concert("We are Back Rebujitos", col3, new FechasHoras("06/11/2015", "12:00"),
             new FechasHoras("06/11/2015", "12:00"), new FechasHoras("06/11/2015", "10:00"),
             new FechasHoras("06/11/2015", "14:00"), l7);
@@ -117,6 +118,9 @@ public class P01Tester {
         bussinessSystem.addNewConcert(con2);
         bussinessSystem.addNewConcert(con3);
         bussinessSystem.addNewConcert(con4);
+        bussinessSystem.addNewConcert(con5);
+        bussinessSystem.addNewConcert(con6);
+        bussinessSystem.addNewConcert(con7);
         
         //Festivals
         Festival f1 = new Festival("Festival uno", con2, new FechasHoras("14/11/2015", "20:00"),
@@ -132,8 +136,28 @@ public class P01Tester {
         f2.addConcert(con5);
         bussinessSystem.addNewFestival(f2);
         
+        //Exhibitions
+        Collective colEx1 = new Collective(a4, "Raperos", "Varios MC's");
+        colEx1.addArtistToCollective(a5);
+        colEx1.addArtistToCollective(a7);
+        Exhibition ex1 = new Exhibition("Exposición uno", "Exposición de RAP", "Eterno miusik",
+            new FechasHoras("15/05/2016", "15:30"), new FechasHoras("20/05/2016", "20:30"),
+            new FechasHoras("15/05/2016", "15:30"), new FechasHoras("20/05/2016", "20:30"),
+            colEx1, "www.eternomiusik.org", l1);
+        Exhibition ex2 = new Exhibition("Exposición dos", "Exposición de Nach", "Universal music",
+            new FechasHoras("21/08/2016", "17:30"), new FechasHoras("28/08/2016", "20:00"),
+            new FechasHoras("21/08/2016", "17:30"), new FechasHoras("28/08/2016", "20:00"),
+            a4, "www.universalmusic.es", l6);
+        Exhibition ex3 = new Exhibition("Exposición tres", "Exposición de Kase-O", "Rap solo",
+            new FechasHoras("26/09/2016", "16:45"), new FechasHoras("26/09/2016", "21:00"),
+            new FechasHoras("26/09/2016", "16:45"), new FechasHoras("26/09/2016", "21:00"),
+            a5, "www.rapsolozgz.com", l3);
         
+        bussinessSystem.addNewExhibition(ex1);
+        bussinessSystem.addNewExhibition(ex2);
+        bussinessSystem.addNewExhibition(ex3);
         
+        //Tickets
         
         /*
         

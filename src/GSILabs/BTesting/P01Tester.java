@@ -361,7 +361,7 @@ public class P01Tester {
         else System.out.println("Artista no añadido, el nombre del artista ya existe en otro artista o colectivo");
         
         System.out.println("\nIntroducción del siguiente colectivo:");
-        Collective collectiveS3 = new Collective(artistS3, "Stardust", "Cantante de rock");
+        collectiveS3 = new Collective(artistS3, "Stardust", "Cantante de rock");
         System.out.println(collectiveS3);
         if (bussinessSystem.addCollective(collectiveS3)) System.out.println("El colectivo ha sido añadido correctamente");
         else System.out.println("Colectivo no añadido, el nombre del colectivo ya existe en otro artista o colectivo");
@@ -384,7 +384,7 @@ public class P01Tester {
         System.out.println("Introducción del siguiente colectivo:");        
         System.out.println(collectiveS3);
         
-        if (bussinessSystem.addArtist(artistS3)) System.out.println("El colectivo ha sido añadido correctamente");
+        if (bussinessSystem.addCollective(collectiveS3)) System.out.println("El colectivo ha sido añadido correctamente");
         else System.out.println("El colectivo no ha sido añadido, el nombre del colectivo ya existe en otro artista o colectivo");
         
     }

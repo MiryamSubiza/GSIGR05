@@ -50,7 +50,7 @@ public class Client {
     }
     
     /**
-     * Establecer identificador numérico
+     * Establecer identificador numérico único
      * @param id Identificador numérico único
      */
     public void setId (int id) {
@@ -132,7 +132,7 @@ public class Client {
      * Obtener fecha de nacimiento
      * @return Fecha de nacimiento
      */
-    public Date getBirthday () {
+    public FechasHoras getBirthday () {
         return birthday;
     }
     
@@ -162,18 +162,26 @@ public class Client {
         return creditCards.contains(cCard);
     }
     
+    /**
+     * Comparación entre dos objetos Client
+     * @param o Objeto a comparar
+     * @return True si tienen el mismo identificador numérico. False en caso contrario
+     */
     @Override
     public boolean equals (Object o) {
         
         if (o instanceof Client) {
             Client c = (Client)o;
-            if (this.getId() == c.getId()) return true;
-            else return false;
+            return this.getId() == c.getId();
         }
         else return false;
         
     }
     
+    /**
+     * Representación por pantalla
+     * @return Información a mostrar
+     */
     @Override
     public String toString() {
         String cards = "";
@@ -186,8 +194,8 @@ public class Client {
             else cards = (cards + ", " + cCardAux);
             cont++;
         }
-        return "CLIENT\nDNI: " + dni + "\nName: " + name + "\nLast name: " +
-                lastName + "\nBirthday: " + birthday + "Credit cards: "
+        return "CLIENT\nID: " + id + "\nDNI: " + dni + "\nName: " + name + "\nLast name: " +
+                lastName + "\nBirthday: " + birthday.fechaToString() + "\nCredit cards: "
                 + cards + "\n";
     }
 

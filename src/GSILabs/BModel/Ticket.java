@@ -8,30 +8,34 @@
 
 package GSILabs.BModel;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
- * 
+ * Representa el derecho mono o multipersonal para entrar a un evento, validando
+ * el acceso de una o más personas
  * @author subiza.79082
  * @author izu.78236
- * @version 1.0 (18/09/2015)
+ * @version 03/10/2015
  */
 public class Ticket {
     
-    private Event event; //Puede ser un Concierto, un Festival o una Exposición
+    private Event event;
     //Clave: Identificador para una persona
     //Valor: False si no ha entrado y True si ha entrado al evento
-    private HashMap <Integer,Boolean> people; 
-    //Cantidad de personas que pueden acceder al evento con esta entrada (una o varias)
+    private HashMap <Integer,Boolean> people;
     private int numberOfPeople;
     //True si el ticket ha sido vendido a un cliente, false en caso contrario
     private boolean sold;
     
+    /**
+     * Método constructor, inicialización de variables
+     * @param event Evento al que se accede, puede ser Concierto, Festival o Exposición
+     * @param atomicInteger Identificador único
+     * @param numberOfPeople Cantidad de personas que pueden acceder al evento con esta entrada (una o varias)
+     */
     public Ticket (Event event, AtomicInteger atomicInteger, int numberOfPeople) {
         
         this.event = event;
@@ -44,43 +48,80 @@ public class Ticket {
         
     }
     
+    /**
+     * Establecer evento
+     * @param event Evento al que se accede
+     */
     public void setEvent (Event event) {
         this.event = event;
     }
     
+    /**
+     * Obtener evento
+     * @return Evento al que se accede
+     */
     public Event getEvent () {
         return event;
     }
     
+    /**
+     * Establecer cantidad de personas 
+     * @param numberOfPeople Cantidad de personas que pueden entrar con esta entrada
+     */
     public void setNumberOfPeople (int numberOfPeople) {
         this.numberOfPeople = numberOfPeople;
     }
     
+    /**
+     * Obtener cantidad de personas
+     * @return Cantidad de personas que pueden entrar con esta entrada
+     */
     public int getNumberOfPeople () {
         return numberOfPeople;
     }
     
+    /**
+     * Modificar entrada a vendida 
+     * @param sold True si se ha vendido. False en caso contrario
+     */
     public void setSold (boolean sold) {
         this.sold = sold;
     }
     
+    /**
+     * Comprobación de entrada vendida o no vendida
+     * @return True si se ha vendido. False en caso contrario
+     */
     public boolean isSold () {
         return sold;
     }
     
-    //Devuelve true si la entrada contiene este identificador
-    //y false en caso contrario
+    /**
+     * Comprobación de identificador en entrada
+     * @param identifier Identificador a buscar
+     * @return True si la entrada contiene este identificador.
+     *  False en caso contrario
+     */
     public boolean checkIdentifierInTicket (int identifier) {
         return people.containsKey(identifier);
     }
     
-    //Devuelve true si el identificador ha sido utilizado
-    //y false en caso contrario
+    /**
+     * Comprobación de identificador utilizado
+     * @param identifier Identificador a comprobar
+     * @return True si el identificador ha sido utilizado.
+     *  False en caso contrario
+     */
     public boolean checkIdentifierIsUsed (int identifier) {
         return (boolean)people.get(identifier); //Le pasas una Key y te devuelve el Value
     }
     
-    //Devuelve verdadero si el id no había sido usado previamente
+    /**
+     * Modificar un identificador no utilizado a utilizado
+     * @param id Identificador a modificar
+     * @return True si el identificador no había sido utilizado previamente y se ha
+     * cambiado a utilizado. False en caso contrario
+     */
     public boolean setIDUsed (int id) {
         if (!people.get(id)) { //No había sido usado
             people.put(id, true);
@@ -89,7 +130,10 @@ public class Ticket {
         else return false;
     }
     
-    //Devuelve un array de enteros con los identificadores que hay en este ticket
+    /**
+     * Obtener los identificadores que componen esta entrada
+     * @return Array de enteros con los identificadores que pertenecen a esta entrada
+     */
     public int[] getIdentifiers () {
         Set ids = people.keySet();
         int[] idsArray;
@@ -105,6 +149,10 @@ public class Ticket {
         return idsArray;
     }
     
+    /**
+     * Representación por pantalla
+     * @return Información a mostrar
+     */
     @Override
     public String toString() {
         String availability;

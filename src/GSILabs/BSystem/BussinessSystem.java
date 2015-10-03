@@ -10,6 +10,7 @@ package GSILabs.BSystem;
 
 import GSILabs.BModel.*;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -68,28 +69,19 @@ public class BussinessSystem implements TicketOffice {
     @Override
     public boolean addNewConcert(Concert c){
         
-        if(c != null){ // si el concierto c no es nulo compruebo si se puede introducir                               
-            if(!(concerts.containsKey(c.getName()) || festivals.containsKey(c.getName()) || exhibitions.containsKey(c.getName()))){// Si la respuesta es true entonces puedo añadir el concierto
-            
+        if(c != null){ // Si el concierto c no es nulo compruebo si se puede introducir                               
+            if (!(concerts.containsKey(c.getName()) || festivals.containsKey(c.getName()) 
+                    || exhibitions.containsKey(c.getName()))){// Si la respuesta es true entonces puedo añadir el concierto
                 if(isConcertOK(c)){
                 // Dentro del metodo comprueba que las condiciones para añadir el concierto son correctas
                     concerts.put(c.getName(), c);
                     return true;
                 }                
-                else{
-                    // El concierto esta mal
-                    return false;
-                }
-                
+                else return false; // El concierto está mal                
             }
-            else{ // El nombre del concierto ya existe
-                return false;
-            }
-            
+            else return false; // El nombre del concierto ya existe
         }
-        else{ // el concierto c es nulo y por tanto no se puede introducir   
-            return false;           
-        }
+        else return false; // El concierto c es nulo y por tanto no se puede introducir
         
     }
     
@@ -101,31 +93,19 @@ public class BussinessSystem implements TicketOffice {
      *  not clash with the information already in the system. False otherwise.
      */
     @Override
-    public boolean replaceConcert(Concert c){ // NO ESTA BIEN DEL TODO CREO
+    public boolean replaceConcert(Concert c){
         
         if(c != null){ // si el concierto no es null continuo
-            
-            if(concerts.containsKey(c.getName())){ 
-            // Si encuentra el concierto a reemplazar procede a mirar si es correcto dicho concierto
-                if(isConcertOKToReplace(c)){
-                // Dentro del metodo comprueba que las condiciones para reemplazar el concierto son correctas
+            if(concerts.containsKey(c.getName())){ // Si encuentra el concierto a reemplazar procede a mirar si es correcto dicho concierto
+                if(isConcertOKToReplace(c)){ // Dentro del metodo comprueba que las condiciones para reemplazar el concierto son correctas
                     concerts.replace(c.getName(),c);
                     return true;
                 }
-                else{ // El concierto a reemplazar no es correcto
-                    return false;
-                }
+                else return false; // El concierto a reemplazar no es correcto
             }
-            else{ // El conciert no lo ha encontrado
-                return false;
-            }
-            
+            else return false; // El conciert no lo ha encontrado            
         } // El concierto es nulo
-        else{
-            
-            return false;
-            
-        }
+        else return false;
         
     }
     
@@ -140,9 +120,7 @@ public class BussinessSystem implements TicketOffice {
     public boolean deleteConcert(Concert c){ // NO ESTOY SEGURO SI ESTA BIEN HECHO
         
         if(c !=null){ // Si el concierto c no es nulo procedo a su eliminacion
-            
             if(concerts.containsKey(c.getName())){ // Si el concierto existe en el HashMap lo eliminará
-                
                 ArrayList al = new ArrayList(festivals.values());
                 Iterator i = al.iterator();
                 Festival festivalAux = null;
@@ -155,19 +133,11 @@ public class BussinessSystem implements TicketOffice {
                         break;
                     }
                 }
-                
                 return concerts.remove(c.getName(),c); // Devolvera true si esta y lo borra false en caso contrario
             }
-            else{
-                return false;
-            }
-            
+            else return false;
         }
-        else{
-            
-            return false;
-           
-        }
+        else return false;
     }
     
     /**
@@ -180,20 +150,12 @@ public class BussinessSystem implements TicketOffice {
         
         if(f != null){ // si el concierto c no es nulo compruebo si se puede introducir                               
             if(!(concerts.containsKey(f.getName()) || festivals.containsKey(f.getName()) || exhibitions.containsKey(f.getName()))){// Si la respuesta es true entonces puedo añadir el concierto
-                
                 festivals.put(f.getName(), f); 
                 return true;
-                
             }
-            else{ // El nombre del concierto ya existe
-                return false;
-            }
-            
+            else return false; // El nombre del concierto ya existe
         }
-        else{ // el concierto c es nulo y por tanto no se puede introducir            
-            return false;           
-        }
-        
+        else return false; // el concierto c es nulo y por tanto no se puede introducir
     }
     
     /**
@@ -210,10 +172,7 @@ public class BussinessSystem implements TicketOffice {
             if(festivals.containsKey(f.getName()) && concerts.containsKey(c.getName())){
                 // Si el festival y el concierto existen procedo a mirar si dicho concierto esta en ese festival
                 HashSet <Concert> concertsFestival = f.getConcerts();
-                if(concertsFestival.contains(c)){
-                    // El concierto existe dentro del festival
-                    return false;
-                }
+                if(concertsFestival.contains(c)) return false; // El concierto existe dentro del festival
                 else{ // El concierto no existe dentro del festival
                     f.addConcert(c);
                     if(f.getEndingDate().before(c.getClosingTimeConcert())){
@@ -229,17 +188,11 @@ public class BussinessSystem implements TicketOffice {
                         f.setStartTimeFestival((FechasHoras)c.getStartTimeConcert());  
                     }
                     return true;
-                    
                 }
-                
             }
-            else{ // Si el concierto o el festival no existen en el sistema
-                return false;
-            }
+            else return false; // Si el concierto o el festival no existen en el sistema
         }
-        else{ // Alguno de los argumentos o ambos son nulos
-            return false;
-        }
+        else return false; // Alguno de los argumentos o ambos son nulos
     }
     
     /**
@@ -253,18 +206,13 @@ public class BussinessSystem implements TicketOffice {
     public boolean replaceFestival(Festival f){
         
         if(f != null){ // Si el festival a reemplazar no es nulo procedo a su reemplazo
-            
             if(festivals.containsKey(f.getName())){ // Si encuentra el festival a reemplazar lo reemplaza
                 festivals.replace(f.getName(), f);
                 return true;
             }
-            else{ // El festival que quiere reemplazar no existe
-                return false;
-            }
+            else return false; // El festival que quiere reemplazar no existe
         }
-        else{ // El festival f es nulo
-            return false;
-        }
+        else return false; // El festival f es nulo
         
     }
     
@@ -279,7 +227,6 @@ public class BussinessSystem implements TicketOffice {
     public boolean deleteFestival(Festival f){
         
         if(f != null){ // Si no es null procedo a su eliminacion
-            
             if(festivals.containsValue(f)){ 
                 // Si el festival que quiere eliminar existe dentro de mi coleccion
                 // procedo a su eliminacion junto a la de sus conciertos
@@ -295,15 +242,10 @@ public class BussinessSystem implements TicketOffice {
                 // Una vez he eliminado todos los conciertos del festival f
                 // procedo a eliminar el festival de la colección.
                 return festivals.remove(f.getName(), f);
-                
             }
-            else{ // El festival no existe dentro de la colección
-                return false;
-            }
+            else return false; // El festival no existe dentro de la colección
         }
-        else{ // El festival f es nulo
-            return false;
-        }
+        else return false; // El festival f es nulo
     }
     
     /**
@@ -326,20 +268,11 @@ public class BussinessSystem implements TicketOffice {
                     exhibitions.put(e.getName(),e);
                     return true;
                 }
-                else{ 
-                    // La exhibition no cumple los requisitos necesarios
-                    return false;
-                }
+                else return false; // La exhibition no cumple los requisitos necesarios
             }
-            else{ 
-                // La exhibicion tiene el mismo nombre que otro evento por lo tanto no se introduce
-                return false;
-            }
+            else return false; // La exhibicion tiene el mismo nombre que otro evento por lo tanto no se introduce
         }
-        else{ 
-            // La exhibición e es nula
-            return false;
-        }
+        else return false; // La exhibición e es nula
     }
     
     /**
@@ -364,21 +297,11 @@ public class BussinessSystem implements TicketOffice {
                     exhibitions.replace(e.getName(), e);
                     return true;
                 }
-                else{
-                    // La exhibicion no es correcta y por lo tanto no se puede
-                    // reemplazar
-                    return false;
-                }
+                else return false; // La exhibicion no es correcta y por lo tanto no se puede reemplazar
             }
-            else{
-                // La exhibicion a reemplazar no se encuentra en el sistema
-                return false;                        
-            }
+            else return false; // La exhibicion a reemplazar no se encuentra en el sistema
         }
-        else{
-            // La exhibicion a reemplazar es nula
-            return false;
-        }
+        else return false; // La exhibicion a reemplazar es nula
     }
     
     /**
@@ -389,22 +312,14 @@ public class BussinessSystem implements TicketOffice {
      */
     @Override
     public boolean deleteExhibition(Exhibition e){
-        
         if(e != null){ // Compruebo que la exhibicion e no sea nula
             if(exhibitions.containsValue(e)){
                 // Si el sistema contiene la exhibicion a eliminar procedemos a eliminarla
                 return exhibitions.remove(e.getName(), e);
             }
-            else{
-                // El sistema no contiene a la exhibicion
-                return false;
-            }
+            else return false; // El sistema no contiene a la exhibicion
         }
-        else{
-            // La exhibicion a eliminar es nula
-            return false;
-        }
-        
+        else return false; // La exhibicion a eliminar es nula
     }
     
     /**
@@ -415,15 +330,9 @@ public class BussinessSystem implements TicketOffice {
     @Override
     public boolean existsEvent(Event e){
         
-        if(e instanceof Concert){
-            return concerts.containsValue(e);
-        }
-        else if(e instanceof Festival){
-            return festivals.containsValue(e);
-        }
-        else if(e instanceof Exhibition){
-            return exhibitions.containsValue(e);
-        }
+        if(e instanceof Concert) return concerts.containsValue(e);
+        else if(e instanceof Festival) return festivals.containsValue(e);
+        else if(e instanceof Exhibition) return exhibitions.containsValue(e);
         return false;
         
     }
@@ -458,7 +367,7 @@ public class BussinessSystem implements TicketOffice {
             Exhibition exhibitionAux = (Exhibition)z.next();
             if (exhibitionAux.getName().contains(name)) al.add(exhibitionAux);
         }
-        return (Event[])al.toArray();
+        return (Event[]) al.toArray(new Event[al.size()]);
         
     }
     
@@ -517,7 +426,7 @@ public class BussinessSystem implements TicketOffice {
             Exhibition exhibitionAux = (Exhibition)z.next();
             if (exhibitionAux.getLocation().equals(loc)) al.add(exhibitionAux);
         }
-        return (Event[])al.toArray();
+        return (Event[]) al.toArray(new Event[al.size()]);
         
     }
     
@@ -550,7 +459,8 @@ public class BussinessSystem implements TicketOffice {
             Exhibition exhibitionAux = (Exhibition)z.next();
             if (exhibitionAux.getStartDate().equals(d)) al.add(exhibitionAux);
         }
-        return (Event[])al.toArray();
+        return (Event[]) al.toArray(new Event[al.size()]);
+
     }
     
     /**
@@ -562,23 +472,15 @@ public class BussinessSystem implements TicketOffice {
     @Override
     public boolean addArtist(Artist a){
         if(a != null){ // Si el artista a no es nulo procedo a añadirlo
-            
             if(!(artists.containsKey(a.getName())) || collectives.containsKey(a.getName())){
                 // Si el nombre del nuevo artista no esta cogido por otro artista
                 // o colectivo procedo a añadir
                 artists.put(a.getName(), a);
                 return true;
             }
-            else{
-                // El nombre del artista a añadir ya esta cogido
-                return false;
-            }
-            
+            else return false; // El nombre del artista a añadir ya esta cogido
         }
-        else{
-            // El artista a es nulo
-            return false;
-        }
+        else return false; // El artista a es nulo
     }
     
     /**
@@ -590,23 +492,15 @@ public class BussinessSystem implements TicketOffice {
     @Override
     public boolean addCollective(Collective c){
         if(c != null){ // Si el colectivo a no es nulo procedo a añadirlo
-            
             if(!(artists.containsKey(c.getName())) || collectives.containsKey(c.getName())){
                 // Si el nombre del nuevo colectivo no esta cogido por otro artista
                 // o colectivo procedo a añadir
                 collectives.put(c.getName(), c);
                 return true;
             }
-            else{
-                // El nombre del colectivo a añadir ya esta cogido
-                return false;
-            }
-            
+            else return false; // El nombre del colectivo a añadir ya esta cogido            
         }
-        else{
-            // El colectivo c es nulo
-            return false;
-        }
+        else return false; // El colectivo c es nulo
     }
     
     /**
@@ -618,7 +512,6 @@ public class BussinessSystem implements TicketOffice {
      */
     @Override
     public boolean modifyArtist(Artist a){
-        
         if(a != null){ // Si el artista a no es nulo procedo a ver si puedo modificarlo            
             if(artists.containsKey(a.getName())){
                 // Si el artista a modificar existe en el sistema
@@ -626,16 +519,9 @@ public class BussinessSystem implements TicketOffice {
                 artists.replace(a.getName(), a);
                 return true;
             }
-            else{
-                // El artista a no existe en el sistema
-                return false;
-            }
+            else return false; // El artista a no existe en el sistema
         }
-        else{
-            // El artista a es nulo
-            return false;
-        }
-        
+        else return false; // El artista a es nulo
     }
     
     /**
@@ -647,7 +533,6 @@ public class BussinessSystem implements TicketOffice {
      */
     @Override
     public boolean modifyCollective(Collective c){
-        
         if(c != null){ // Si el colectivo c no es nulo procedo a ver si puedo modificarlo            
             if(artists.containsKey(c.getName())){
                 // Si el colectivo a modificar existe en el sistema
@@ -655,16 +540,9 @@ public class BussinessSystem implements TicketOffice {
                 collectives.replace(c.getName(), c);
                 return true;
             }
-            else{
-                // El colectivo c no existe en el sistema
-                return false;
-            }
+            else return false; // El colectivo c no existe en el sistema
         }
-        else{
-            // El colectivo c es nulo
-            return false;
-        }
-        
+        else return false; // El colectivo c es nulo
     }
     
     /**
@@ -703,12 +581,8 @@ public class BussinessSystem implements TicketOffice {
             removeEventsOfPerformer(colectivo);
             return collectives.remove(performerName, colectivo);
         }
-        else{
-            // El nombre del performer no coincide con ningún performer
-            // del sistema, por lo tanto no lo eliminamos
-            return false;
-        }
-        
+        // El nombre del performer no coincide con ningún performer del sistema, por lo tanto no lo eliminamos
+        else return false;         
     }
     
     /**
@@ -718,17 +592,9 @@ public class BussinessSystem implements TicketOffice {
      */
     @Override
     public boolean existsPerformer(String performerName){
-        
-        if(artists.containsKey(performerName) || collectives.containsKey(performerName)){
-            // Si el performerName coincide con algún nombre de
-            // algún artista o colectivo entro aquí
-            return true;
-        }
-        else{
-            // El performer no existe
-            return false;
-        }
-        
+        // Si el performerName coincide con algún nombre de algún artista o colectivo entro aquí
+        if(artists.containsKey(performerName) || collectives.containsKey(performerName)) return true;
+        else return false; // El performer no existe
     }
     
     /**
@@ -738,16 +604,9 @@ public class BussinessSystem implements TicketOffice {
      */
     @Override
     public boolean existsArtist(String artistName){
-        
-        if(artists.containsKey(artistName)){
-            // Si el performerName coincide con algún nombre de
-            // algún artista o colectivo entro aquí
-            return true;
-        }
-        else{
-            // El performer no existe
-            return false;
-        }
+        // Si el performerName coincide con algún nombre de algún artista o colectivo entro aquí
+        if(artists.containsKey(artistName)) return true;
+        else return false; // El performer no existe
     }
     
     /**
@@ -756,17 +615,9 @@ public class BussinessSystem implements TicketOffice {
      * @return True if and only if it exists
      */
     public boolean existsCollective(String artistName){
-        
-        if(collectives.containsKey(artistName)){
-            // Si el performerName coincide con algún nombre de
-            // algún artista o colectivo entro aquí
-            return true;
-        }
-        else{
-            // El performer no existe
-            return false;
-        }
-        
+        // Si el performerName coincide con algún nombre de algún artista o colectivo entro aquí
+        if(collectives.containsKey(artistName)) return true;
+        else return false; // El performer no existe
     }
     
     /**
@@ -776,20 +627,12 @@ public class BussinessSystem implements TicketOffice {
      */
     @Override
     public Performer retrievePerformer(String performerName){
-        
-        if(artists.containsKey(performerName)){
-            // Si el performer es un artista
-            return artists.get(performerName);
-        }
-        else if(collectives.containsKey(performerName)){
-            // Si el performer es un colectivo
-            return collectives.get(performerName);
-        }
-        else{
-            // Si el performer no existe envio un performer nulo
-            return null;
-        }
-        
+        // Si el performer es un artista
+        if(artists.containsKey(performerName)) return artists.get(performerName);
+        // Si el performer es un colectivo
+        else if(collectives.containsKey(performerName)) return collectives.get(performerName);
+        // Si el performer no existe envio un performer nulo
+        else return null;        
     }
     
     // Client introduction, update and modification
@@ -803,7 +646,7 @@ public class BussinessSystem implements TicketOffice {
     @Override
     public boolean addClient(Client c) {
         Date actualDate = new Date();
-        if ((c != null) && ((actualDate.getYear() + 1900) - (c.getBirthday().getYear() + 1900) >= 18)) {
+        if ((c != null) && ((actualDate.getYear() + 1900) - (c.getBirthday().getAnio()) >= 18)) {
             clients.put(c.getId(), c);
             return true;
         }
@@ -826,9 +669,7 @@ public class BussinessSystem implements TicketOffice {
             }
             else return false;
         }
-        
-        else return false;
-        
+        else return false; 
     }
     
     /**
@@ -839,7 +680,7 @@ public class BussinessSystem implements TicketOffice {
      *      the card did not exist already for that client.
      */
     public boolean addCardToClient(Client c, String cCard) {
-        
+
         if (clients.containsKey(c.getId())) { //Si el cliente existe
             clients.get(c.getId()).addCreditCard(cCard);
             return true;
@@ -854,9 +695,7 @@ public class BussinessSystem implements TicketOffice {
      * @return True if an only if c is not null, well formed and exists in the system.
      */
     public boolean containsClient(Client c) {
-        if (c != null) {
-            return clients.containsKey(c.getId());
-        }
+        if (c != null) return clients.containsKey(c.getId());
         else return false;
     }
     
@@ -875,9 +714,7 @@ public class BussinessSystem implements TicketOffice {
      * @return The client, or null if no such Client exists
      */
     public Client retrieveClient(int identifier) {
-        if (clients.containsKey(identifier)) {
-            return clients.get(identifier);
-        }
+        if (clients.containsKey(identifier)) return clients.get(identifier);
         else return null;
     }
     
@@ -899,10 +736,9 @@ public class BussinessSystem implements TicketOffice {
                 alTickets.add(saleAux.getTicket());
             }
         }
-        Ticket[] tickets;
         //Si no hay tickets vendidos al cliente dado, devolvemos null
         if (alTickets.isEmpty()) return null;
-        else return (Ticket[]) alTickets.toArray();
+        else return (Ticket[]) alTickets.toArray(new Ticket[alTickets.size()]);
     }
     
     /**
@@ -1019,15 +855,20 @@ public class BussinessSystem implements TicketOffice {
      *      sale could be registered (e.g. the ticket was not sold in beforehand, etc.)
      */
     public boolean addSale(Ticket t,Client c,Float price,String cCard) {
-        Date actualDate = new Date();
+        Calendar actualDate = Calendar.getInstance();
+        actualDate.setTime(new Date());
         if (tickets.containsValue(t) && clients.containsValue(c) && c.isCreditCard(cCard) && !t.isSold()) {
             c.addSaleToClient(t);
             t.setSold(true);
-            sales.add(new Sales(t, c, price, cCard, (FechasHoras)actualDate));
+            sales.add(new Sales(t, c, price, cCard, new FechasHoras(actualDate.get(Calendar.DAY_OF_MONTH), 
+                actualDate.get(Calendar.MONTH)+1, actualDate.get(Calendar.YEAR), 
+                actualDate.get(Calendar.HOUR), actualDate.get(Calendar.MINUTE))));
             return true;
         }
         else return false;
     }
+    
+    
     
     // Locations
     
@@ -1102,9 +943,7 @@ public class BussinessSystem implements TicketOffice {
             locationAux = (Location)i.next();
             if (locationAux.getMaxCapacity() >= minCapacity) al.add(locationAux);
         }
-        /*Location[] locsMinCapacity = new Location[al.size()];
-        locsMinCapacity = (Location[]) al.toArray();*/
-        return (Location[]) al.toArray();
+        return (Location[]) al.toArray(new Location[al.size()]);
         
     }
     
@@ -1119,29 +958,21 @@ public class BussinessSystem implements TicketOffice {
             while(i.hasNext()){
                 Concert concertAux = (Concert)i.next();
                 if(concertAux.getPerformer().getName().equalsIgnoreCase(c.getPerformer().getName()) && concertAux.getStartDate().equals(c.getStartDate())){
-
                     //Quiere decir que el performer de dicho concierto actua el mismo dia
                     //por lo tanto no puede introducirse el concierto
                     return false;
-
                 }
                 else if(concertAux.getLocation().getName().equalsIgnoreCase(c.getLocation().getName()) && concertAux.getStartDate().equals(c.getStartDate())){
-                    
                     //Quiere decir que ambos conciertos tienen lugar en la
                     //misma localizacion en la misma fecha
                     return false;
-                    
                 }
             }
             // Si ha salido del bucle y el programa sigue leyendo quiere decir no ha encontrado
             // un concierto donde el performer del concierto c actue el mismo día 
             return true;
-
         }
-        else{ // El performer o la localizacion del concierto no existen en el sistema         
-            return false;
-        }        
-        
+        else return false; // El performer o la localizacion del concierto no existen en el sistema        
     }
     
     // Mira si un concierto cumple los requisitos para poder ser reemplazado al sistema
@@ -1157,18 +988,14 @@ public class BussinessSystem implements TicketOffice {
                 if(!concertAux.getName().equalsIgnoreCase(c.getName())){
                     // Si no es el concierto que quiero reemplazar miro si es correcta
                     if(concertAux.getPerformer().equals(c.getPerformer()) && concertAux.getStartDate().equals(c.getStartDate())){
-
                         //Quiere decir que el performer de dicho concierto actua el mismo dia
                         //por lo tanto no puede introducirse el concierto
                         return false;
-
                     }
                     else if(concertAux.getLocation().equals(c.getLocation()) && concertAux.getStartDate().equals(c.getStartDate())){
-
                         //Quiere decir que ambos conciertos tienen lugar en la
                         //misma localizacion en la misma fecha
                         return false;
-
                     }
                 }
             }
@@ -1177,10 +1004,7 @@ public class BussinessSystem implements TicketOffice {
             return true;
 
         }
-        else{ // El performer o la localizacion del concierto no existen en el sistema
-            return false;
-        }        
-        
+        else return false; // El performer o la localizacion del concierto no existen en el sistema
     }
 
     // Mira si un exhibición cumple los requisitos para poder ser añadido al sistema
@@ -1197,18 +1021,14 @@ public class BussinessSystem implements TicketOffice {
             while(i.hasNext()){
                 Exhibition exhibitionAux = (Exhibition)i.next();
                 if(exhibitionAux.getPerformer().equals(e.getPerformer()) && exhibitionAux.getStartDate().equals(e.getStartDate())){
-
                     //Quiere decir que el performer de dicha exhibicion actua el mismo dia
                     //por lo tanto no puede introducirse la exhibicion
                     return false;
-
                 }
                 else if(exhibitionAux.getLocation().equals(e.getLocation()) && exhibitionAux.getStartDate().equals(e.getStartDate())){
-                    
                     //Quiere decir que ambas exhibiciones tienen lugar en la
                     //misma localizacion en la misma fecha
                     return false;
-                    
                 }
             }
             // Si ha salido del bucle y el programa sigue leyendo quiere decir no ha encontrado
@@ -1217,10 +1037,7 @@ public class BussinessSystem implements TicketOffice {
             return true;
 
         }
-        else{ // El performer o la localizacion de la exhibicion no existen en el sistema
-            return false;
-        }  
-        
+        else return false; // El performer o la localizacion de la exhibicion no existen en el sistema
     }
     
     // Mira si un exhibición cumple los requisitos para poder ser reemplazado al sistema
@@ -1239,18 +1056,14 @@ public class BussinessSystem implements TicketOffice {
                 if(!exhibitionAux.getName().equalsIgnoreCase(e.getName())){ 
                     // Si no es la exhibicion que quiero reemplazar miro si es correcta
                     if(exhibitionAux.getPerformer().equals(e.getPerformer()) && exhibitionAux.getStartDate().equals(e.getStartDate())){
-
                         //Quiere decir que el performer de dicha exhibicion actua el mismo dia
                         //por lo tanto no puede introducirse la exhibicion
                         return false;
-
                     }
                     else if(exhibitionAux.getLocation().equals(e.getLocation()) && exhibitionAux.getStartDate().equals(e.getStartDate())){
-
                         //Quiere decir que ambas exhibiciones tienen lugar en la
                         //misma localizacion en la misma fecha
                         return false;
-
                     }
                 }
             }
@@ -1260,10 +1073,7 @@ public class BussinessSystem implements TicketOffice {
             return true;
 
         }
-        else{ // El performer o la localizacion de la exhibicion no existen en el sistema
-            return false;
-        }  
-        
+        else return false;// El performer o la localizacion de la exhibicion no existen en el sistema
     }
 
     private void removeEventsOfPerformer(Performer p) {
@@ -1283,22 +1093,99 @@ public class BussinessSystem implements TicketOffice {
         // Elimino conciertos
         while(i.hasNext()){
             concertAux = (Concert)i.next();
-            if(concertAux.involvesPerformer(p)){
-                // Como el concierto involucra el performer elimino
-                // dicho concierto
-                deleteConcert(concertAux);
-            }
+            // Si el concierto involucra el performer elimino dicho concierto
+            if(concertAux.involvesPerformer(p)) deleteConcert(concertAux);
         }
         // Elimino exhibiciones
         while(j.hasNext()){
             exhibitionAux = (Exhibition)j.next();
-            if(exhibitionAux.involvesPerformer(p)){
-                // Como el concierto involucra el performer elimino
-                // dicho concierto
-                deleteExhibition(exhibitionAux);
-            }
+            // Si el concierto involucra el performer elimino dicho concierto
+            if(exhibitionAux.involvesPerformer(p)) deleteExhibition(exhibitionAux);
         }
-        
+    }
+    
+    /**
+     * Métodos para mostrar por pantalla los datos que tenemos actualmente en el sistema.
+     */
+    public void showArtists () {
+        Iterator i = artists.values().iterator();
+        Artist artistAux = null;
+        while (i.hasNext()) {
+            artistAux = (Artist)i.next();
+            System.out.println(artistAux.toString());
+        }
+    }
+    
+    public void showCollectives () {
+        Iterator i = collectives.values().iterator();
+        Collective collectiveAux = null;
+        while (i.hasNext()) {
+            collectiveAux = (Collective)i.next();
+            System.out.println(collectiveAux.toString());
+        }
+    }
+    
+    public void showLocations () {
+        Iterator i = locations.values().iterator();
+        Location locationAux = null;
+        while (i.hasNext()) {
+            locationAux = (Location)i.next();
+            System.out.println(locationAux.toString());
+        }
+    }
+    
+    public void showConcerts () {
+        Iterator i = concerts.values().iterator();
+        Concert concertAux = null;
+        while (i.hasNext()) {
+            concertAux = (Concert)i.next();
+            System.out.println(concertAux.toString());
+        }
+    }
+    
+    public void showFestivals () {
+        Iterator i = festivals.values().iterator();
+        Festival festivalAux = null;
+        while (i.hasNext()) {
+            festivalAux = (Festival)i.next();
+            System.out.println(festivalAux.toString());
+        }
+    }
+    
+    public void showExhibitions () {
+        Iterator i = exhibitions.values().iterator();
+        Exhibition exhibitionAux = null;
+        while (i.hasNext()) {
+            exhibitionAux = (Exhibition)i.next();
+            System.out.println(exhibitionAux.toString());
+        }
+    }
+    
+    public void showTickets () {
+        Iterator i = tickets.values().iterator();
+        Ticket ticketAux = null;
+        while (i.hasNext()) {
+            ticketAux = (Ticket)i.next();
+            System.out.println(ticketAux.toString());
+        }
+    }
+    
+    public void showClients () {
+        Iterator i = clients.values().iterator();
+        Client clientAux = null;
+        while (i.hasNext()) {
+            clientAux = (Client)i.next();
+            System.out.println(clientAux.toString());
+        }
+    }
+    
+    public void showSales () {
+        Iterator i = sales.iterator();
+        Sales saleAux = null;
+        while (i.hasNext()) {
+            saleAux = (Sales)i.next();
+            System.out.println(saleAux.toString());
+        }
     }
     
 }

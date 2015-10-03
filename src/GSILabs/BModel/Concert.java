@@ -11,21 +11,31 @@ package GSILabs.BModel;
 import java.util.Date;
 
 /**
- * 
+ * Evento protagonizado por un único performer y de un día de duración
  * @author subiza.79082
  * @author izu.78236
- * @version 1.0 (21/09/2015)
+ * @version 03/10/2015
  */
 public class Concert implements ImpermanentEvent {
     
-    private String concertName; //Nombre asociado con el evento
-    private Performer p; //Puede ser Artista o Colectivo, pero solamente uno
-    private FechasHoras startDateConcert; //Fecha del concierto (un solo día)
-    private FechasHoras startTimeConcert; //Hora de comienzo
-    private FechasHoras doorOpeningTimeConcert; //Hora de apertura de puertas
-    private FechasHoras closingTimeConcert; //Hora de cierre
-    private Location location; //Esta localización es única
+    private String concertName;
+    private Performer p;
+    private FechasHoras startDateConcert;
+    private FechasHoras startTimeConcert;
+    private FechasHoras doorOpeningTimeConcert;
+    private FechasHoras closingTimeConcert;
+    private Location location;
     
+    /**
+     * Método constructor, inicialización de variables
+     * @param concertName Nombre asociado con el evento
+     * @param p Performer, puede ser Artista o Colectivo, pero solamente uno
+     * @param startDateConcert Fecha del concierto (un solo día)
+     * @param startTimeConcert Hora de comienzo
+     * @param doorOpeningTimeConcert Hora de apertura de puertas
+     * @param closingTimeConcert Hora de cierre
+     * @param location Localización única
+     */
     public Concert (String concertName, Performer p, FechasHoras startDateConcert, 
             FechasHoras startTimeConcert, FechasHoras doorOpeningTimeConcert, 
             FechasHoras closingTimeConcert, Location location) {
@@ -40,69 +50,125 @@ public class Concert implements ImpermanentEvent {
         
     }
     
+    /**
+     * Establecer nombre del concierto
+     * @param concertName Nombre del concierto
+     */
     public void setConcertName (String concertName) {
         this.concertName = concertName;
     }
     
+    /**
+     * Establecer performer, ya sea artista o colectivo
+     * @param p Performer
+     */
     public void setPerformer (Performer p) {
         this.p = p;
     }
     
+    /**
+     * Obtener performer
+     * @return Performer, o artista o colectivo
+     */
     public Performer getPerformer () {
         return p;
     }
     
+    /**
+     * Establecer día del concierto
+     * @param startDateConcert Día del concierto
+     */
     public void setStartDateConcert (FechasHoras startDateConcert) {
         this.startDateConcert = startDateConcert;
     }
     
-    //Sobreescribe el método de ImpermanentEvent
+    /**
+     * Obtener día del concierto
+     * @return Día del concierto
+     */
     @Override
     public Date getStartDate () {
         return startDateConcert;
     }
     
+    /**
+     * Establecer hora de comienzo
+     * @param startTimeConcert Hora de comienzo
+     */
     public void setStartTimeConcert (FechasHoras startTimeConcert) {
         this.startTimeConcert = startTimeConcert;
     }
     
+    /**
+     * Obtener hora de comienzo
+     * @return Hora de comienzo
+     */
     public Date getStartTimeConcert () {
         return startTimeConcert;
     }
     
+    /**
+     * Establecer hora de apertura de puertas
+     * @param doorOpeningTimeConcert Hora de apertura de puertas
+     */
     public void setDoorOpeningTimeConcert (FechasHoras doorOpeningTimeConcert) {
         this.doorOpeningTimeConcert = doorOpeningTimeConcert;
     }
     
+    /**
+     * Obtener hora de apertura de puertas
+     * @return Apertura de puertas
+     */
     public Date getDoorOpeningTimeConcert () {
         return doorOpeningTimeConcert;
     }
     
+    /**
+     * Establecer hora de cierre
+     * @param closingTimeConcert Hora de cierre
+     */
     public void setClosingTimeConcert (FechasHoras closingTimeConcert) {
         this.closingTimeConcert = closingTimeConcert;
     }
     
+    /**
+     * Obtener hora de cierre
+     * @return Hora de cierre
+     */
     public Date getClosingTimeConcert () {
         return closingTimeConcert;
     }
     
+    /**
+     * Establecer localización
+     * @param location Localización del concierto
+     */
     public void setLocation (Location location) {
         this.location = location;
     }
     
-    //Sobreescribe el método de ImpermanentEvent
+    /**
+     * Obtener localización
+     * @return Localización
+     */
     @Override
     public Location getLocation () {
         return location;
     }
 
-    //Sobreescribe el método de Event
+    /**
+     * Obtener nombre del concierto
+     * @return Nombre del concierto
+     */
     @Override
     public String getName() {
         return concertName;
     }
     
-    //Sobreescribe el método de Event
+    /**
+     * Obtener fecha en la que ocurre el concierto
+     * @return Fecha del concierto
+     */
     @Override
     public Date[] getDates() {
         
@@ -114,7 +180,11 @@ public class Concert implements ImpermanentEvent {
         
     }
 
-    //Sobreescribe el método de Event
+    /**
+     * Comprobar si en este concierto actúa un performer dado
+     * @param pAskedFor Performer por el que se pregunta
+     * @return True si el performer actúa en el concierto. False en caso contrario
+     */
     //p es el performer que tenemos almacenado en la clase Concert
     //pAskedFor es el performer por el que preguntan si actúa en el concierto
     @Override
@@ -128,8 +198,7 @@ public class Concert implements ImpermanentEvent {
             //Preguntan por un artista y tenemos un artista, comparación por nombre
             if (pAskedFor instanceof Artist) {
                 Artist aAskedFor = (Artist) pAskedFor;
-                if (aInvolved.equals(aAskedFor)) return true;
-                else return false;
+                return aInvolved.equals(aAskedFor);
             }
             //Preguntan por un colectivo y tenemos un artista, directamente no está involucrado
             else if (pAskedFor instanceof Collective) return false;
@@ -141,15 +210,13 @@ public class Concert implements ImpermanentEvent {
             //Preguntan por un artista y tenemos un colectivo, mirar si el artista está en el colectivo
             if (pAskedFor instanceof Artist) {
                 Artist aAskedFor = (Artist) pAskedFor;
-                if (cInvolved.isArtistInCollective(aAskedFor)) return true;
-                else return false;
+                return cInvolved.isArtistInCollective(aAskedFor);
                 
             }
             //Preguntan por un colectivo y tenemos un colectivo, comparación por nombre
             else if (pAskedFor instanceof Collective) {
                 Collective cAskedFor = (Collective) pAskedFor;
-                if (cInvolved.equals(cAskedFor)) return true;
-                else return false;
+                return cInvolved.equals(cAskedFor);
             }
             else return false;
         }
@@ -157,7 +224,10 @@ public class Concert implements ImpermanentEvent {
         
     }
     
-    //Sobreescribe el método de Event
+    /**
+     * Obtener el performer que actúa en este evento
+     * @return Performer que actúa en este evento
+     */
     @Override
     public Performer[] getPerformers() {
         
@@ -169,9 +239,12 @@ public class Concert implements ImpermanentEvent {
         
     }
     
-    // Redefino el método equals() si un concierto contiene el mismo performer
-    // y además actúa en la misma fecha lo considero como conciertos iguales
-    // ya que un mismo artista no puede estar en dos conciertos el mismo día
+    /**
+     * Comparación entre dos objetos Concert
+     * @param o Objeto a comparar
+     * @return True si contienen el mismo performer y actúan en la misma fecha.
+     *  False en caso contrario
+     */
     @Override
     public boolean equals (Object o) {
         
@@ -179,37 +252,22 @@ public class Concert implements ImpermanentEvent {
             Concert c = (Concert)o;
             if (!c.getName().equalsIgnoreCase(this.getName())) { // Compruebo si los nombres de los conciertos son los mismos
                 if (involvesPerformer(c.getPerformer())) { // Compruebo si el artista participa en ambos conciertos
-                    if (c.getStartDate().equals(this.startDateConcert)) { // Compruebo si ambos conciertos son en la misma fecha
-                        return true;
-                    }
-                    else { // Los conciertos son en fechas distintas
-                        return false;
-                    }
+                    return c.getStartDate().equals(this.startDateConcert); // Compruebo si ambos conciertos son en la misma fecha
                 }
-                else { // Los artistas son distintos
-                    return false;
-                }
+                // Los artistas son distintos
+                else return false;
             }
-            else { // Los conciertos tienen el mismo nombre
-                return true;
-            }	
+            // Los conciertos tienen el mismo nombre
+            else return true;
         }
         else return false;
         
     }
-    /*
-    @Override
-    public boolean equals (Object o) {
-        
-        if (o instanceof Concert) {
-            Concert c = (Concert)o;
-            if (this.getName().equalsIgnoreCase(c.getName())) return true;
-            else return false;
-        }
-        else return false;
-        
-    }
-    */
+    
+    /**
+     * Representación por pantalla
+     * @return Información a mostrar
+     */
     @Override
     public String toString() {
         return "CONCERT\nConcert's name: " + concertName + "\nPerformer's name: " +

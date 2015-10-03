@@ -9,10 +9,10 @@
 package GSILabs.BModel;
 
 /**
- * 
+ * Extensión de la clase Date para poder obtener los días de las fechas
  * @author subiza.79082
  * @author izu.78236
- * @version 1.0 (01/10/2015)
+ * @version 03/10/2015
  */
 public class FechasHoras extends java.util.Date {
     
@@ -22,6 +22,14 @@ public class FechasHoras extends java.util.Date {
     private int hora;
     private int minuto;
     
+    /**
+     * Primer método constructor, inicialización de variables
+     * @param dia Día de la fecha
+     * @param mes Mes de la fecha
+     * @param anio Año de la fecha
+     * @param hora Hora de la hora
+     * @param minuto Minuto de la hora
+     */
     public FechasHoras (int dia, int mes, int anio, int hora, int minuto) {
         this.dia = dia;
         this.mes = mes;
@@ -30,6 +38,11 @@ public class FechasHoras extends java.util.Date {
         this.minuto = minuto;
     }
     
+    /**
+     * Segundo método constructor, inicialización de variables
+     * @param fecha Fecha (dd/mm/yyyy)
+     * @param hora Hora (hh:mm)
+     */
     public FechasHoras (String fecha, String hora) {
         //Asumimos que el String fecha recibido tiene el formato "dd/mm/aaaa"
         String dd = fecha.substring(0,2);
@@ -47,56 +60,115 @@ public class FechasHoras extends java.util.Date {
     
     //MÉTODOS PARA ESTABLECER Y OBTENER ATRIBUTOS
     
+    /**
+     * Establecer día
+     * @param dia Día de la fecha
+     */
     public void setDia (int dia) {
         this.dia = dia;
     }
     
+    /**
+     * Obtener día
+     * @return Día de la fecha
+     */
     public int getDia () {
         return dia;
     }
     
+    /**
+     * Establecer mes
+     * @param mes Mes de la fecha
+     */
     public void setMes (int mes) {
         this.mes = mes;
     }
     
+    /**
+     * Obtener mes
+     * @return Mes de la fecha
+     */
     public int getMes () {
         return mes;
     }
     
+    /**
+     * Establecer año
+     * @param anio Año de la fecha
+     */
     public void setAnio (int anio) {
         this.anio = anio;
     }
     
+    /**
+     * Obtener año
+     * @return Año de la fecha
+     */
     public int getAnio () {
         return anio;
     }
     
+    /**
+     * Establecer hora
+     * @param hora Hora de la hora
+     */
     public void setHora (int hora) {
         this.hora = hora;
     }
     
+    /**
+     * Obtener hora
+     * @return Hora de la hora
+     */
     public int getHora () {
         return hora;
     }
     
+    /**
+     * Establecer minuto
+     * @param minuto Minuto de la hora
+     */
     public void setMinuto (int minuto) {
         this.minuto = minuto;
     }
     
+    /**
+     * Obtener minuto
+     * @return Minuto de la hora
+     */
     public int getMinuto () {
         return minuto;
     }
     
     //MÉTODOS PARA MOSTRAR FECHA Y HORA COMO STRING
     
+    /**
+     * Representación por pantalla
+     * @return Información a mostrar sobre la fecha
+     */
     public String fechaToString () {
-        return dia + "/" + mes + "/" + anio;
+        if ((dia < 10) && (mes < 10)) return "0" + dia + "/0" + mes + "/" + anio;
+        else if (dia < 10) return "0" + dia + "/" + mes + "/" + anio;
+        else if (mes < 10) return dia + "/0" + mes + "/" + anio;
+        else return dia + "/" + mes + "/" + anio;
     }
     
+    /**
+     * Representación por pantalla
+     * @return Información a mostrar sobre la hora
+     */
     public String horaToString () {
-        return hora + ":" + minuto;
+        if ((hora < 10) && (minuto < 10)) return "0" + hora + ":0" + minuto;
+        else if (hora < 10) return "0" + hora + ":" + minuto;
+        else if (minuto < 10) return hora + ":0" + minuto;
+        else return hora + ":" + minuto;
     }
     
+    /**
+     * Comparación entre dos objetos FechasHoras
+     * @param o Objeto a comparar
+     * @return True si coinciden en día, mes y año. False en caso contrario
+     */
     @Override
     public boolean equals (Object o) {
         if (o instanceof FechasHoras) {

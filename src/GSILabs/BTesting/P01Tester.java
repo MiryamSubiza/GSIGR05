@@ -23,12 +23,75 @@ public class P01Tester {
     //Creación de una instancia de la clase GSILabs.BSystem.BusinessSystem
     private static BussinessSystem bussinessSystem;
     
+    private static Artist a1;
+    private static Artist a2;
+    private static Artist a3;
+    private static Artist a4;
+    private static Artist a5;
+    private static Artist a6;
+    private static Artist a7;
+    private static Artist a8;
+    private static Artist a9;
+    private static Artist a10;
+    private static Artist artistS3;
+    
+    private static Collective col1;
+    private static Collective col2;
+    private static Collective col3;
+    private static Collective colEx1;
+    private static Collective collectiveS3;
+    
+    private static Location l1;
+    private static Location l2;
+    private static Location l3;
+    private static Location l4;
+    private static Location l5;
+    private static Location l6;
+    private static Location l7;
+    
+    private static Concert con1;
+    private static Concert con2;
+    private static Concert con3;
+    private static Concert con4;
+    private static Concert con5;
+    private static Concert con6;
+    private static Concert con7;
+    
+    private static Festival f1;
+    private static Festival f2;
+    
+    private static Exhibition ex1;
+    private static Exhibition ex2;
+    private static Exhibition ex3;
+    
+    private static Ticket t1;
+    private static Ticket t2;
+    private static Ticket t3;
+    private static Ticket t4;
+    private static Ticket t5;
+    private static Ticket t6;
+    private static Ticket t7;
+    private static Ticket t8;
+    private static Ticket t9;
+    private static Ticket t10;
+    private static Ticket t11;
+    private static Ticket t12;
+    
+    private static Client cli1;
+    private static Client cli2;
+    private static Client cli3;
+    private static Client cli4;
+    private static Client cli5;
+    private static Client cli6;
+    private static Client cli7;
+    private static Client cli8;
+    
     public static void main (String[] args) {
         
-        System.out.println("Bienvenido a la clase Tester01 para la realizacion\nde pruebas sobre nuestra práctica 1\n");
-        System.out.println("Creo algunos datos con los que empezar el testeo...");
+        System.out.println("Bienvenido/a a la clase Tester01 para la realización\nde pruebas sobre nuestra práctica 01\n");
+        System.out.println("Creación de algunos datos con los que empezar el testeo...");
         bussinessSystem = introduccionDatos();
-        System.out.println("Una vez creados, empiezo el testeo:\n\n");
+        System.out.println("Una vez creados, comienza el testeo:\n");
         comprobacionDatos();
         
     }
@@ -39,16 +102,16 @@ public class P01Tester {
         bussinessSystem = new BussinessSystem();
         
         //Artists
-        Artist a1 = new Artist("Andrés Suárez", "Cantautor gallego", "www.andressuarez.es");
-        Artist a2 = new Artist("Funambulista", "Cantautor murciano", "www.funambulista.es");
-        Artist a3 = new Artist("Rozalén", "Cantautora albaceteña");
-        Artist a4 = new Artist("Nach", "Rapero alicantino", "www.nach.es");
-        Artist a5 = new Artist("Kase-O", "Javier Ibarra, MC zaragozano");
-        Artist a6 = new Artist("Lírico", "David Gilaberte, MC zaragozano");
-        Artist a7 = new Artist("Sho-Hai", "Sergio Rodríguez, MC zaragozano");
-        Artist a8 = new Artist("R de Rumba", "Rubén Cuevas, DJ zaragozano");
-        Artist a9 = new Artist("Alex Papito", "Master BOSS del Karaoke");
-        Artist a10 = new Artist("Rasking", "Coros del famoso grupo Alex y los Rebujitos");
+        a1 = new Artist("Andrés Suárez", "Cantautor gallego", "www.andressuarez.es");
+        a2 = new Artist("Funambulista", "Cantautor murciano", "www.funambulista.es");
+        a3 = new Artist("Rozalén", "Cantautora albaceteña");
+        a4 = new Artist("Nach", "Rapero alicantino", "www.nach.es");
+        a5 = new Artist("Kase-O", "Javier Ibarra, MC zaragozano");
+        a6 = new Artist("Lírico", "David Gilaberte, MC zaragozano");
+        a7 = new Artist("Sho-Hai", "Sergio Rodríguez, MC zaragozano");
+        a8 = new Artist("R de Rumba", "Rubén Cuevas, DJ zaragozano");
+        a9 = new Artist("Alex Papito", "Master BOSS del Karaoke");
+        a10 = new Artist("Rasking", "Coros del famoso grupo Alex y los Rebujitos");
         
         bussinessSystem.addArtist(a1);
         bussinessSystem.addArtist(a2);
@@ -62,9 +125,9 @@ public class P01Tester {
         bussinessSystem.addArtist(a10);
         
         //Collectives
-        Collective col1 = new Collective(a1, "Cantautores", "Conjunto de cantautores");
-        Collective col2 = new Collective(a5, "Violadores del verso", "Grupo de RAP", "violadoresdelverso.org");
-        Collective col3 = new Collective(a9, "Alex y los Rebujitos", "Grupo number ONE en el canto de Karaoke", "www.losrebujitoslapetan.com");
+        col1 = new Collective(a1, "Cantautores", "Conjunto de cantautores");
+        col2 = new Collective(a5, "Violadores del verso", "Grupo de RAP", "violadoresdelverso.org");
+        col3 = new Collective(a9, "Alex y los Rebujitos", "Grupo number ONE en el canto de Karaoke", "www.losrebujitoslapetan.com");
         
         col1.addArtistToCollective(a2);
         col1.addArtistToCollective(a3);
@@ -76,15 +139,14 @@ public class P01Tester {
         col3.addArtistToCollective(a10);
         bussinessSystem.addCollective(col3);
         
-        
         //Locations
-        Location l1 = new Location("Interpeñas", 25000, "Zaragoza", "www.interpeñas.es");
-        Location l2 = new Location("Palacio de deportes", 15500, "Madrid");
-        Location l3 = new Location("BEC", 18000, "Bilbao", "bilbaoexhibitioncentre.com");
-        Location l4 = new Location("Palau Olimpic", 12500, "Barcelona");
-        Location l5 = new Location("Sala Totem", 200, "Pamplona", "www.salatotem.com");
-        Location l6 = new Location("Kursaal", 1800, "San Sebastián", "www.kursaal.eus/es");
-        Location l7 = new Location("Carpa Universitaria", 10000, "Pamplona", "www.carpauniversitaria.com");
+        l1 = new Location("Interpeñas", 25000, "Zaragoza", "www.interpeñas.es");
+        l2 = new Location("Palacio de deportes", 15500, "Madrid");
+        l3 = new Location("BEC", 18000, "Bilbao", "bilbaoexhibitioncentre.com");
+        l4 = new Location("Palau Olimpic", 12500, "Barcelona");
+        l5 = new Location("Sala Totem", 200, "Pamplona", "www.salatotem.com");
+        l6 = new Location("Kursaal", 1800, "San Sebastián", "www.kursaal.eus/es");
+        l7 = new Location("Carpa Universitaria", 10000, "Pamplona", "www.carpauniversitaria.com");
         
         bussinessSystem.addLocation(l1);
         bussinessSystem.addLocation(l2);
@@ -95,25 +157,25 @@ public class P01Tester {
         bussinessSystem.addLocation(l7);
         
         //Concerts
-        Concert con1 = new Concert("Concierto uno", col1, new FechasHoras("01/02/2016", "22:00"),
+        con1 = new Concert("Concierto uno", col1, new FechasHoras("01/02/2016", "22:00"),
             new FechasHoras("01/02/2016", "22:00"), new FechasHoras("01/02/2016", "21:00"),
             new FechasHoras("01/02/2016", "23:45"), l6);
-        Concert con2 = new Concert("Concierto dos", a4, new FechasHoras("14/11/2015", "20:30"),
+        con2 = new Concert("Concierto dos", a4, new FechasHoras("14/11/2015", "20:30"),
             new FechasHoras("14/11/2015", "20:30"), new FechasHoras("14/11/2015", "20:00"),
             new FechasHoras("14/11/2015", "23:30"), l3);
-        Concert con3 = new Concert("Concierto tres", a5, new FechasHoras("02/02/2016", "21:00"),
+        con3 = new Concert("Concierto tres", a5, new FechasHoras("02/02/2016", "21:00"),
             new FechasHoras("02/02/2016", "21:00"), new FechasHoras("02/02/2016", "20:30"),
             new FechasHoras("02/02/2016", "23:00"), l1);
-        Concert con4 = new Concert("Concierto cuatro", col2, new FechasHoras("15/11/2015", "21:15"),
+        con4 = new Concert("Concierto cuatro", col2, new FechasHoras("15/11/2015", "21:15"),
             new FechasHoras("15/11/2015", "21:15"), new FechasHoras("15/11/2015", "20:15"),
             new FechasHoras("15/11/2015", "23:50"), l2);
-        Concert con5 = new Concert("Concierto cinco", a7, new FechasHoras("03/02/2016", "21:15"),
+        con5 = new Concert("Concierto cinco", a7, new FechasHoras("03/02/2016", "21:15"),
             new FechasHoras("03/02/2016", "21:15"), new FechasHoras("03/02/2016", "20:15"),
             new FechasHoras("03/02/2016", "23:50"), l3);
-        Concert con6 = new Concert("Concierto seis", a8, new FechasHoras("02/06/2016", "21:15"),
+        con6 = new Concert("Concierto seis", a8, new FechasHoras("02/06/2016", "21:15"),
             new FechasHoras("02/06/2016", "21:15"), new FechasHoras("02/06/2016", "20:15"),
             new FechasHoras("02/06/2016", "23:50"), l5);
-        Concert con7 = new Concert("We are Back Rebujitos", col3, new FechasHoras("06/11/2015", "12:00"),
+        con7 = new Concert("We are Back Rebujitos", col3, new FechasHoras("06/11/2015", "12:00"),
             new FechasHoras("06/11/2015", "12:00"), new FechasHoras("06/11/2015", "10:00"),
             new FechasHoras("06/11/2015", "14:00"), l7);
         
@@ -126,10 +188,10 @@ public class P01Tester {
         bussinessSystem.addNewConcert(con7);
         
         //Festivals
-        Festival f1 = new Festival("Festival uno", con2, new FechasHoras("14/11/2015", "20:00"),
+        f1 = new Festival("Festival uno", con2, new FechasHoras("14/11/2015", "20:00"),
             new FechasHoras("15/11/2015", "23:50"), new FechasHoras("14/11/2015", "20:00"),
             new FechasHoras("15/11/2015", "23:50"));
-        Festival f2 = new Festival("Festival dos", con1, new FechasHoras("01/02/2016", "21:00"),
+        f2 = new Festival("Festival dos", con1, new FechasHoras("01/02/2016", "21:00"),
             new FechasHoras("03/02/2016", "23:50"), new FechasHoras("01/02/2016", "21:00"),
             new FechasHoras("03/02/2016", "23:50"));
         
@@ -140,18 +202,19 @@ public class P01Tester {
         bussinessSystem.addNewFestival(f2);
         
         //Exhibitions
-        Collective colEx1 = new Collective(a4, "Raperos", "Varios MC's");
+        colEx1 = new Collective(a4, "Raperos", "Varios MC's");
         colEx1.addArtistToCollective(a5);
         colEx1.addArtistToCollective(a7);
-        Exhibition ex1 = new Exhibition("Exposición uno", "Exposición de RAP", "Eterno miusik",
+        bussinessSystem.addCollective(colEx1);
+        ex1 = new Exhibition("Exposición uno", "Exposición de RAP", "Eterno miusik",
             new FechasHoras("15/05/2016", "15:30"), new FechasHoras("20/05/2016", "20:30"),
             new FechasHoras("15/05/2016", "15:30"), new FechasHoras("20/05/2016", "20:30"),
             colEx1, "www.eternomiusik.org", l1);
-        Exhibition ex2 = new Exhibition("Exposición dos", "Exposición de Nach", "Universal music",
+        ex2 = new Exhibition("Exposición dos", "Exposición de Nach", "Universal music",
             new FechasHoras("21/08/2016", "17:30"), new FechasHoras("28/08/2016", "20:00"),
             new FechasHoras("21/08/2016", "17:30"), new FechasHoras("28/08/2016", "20:00"),
             a4, "www.universalmusic.es", l6);
-        Exhibition ex3 = new Exhibition("Exposición tres", "Exposición de Kase-O", "Rap solo",
+        ex3 = new Exhibition("Exposición tres", "Exposición de Kase-O", "Rap solo",
             new FechasHoras("26/09/2016", "16:45"), new FechasHoras("26/09/2016", "21:00"),
             new FechasHoras("26/09/2016", "16:45"), new FechasHoras("26/09/2016", "21:00"),
             a5, "www.rapsolozgz.com", l3);
@@ -161,18 +224,18 @@ public class P01Tester {
         bussinessSystem.addNewExhibition(ex3);
         
         //Tickets
-        Ticket t1 = new Ticket(con1, bussinessSystem.getAtomicInteger(), 1);
-        Ticket t2 = new Ticket(con2, bussinessSystem.getAtomicInteger(), 2);
-        Ticket t3 = new Ticket(con3, bussinessSystem.getAtomicInteger(), 1);
-        Ticket t4 = new Ticket(con4, bussinessSystem.getAtomicInteger(), 1);
-        Ticket t5 = new Ticket(con5, bussinessSystem.getAtomicInteger(), 4);
-        Ticket t6 = new Ticket(con6, bussinessSystem.getAtomicInteger(), 1);
-        Ticket t7 = new Ticket(con7, bussinessSystem.getAtomicInteger(), 1);
-        Ticket t8 = new Ticket(f1, bussinessSystem.getAtomicInteger(), 1);
-        Ticket t9 = new Ticket(f2, bussinessSystem.getAtomicInteger(), 3);
-        Ticket t10 = new Ticket(ex1, bussinessSystem.getAtomicInteger(), 1);
-        Ticket t11 = new Ticket(ex2, bussinessSystem.getAtomicInteger(), 1);
-        Ticket t12 = new Ticket(ex3, bussinessSystem.getAtomicInteger(), 1);
+        t1 = new Ticket(con1, bussinessSystem.getAtomicInteger(), 1);
+        t2 = new Ticket(con2, bussinessSystem.getAtomicInteger(), 2);
+        t3 = new Ticket(con3, bussinessSystem.getAtomicInteger(), 1);
+        t4 = new Ticket(con4, bussinessSystem.getAtomicInteger(), 1);
+        t5 = new Ticket(con5, bussinessSystem.getAtomicInteger(), 4);
+        t6 = new Ticket(con6, bussinessSystem.getAtomicInteger(), 1);
+        t7 = new Ticket(con7, bussinessSystem.getAtomicInteger(), 1);
+        t8 = new Ticket(f1, bussinessSystem.getAtomicInteger(), 1);
+        t9 = new Ticket(f2, bussinessSystem.getAtomicInteger(), 3);
+        t10 = new Ticket(ex1, bussinessSystem.getAtomicInteger(), 1);
+        t11 = new Ticket(ex2, bussinessSystem.getAtomicInteger(), 1);
+        t12 = new Ticket(ex3, bussinessSystem.getAtomicInteger(), 1);
         
         bussinessSystem.addNewTicket(t1);
         bussinessSystem.addNewTicket(t2);
@@ -188,21 +251,21 @@ public class P01Tester {
         bussinessSystem.addNewTicket(t12);
         
         //Clients
-        Client cli1 = new Client(11111111, "Alexandre", "Izu Carmona", new FechasHoras("25/01/1994", "00:00"),
+        cli1 = new Client(11111111, "Alexandre", "Izu Carmona", new FechasHoras("25/01/1994", "00:00"),
             "1111 1111 1111 1111");
-        Client cli2 = new Client(22222222, "Miryam", "Subiza Erro", new FechasHoras("02/06/1994", "00:00"),
+        cli2 = new Client(22222222, "Miryam", "Subiza Erro", new FechasHoras("02/06/1994", "00:00"),
             "2222 2222 2222 2222");
-        Client cli3 = new Client(33333333, "Ana", "Larráyoz Jiménez", new FechasHoras("09/07/1994", "00:00"),
+        cli3 = new Client(33333333, "Ana", "Larráyoz Jiménez", new FechasHoras("09/07/1994", "00:00"),
             "3333 3333 3333 3333");
-        Client cli4 = new Client(44444444, "Diego", "Razquin Elcano", new FechasHoras("24/08/1994", "00:00"),
+        cli4 = new Client(44444444, "Diego", "Razquin Elcano", new FechasHoras("24/08/1994", "00:00"),
             "4444 4444 4444 4444");
-        Client cli5 = new Client(55555555, "Christian", "Goñi Rebollo", new FechasHoras("14/08/1989", "00:00"),
+        cli5 = new Client(55555555, "Christian", "Goñi Rebollo", new FechasHoras("14/08/1989", "00:00"),
             "5555 5555 5555 5555");
-        Client cli6 = new Client(66666666, "Raquel", "Castillo Pérez", new FechasHoras("26/12/1992", "00:00"),
+        cli6 = new Client(66666666, "Raquel", "Castillo Pérez", new FechasHoras("26/12/1992", "00:00"),
             "6666 6666 6666 6666");
-        Client cli7 = new Client(77777777, "José Miguel", "Carrillo", new FechasHoras("21/09/1993", "00:00"),
+        cli7 = new Client(77777777, "José Miguel", "Carrillo", new FechasHoras("21/09/1993", "00:00"),
             "7777 7777 7777 7777");
-        Client cli8 = new Client(88888888, "Josu", "Goñi", new FechasHoras("02/02/1991", "00:00"),
+        cli8 = new Client(88888888, "Josu", "Goñi", new FechasHoras("02/02/1991", "00:00"),
             "8888 8888 8888 8888");
         
         cli1.addCreditCard("1000 1000 1000 1000");
@@ -218,13 +281,27 @@ public class P01Tester {
         bussinessSystem.addClient(cli7);
         bussinessSystem.addClient(cli8);
         
-        //Sales
-        Sales s1 = new Sales(t1, cli1, (float)13.5, "1111 1111 1111 1111", new FechasHoras("02/10/2015", "19:43"));
-        Sales s2 = new Sales(t2, cli1, 27, "1000 1000 1000 1000", new FechasHoras("03/10/2015", "10:00"));
-        Sales s3 = new Sales(t3, cli2, 17, "2222 2222 2222 2222", new FechasHoras("05/11/2015", "17:13"));
-        /*
+        //Sales        
+        bussinessSystem.addSale(t1, cli1, (float)13.5, "1111 1111 1111 1111");
+        bussinessSystem.addSale(t2, cli1, (float)27, "1000 1000 1000 1000");
+        bussinessSystem.addSale(t3, cli2, (float)17, "2222 2222 2222 2222");
+        bussinessSystem.addSale(t4, cli2, (float)19, "2000 2000 2000 2000");
+        bussinessSystem.addSale(t5, cli2, (float)60.5, "2111 2111 2111 2111");
+        bussinessSystem.addSale(t6, cli3, (float)20.5, "3333 3333 3333 3333");
         
-        */
+        //Show data
+        System.out.println("\n************* PRESENTACIÓN DE DATOS *************");
+        bussinessSystem.showArtists();
+        bussinessSystem.showCollectives();
+        bussinessSystem.showLocations();
+        bussinessSystem.showConcerts();
+        bussinessSystem.showFestivals();
+        bussinessSystem.showExhibitions();
+        bussinessSystem.showTickets();
+        bussinessSystem.showClients();
+        bussinessSystem.showSales();
+        System.out.println("***************************************************\n");
+        
         
         return bussinessSystem;
     }
@@ -232,94 +309,182 @@ public class P01Tester {
     //Comprobar y mostrar por línea de comandos varios sucesos
     public static void comprobacionDatos () {
         
-        // PRUEBA S3)
-        System.out.println("PRUEBA S3)");
-        System.out.println("Intento introducir el siguiente Artista:");
-        Artist artistaNew = new Artist("Stardust", "Cantante de rock");
-        System.out.print(artistaNew.toString());
-        if(bussinessSystem.addArtist(artistaNew)){
-            System.out.println("El artista ha sido añadido correctamente");
-        }
-        else{
-            System.out.println("El nombre del artista ya existe por otro arista o un colectivo\n");
-        }
-        System.out.println("Intento introducir el siguiente Colectivo:");
-        Collective collectiveNew = new Collective(artistaNew, "Stardust", "Cantante de rock");
-        System.out.print(collectiveNew.toString());
-        if(bussinessSystem.addArtist(artistaNew)){
-            System.out.println("El colectivo ha sido añadido correctamente");
-        }
-        else{
-            System.out.println("El colectivo no se ha introducido porque el nombre del colectivo\nya existe por otro colectivo o un artista\n");
-        }
+        pruebaS1 ();
+        pruebaS2 ();
+        pruebaS3 ();
+        pruebaS4 ();
+        pruebaS5 ();
+        pruebaS6 ();
+        pruebaS7 ();
+        pruebaS8 ();
+        pruebaS9 ();
+        pruebaS10();
         
-        // PRUEBA S4)
-        System.out.println("PRUEBA S4)");
-        System.out.println("Ahora elimino el artista anterior y asi comprobar que puedo añadir\nel colectivo");
-        System.out.println("El artista a eliminar es:");
-        System.out.print(artistaNew.toString());
-        if(bussinessSystem.removePerformer(artistaNew.getName())){
-            System.out.println("El artista se ha eliminado correctamente.");
-        }
-        else{
-            System.out.println("El artista no ha podido ser eliminado.");
-        }
-        System.out.println("Procedo a añadir el siguiente Colectivo:");        
-        System.out.print(collectiveNew.toString());
-        if(bussinessSystem.addArtist(artistaNew)){
-            System.out.println("El colectivo ha sido añadido correctamente");
-        }
-        else{
-            System.out.println("El colectivo no se ha introducido porque el nombre del colectivo\nya existe por otro colectivo o un artista\n");
-        }
-        
-        // PRUEBA S5)
-        System.out.println("PRUEBA S5)");
-        System.out.println("Intento introducir el siguiente concierto:");
-        Concert conciertoNew = new Concert("Hola hola", bussinessSystem.retrievePerformer("Nach"), new FechasHoras("14/11/2015", "20:30"),
-        new FechasHoras("14/11/2015", "20:30"), new FechasHoras("14/11/2015", "20:00"),
-        new FechasHoras("14/11/2015", "23:30"), bussinessSystem.getLocation("Carpa Universitaria"));
-        System.out.print(conciertoNew.toString());
-        // Compruebo si el concierto se puede introducir o no
-        if(bussinessSystem.addNewConcert(conciertoNew)){
-            System.out.println("El concierto se ha introducido correctamente");        
-        }
-        else{
-            System.out.println("No se ha introducido el concierto porque el performer actua\nel mismo dia en la misma fecha en otro concierto");            
-        }
-        
-        // PRUEBA S7)
-        System.out.println("PRUEBA S5)");
-        System.out.println("Intento introducir el siguiente concierto:");
-        conciertoNew = new Concert("Hola hola", bussinessSystem.retrievePerformer("Alex y los Rebujitos"), new FechasHoras("14/11/2015", "20:30"),
-        new FechasHoras("14/11/2015", "20:30"), new FechasHoras("14/11/2015", "20:00"),
-        new FechasHoras("14/11/2015", "23:30"), bussinessSystem.getLocation("BEC"));
-        System.out.print(conciertoNew.toString());
-        // Compruebo si el concierto se puede introducir o no
-        if(bussinessSystem.addNewConcert(conciertoNew)){
-            System.out.println("El concierto se ha introducido correctamente");        
-        }
-        else{
-            System.out.println("No se ha introducido el concierto porque la localizacion esta\nocupada para esa fecha.");            
-        }
-        
-        // PRUEBA S8)
-        System.out.println("PRUEBA S8)");
-        System.out.println("Intento introducir el siguiente concierto al siguiente festival:");
-        conciertoNew = new Concert("Concierto cinco", bussinessSystem.retrievePerformer("Sho-Hai"), new FechasHoras("03/02/2016", "21:15"),
-            new FechasHoras("03/02/2016", "21:15"), new FechasHoras("03/02/2016", "20:15"),
-            new FechasHoras("03/02/2016", "23:50"), bussinessSystem.getLocation("BEC"));
-        System.out.println(conciertoNew.toString());
-        System.out.println(bussinessSystem.getEvent("Festival dos").toString());
-        System.out.println(bussinessSystem.getEvent("Festival dos").toString());
-        
-        if(bussinessSystem.addConcertToFestival((Festival)bussinessSystem.getEvent("Festival dos"), conciertoNew)){
-            System.out.println("El concierto se ha añadido perfectamente al festival");
-        }
-        else{
-            System.out.println("El concierto no se puede añadir al festival porque ya existe\ndentro del festival");
-        }
     }
     
+    public static void pruebaS1 () {
+                
+        // PRUEBA S1)
+        System.out.println("PRUEBA S1)");
+        System.out.println("Si introduce a un cliente, este puede ser luego localizado a partir de su ID\n");
+        System.out.println("Búsqueda del cliente con ID 11111111");
+        Client clientS1 = bussinessSystem.retrieveClient(cli1.getId());
+        
+        System.out.println("Obtenemos el siguiente cliente:");
+        System.out.println(clientS1);
+        
+    }
+    
+    public static void pruebaS2 () {
+        
+        // PRUEBA S2)
+        System.out.println("\nPRUEBA S2)");
+        System.out.println("Si busca a un cliente que no existe con findClient, el resultado es null\n");
+        System.out.println("Búsqueda del cliente con ID 00000000");
+        Client clientS2 = bussinessSystem.retrieveClient(00000000);
+        
+        System.out.println("Obtenemos el siguiente cliente:");
+        System.out.println(clientS2);
+        
+    }
+    
+    public static void pruebaS3 () {
+        
+        // PRUEBA S3)
+        System.out.println("\n\nPRUEBA S3)");
+        System.out.println("No se pueden introducir un artista y un colectivo con el mismo nombre\n");
+        System.out.println("Introducción del siguiente artista:");
+        artistS3 = new Artist("Stardust", "Cantante de rock");
+        System.out.println(artistS3);
+        
+        if (bussinessSystem.addArtist(artistS3)) System.out.println("El artista ha sido añadido correctamente");
+        else System.out.println("Artista no añadido, el nombre del artista ya existe en otro artista o colectivo");
+        
+        System.out.println("\nIntroducción del siguiente colectivo:");
+        Collective collectiveS3 = new Collective(artistS3, "Stardust", "Cantante de rock");
+        System.out.println(collectiveS3);
+        if (bussinessSystem.addCollective(collectiveS3)) System.out.println("El colectivo ha sido añadido correctamente");
+        else System.out.println("Colectivo no añadido, el nombre del colectivo ya existe en otro artista o colectivo");
+        
+    }
+        
+    public static void pruebaS4 () {
+        
+        // PRUEBA S4)
+        System.out.println("\n\nPRUEBA S4)");
+        System.out.println("Si se añade un artista, y se elimina posteriormente, se puede introducir un colectivo con "
+                + "el mismo nombre\n");
+        System.out.println("Borrado del artista añadido en S3)");
+        System.out.println("El artista a eliminar es:");
+        System.out.println(artistS3);
+        
+        if (bussinessSystem.removePerformer(artistS3.getName())) System.out.println("El artista ha sido eliminado correctamente\n");
+        else System.out.println("El artista no ha sido eliminado\n");
+        
+        System.out.println("Introducción del siguiente colectivo:");        
+        System.out.println(collectiveS3);
+        
+        if (bussinessSystem.addArtist(artistS3)) System.out.println("El colectivo ha sido añadido correctamente");
+        else System.out.println("El colectivo no ha sido añadido, el nombre del colectivo ya existe en otro artista o colectivo");
+        
+    }
+    
+    public static void pruebaS5 () {
+    
+        // PRUEBA S5)
+        System.out.println("\n\nPRUEBA S5)");
+        System.out.println("No se pueden añadir dos eventos diferentes del mismo artista el mismo día\n");
+        System.out.println("Concierto existente:");
+        System.out.println(con2);
+        System.out.println("Introducción del siguiente concierto:");
+        Concert concertS5 = new Concert("Hola hola", bussinessSystem.retrievePerformer("Nach"), new FechasHoras("14/11/2015", "20:30"),
+            new FechasHoras("14/11/2015", "20:30"), new FechasHoras("14/11/2015", "20:00"),
+            new FechasHoras("14/11/2015", "23:30"), bussinessSystem.getLocation("Carpa Universitaria"));
+        System.out.println(concertS5);
+        
+        // Compruebo si el concierto se puede introducir o no
+        if (bussinessSystem.addNewConcert(concertS5)) System.out.println("El concierto ha sido añadido correctamente");
+        else System.out.println("El concierto no ha sido añadido, el performer (artista) actúa el mismo día en otro evento");
+        
+    }
+    
+    public static void pruebaS6 () {
+        
+        // PRUEBA S6)
+        System.out.println("\n\nPRUEBA S6)");
+        System.out.println("El sistema calcula de manera adecuada el gasto de cada cliente en entradas (probar con más de \n"
+            + "dos entradas, así como con entradas asociadas a diferentes clientes)\n");
+        System.out.println("Cálculo del gasto en entradas del cliente 22222222. Historial de entradas compradas:");
+        Ticket[] historial;
+        historial = bussinessSystem.getListOfTickets(cli2);
+        for (int i = 0; i < historial.length; i++) {
+            System.out.println(historial[i]);
+        }
+        System.out.println("El gasto del cliente 22222222 en entradas es de " + bussinessSystem.getTotalSpending(cli2) + "€");
+
+    }
+    
+    public static void pruebaS7 () {
+        
+        // PRUEBA S7)
+        System.out.println("\n\nPRUEBA S7)");
+        System.out.println("No se puede asociar un evento a una localización que no existe\n");
+        System.out.println("Introducción del siguiente concierto en una supuesta localización llamada 'S7'");
+        Concert concertS7 = new Concert("Hola hola", bussinessSystem.retrievePerformer("Alex y los Rebujitos"), 
+            new FechasHoras("14/11/2015", "20:30"), new FechasHoras("14/11/2015", "20:30"), 
+            new FechasHoras("14/11/2015", "20:00"), new FechasHoras("14/11/2015", "23:30"), 
+            new Location("S7", 100, "Navarra"));
+        System.out.println(concertS7);
+        
+        // Compruebo si el concierto se puede introducir o no
+        if (bussinessSystem.addNewConcert(concertS7)) System.out.println("El concierto ha sido añadido correctamente");
+        else System.out.println("El concierto no ha sido añadido, la localización no existe en el sistema");
+        
+    }
+    
+    public static void pruebaS8 () {
+        
+        // PRUEBA S8)
+        System.out.println("\n\nPRUEBA S8)");
+        System.out.println("No se puede añadir a un festival un concierto que ya se le hubiera añadido\n");
+        System.out.println("Introducción del siguiente concierto al siguiente festival:");
+        System.out.println(con5);
+        System.out.println(bussinessSystem.getEvent("Festival dos"));
+        
+        if (bussinessSystem.addConcertToFestival((Festival)bussinessSystem.getEvent("Festival dos"), con5)) 
+            System.out.println("El concierto ha sido añadido al festival");
+        else System.out.println("El concierto no ha sido añadido al festival porque ya existe dentro del mismo");
+        
+    }
+    
+    public static void pruebaS9 () {
+        
+        // PRUEBA S9)
+        System.out.println("\n\nPRUEBA S9)");
+        System.out.println("No se puede asignar una venta a un cliente que no existe\n");
+        System.out.println("Introducción de la siguiente venta a un supuesto cliente de ID 00000000:");
+        Sales salesS9 = new Sales(t10, new Client(00000000, "Perico", "De Andrés", new FechasHoras("02/01/1990", "00:00"), 
+            "1111 1111 1111 1111"), 10, "0000 0000 0000 0000", new FechasHoras("03/10/2015", "14:00"));
+        System.out.println(salesS9);
+        if (bussinessSystem.addSale(t10, new Client(00000000, "Perico", "De Andrés", new FechasHoras("02/01/1990", "00:00"), 
+            "1111 1111 1111 1111"), (float)10, "1111 1111 1111 1111")) 
+            System.out.println("La venta ha sido asignada al cliente");
+        else System.out.println("La venta no ha sido asignada, el cliente no existe");
+        
+    }
+    
+    public static void pruebaS10 () {
+        
+        // PRUEBA S10)
+        System.out.println("\n\nPRUEBA S10)");
+        System.out.println("No se puede introducir un usuario menor de edad\n");
+        System.out.println("Introducción del siguiente supuesto:");
+        Client clientS10 = new Client(12345678, "Maria", "De la o", new FechasHoras("16/02/2000", "00:00"),
+            "1234 1234 1234 1234");
+        System.out.println(clientS10);
+        if (bussinessSystem.addClient(clientS10)) System.out.println("El cliente ha sido introducido\n");
+        else System.out.println("El cliente no ha sido introducido, es menor de edad\n");
+        
+    }
     
 }

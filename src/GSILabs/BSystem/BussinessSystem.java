@@ -55,8 +55,11 @@ public class BussinessSystem implements TicketOffice {
         AITickets = new AtomicInteger();
     }
     
-    public AtomicInteger getAtomicInteger () {
-        return atomicInteger;
+    public int getAtomicInteger(int numberOfPeople) {
+        int firstId = atomicInteger.get();
+        for (int i = 1; i <= numberOfPeople; i++)
+            atomicInteger.getAndIncrement();
+        return firstId;
     }
     
     /**
@@ -178,14 +181,14 @@ public class BussinessSystem implements TicketOffice {
                     if(f.getEndingDate().before(c.getClosingTimeConcert())){
                         // Si la fecha del ultimo concierto del festival es antes que el concierto añadido
                         // actualizo la hora de fin del festival
-                        f.setClosingDateFestival((FechasHoras)c.getClosingTimeConcert());
-                        f.setClosingTimeFestival((FechasHoras)c.getClosingTimeConcert());                        
+                        f.setClosingDateFestival((FechaCompleta)c.getClosingTimeConcert());
+                        f.setClosingTimeFestival((FechaCompleta)c.getClosingTimeConcert());                        
                     }
                     else if(f.getStartDate().after(c.getStartDate())){
                         // Si la fecha del concierto que abre el festival es posterior a la
                         // fecha del nuevo concierto añadido al festival actualizo las fechas
-                        f.setStartDateFestival((FechasHoras)c.getStartDate());
-                        f.setStartTimeFestival((FechasHoras)c.getStartTimeConcert());  
+                        f.setStartDateFestival((FechaCompleta)c.getStartDate());
+                        f.setStartTimeFestival((FechaCompleta)c.getStartTimeConcert());  
                     }
                     return true;
                 }
@@ -858,9 +861,9 @@ public class BussinessSystem implements TicketOffice {
         Calendar actualDate = Calendar.getInstance();
         actualDate.setTime(new Date());
         if (tickets.containsValue(t) && clients.containsValue(c) && c.isCreditCard(cCard) && !t.isSold()) {
-            c.addSaleToClient(t);
+            //c.addSaleToClient(t);
             t.setSold(true);
-            sales.add(new Sales(t, c, price, cCard, new FechasHoras(actualDate.get(Calendar.DAY_OF_MONTH), 
+            sales.add(new Sales(t, c, price, cCard, new FechaCompleta(actualDate.get(Calendar.DAY_OF_MONTH), 
                 actualDate.get(Calendar.MONTH)+1, actualDate.get(Calendar.YEAR), 
                 actualDate.get(Calendar.HOUR), actualDate.get(Calendar.MINUTE))));
             return true;

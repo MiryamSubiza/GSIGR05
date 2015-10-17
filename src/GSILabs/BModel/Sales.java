@@ -20,7 +20,7 @@ public class Sales {
     private Client client;
     private float price;
     private String cCard;
-    private FechasHoras dateSale;
+    private FechaCompleta dateSale;
     
     /**
      * Método constructor, inicialización de variables
@@ -30,7 +30,7 @@ public class Sales {
      * @param cCard Tarjeta de crédito con la que se ha realizado la compra
      * @param dateSale Momento en el que la venta se ha producido
      */
-    public Sales (Ticket ticket, Client client, float price, String cCard, FechasHoras dateSale) {
+    public Sales (Ticket ticket, Client client, float price, String cCard, FechaCompleta dateSale) {
         
         this.ticket = ticket;
         this.client = client;
@@ -108,7 +108,7 @@ public class Sales {
      * Establecer fecha de venta
      * @param dateSale Fecha de venta
      */
-    public void setDateSale (FechasHoras dateSale) {
+    public void setDateSale (FechaCompleta dateSale) {
         this.dateSale = dateSale;
     }
     
@@ -116,7 +116,7 @@ public class Sales {
      * Obtener fecha de venta
      * @return Fecha de venta
      */
-    public FechasHoras getDateSale () {
+    public FechaCompleta getDateSale () {
         return this.dateSale;
     }
     

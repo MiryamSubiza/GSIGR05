@@ -20,10 +20,10 @@ public class Concert implements ImpermanentEvent {
     
     private String concertName;
     private Performer p;
-    private FechasHoras startDateConcert;
-    private FechasHoras startTimeConcert;
-    private FechasHoras doorOpeningTimeConcert;
-    private FechasHoras closingTimeConcert;
+    private FechaCompleta startDateConcert;
+    private FechaCompleta startTimeConcert;
+    private FechaCompleta doorOpeningTimeConcert;
+    private FechaCompleta closingTimeConcert;
     private Location location;
     
     /**
@@ -36,9 +36,9 @@ public class Concert implements ImpermanentEvent {
      * @param closingTimeConcert Hora de cierre
      * @param location Localización única
      */
-    public Concert (String concertName, Performer p, FechasHoras startDateConcert, 
-            FechasHoras startTimeConcert, FechasHoras doorOpeningTimeConcert, 
-            FechasHoras closingTimeConcert, Location location) {
+    public Concert (String concertName, Performer p, FechaCompleta startDateConcert, 
+            FechaCompleta startTimeConcert, FechaCompleta doorOpeningTimeConcert, 
+            FechaCompleta closingTimeConcert, Location location) {
         
         this.concertName = concertName;
         this.p = p;
@@ -78,7 +78,7 @@ public class Concert implements ImpermanentEvent {
      * Establecer día del concierto
      * @param startDateConcert Día del concierto
      */
-    public void setStartDateConcert (FechasHoras startDateConcert) {
+    public void setStartDateConcert (FechaCompleta startDateConcert) {
         this.startDateConcert = startDateConcert;
     }
     
@@ -95,7 +95,7 @@ public class Concert implements ImpermanentEvent {
      * Establecer hora de comienzo
      * @param startTimeConcert Hora de comienzo
      */
-    public void setStartTimeConcert (FechasHoras startTimeConcert) {
+    public void setStartTimeConcert (FechaCompleta startTimeConcert) {
         this.startTimeConcert = startTimeConcert;
     }
     
@@ -111,7 +111,7 @@ public class Concert implements ImpermanentEvent {
      * Establecer hora de apertura de puertas
      * @param doorOpeningTimeConcert Hora de apertura de puertas
      */
-    public void setDoorOpeningTimeConcert (FechasHoras doorOpeningTimeConcert) {
+    public void setDoorOpeningTimeConcert (FechaCompleta doorOpeningTimeConcert) {
         this.doorOpeningTimeConcert = doorOpeningTimeConcert;
     }
     
@@ -127,7 +127,7 @@ public class Concert implements ImpermanentEvent {
      * Establecer hora de cierre
      * @param closingTimeConcert Hora de cierre
      */
-    public void setClosingTimeConcert (FechasHoras closingTimeConcert) {
+    public void setClosingTimeConcert (FechaCompleta closingTimeConcert) {
         this.closingTimeConcert = closingTimeConcert;
     }
     

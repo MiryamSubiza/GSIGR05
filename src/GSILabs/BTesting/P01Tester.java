@@ -157,27 +157,27 @@ public class P01Tester {
         bussinessSystem.addLocation(l7);
         
         //Concerts
-        con1 = new Concert("Concierto uno", col1, new FechasHoras("01/02/2016", "22:00"),
-            new FechasHoras("01/02/2016", "22:00"), new FechasHoras("01/02/2016", "21:00"),
-            new FechasHoras("01/02/2016", "23:45"), l6);
-        con2 = new Concert("Concierto dos", a4, new FechasHoras("14/11/2015", "20:30"),
-            new FechasHoras("14/11/2015", "20:30"), new FechasHoras("14/11/2015", "20:00"),
-            new FechasHoras("14/11/2015", "23:30"), l3);
-        con3 = new Concert("Concierto tres", a5, new FechasHoras("02/02/2016", "21:00"),
-            new FechasHoras("02/02/2016", "21:00"), new FechasHoras("02/02/2016", "20:30"),
-            new FechasHoras("02/02/2016", "23:00"), l1);
-        con4 = new Concert("Concierto cuatro", col2, new FechasHoras("15/11/2015", "21:15"),
-            new FechasHoras("15/11/2015", "21:15"), new FechasHoras("15/11/2015", "20:15"),
-            new FechasHoras("15/11/2015", "23:50"), l2);
-        con5 = new Concert("Concierto cinco", a7, new FechasHoras("03/02/2016", "21:15"),
-            new FechasHoras("03/02/2016", "21:15"), new FechasHoras("03/02/2016", "20:15"),
-            new FechasHoras("03/02/2016", "23:50"), l3);
-        con6 = new Concert("Concierto seis", a8, new FechasHoras("02/06/2016", "21:15"),
-            new FechasHoras("02/06/2016", "21:15"), new FechasHoras("02/06/2016", "20:15"),
-            new FechasHoras("02/06/2016", "23:50"), l5);
-        con7 = new Concert("We are Back Rebujitos", col3, new FechasHoras("06/11/2015", "12:00"),
-            new FechasHoras("06/11/2015", "12:00"), new FechasHoras("06/11/2015", "10:00"),
-            new FechasHoras("06/11/2015", "14:00"), l7);
+        con1 = new Concert("Concierto uno", col1, new FechaCompleta("01/02/2016", "22:00"),
+            new FechaCompleta("01/02/2016", "22:00"), new FechaCompleta("01/02/2016", "21:00"),
+            new FechaCompleta("01/02/2016", "23:45"), l6);
+        con2 = new Concert("Concierto dos", a4, new FechaCompleta("14/11/2015", "20:30"),
+            new FechaCompleta("14/11/2015", "20:30"), new FechaCompleta("14/11/2015", "20:00"),
+            new FechaCompleta("14/11/2015", "23:30"), l3);
+        con3 = new Concert("Concierto tres", a5, new FechaCompleta("02/02/2016", "21:00"),
+            new FechaCompleta("02/02/2016", "21:00"), new FechaCompleta("02/02/2016", "20:30"),
+            new FechaCompleta("02/02/2016", "23:00"), l1);
+        con4 = new Concert("Concierto cuatro", col2, new FechaCompleta("15/11/2015", "21:15"),
+            new FechaCompleta("15/11/2015", "21:15"), new FechaCompleta("15/11/2015", "20:15"),
+            new FechaCompleta("15/11/2015", "23:50"), l2);
+        con5 = new Concert("Concierto cinco", a7, new FechaCompleta("03/02/2016", "21:15"),
+            new FechaCompleta("03/02/2016", "21:15"), new FechaCompleta("03/02/2016", "20:15"),
+            new FechaCompleta("03/02/2016", "23:50"), l3);
+        con6 = new Concert("Concierto seis", a8, new FechaCompleta("02/06/2016", "21:15"),
+            new FechaCompleta("02/06/2016", "21:15"), new FechaCompleta("02/06/2016", "20:15"),
+            new FechaCompleta("02/06/2016", "23:50"), l5);
+        con7 = new Concert("We are Back Rebujitos", col3, new FechaCompleta("06/11/2015", "12:00"),
+            new FechaCompleta("06/11/2015", "12:00"), new FechaCompleta("06/11/2015", "10:00"),
+            new FechaCompleta("06/11/2015", "14:00"), l7);
         
         bussinessSystem.addNewConcert(con1);
         bussinessSystem.addNewConcert(con2);
@@ -188,12 +188,12 @@ public class P01Tester {
         bussinessSystem.addNewConcert(con7);
         
         //Festivals
-        f1 = new Festival("Festival uno", con2, new FechasHoras("14/11/2015", "20:00"),
-            new FechasHoras("15/11/2015", "23:50"), new FechasHoras("14/11/2015", "20:00"),
-            new FechasHoras("15/11/2015", "23:50"));
-        f2 = new Festival("Festival dos", con1, new FechasHoras("01/02/2016", "21:00"),
-            new FechasHoras("03/02/2016", "23:50"), new FechasHoras("01/02/2016", "21:00"),
-            new FechasHoras("03/02/2016", "23:50"));
+        f1 = new Festival("Festival uno", con2, new FechaCompleta("14/11/2015", "20:00"),
+            new FechaCompleta("15/11/2015", "23:50"), new FechaCompleta("14/11/2015", "20:00"),
+            new FechaCompleta("15/11/2015", "23:50"));
+        f2 = new Festival("Festival dos", con1, new FechaCompleta("01/02/2016", "21:00"),
+            new FechaCompleta("03/02/2016", "23:50"), new FechaCompleta("01/02/2016", "21:00"),
+            new FechaCompleta("03/02/2016", "23:50"));
         
         f1.addConcert(con4);
         bussinessSystem.addNewFestival(f1);
@@ -207,16 +207,16 @@ public class P01Tester {
         colEx1.addArtistToCollective(a7);
         bussinessSystem.addCollective(colEx1);
         ex1 = new Exhibition("Exposición uno", "Exposición de RAP", "Eterno miusik",
-            new FechasHoras("15/05/2016", "15:30"), new FechasHoras("20/05/2016", "20:30"),
-            new FechasHoras("15/05/2016", "15:30"), new FechasHoras("20/05/2016", "20:30"),
+            new FechaCompleta("15/05/2016", "15:30"), new FechaCompleta("20/05/2016", "20:30"),
+            new FechaCompleta("15/05/2016", "15:30"), new FechaCompleta("20/05/2016", "20:30"),
             colEx1, "www.eternomiusik.org", l1);
         ex2 = new Exhibition("Exposición dos", "Exposición de Nach", "Universal music",
-            new FechasHoras("21/08/2016", "17:30"), new FechasHoras("28/08/2016", "20:00"),
-            new FechasHoras("21/08/2016", "17:30"), new FechasHoras("28/08/2016", "20:00"),
+            new FechaCompleta("21/08/2016", "17:30"), new FechaCompleta("28/08/2016", "20:00"),
+            new FechaCompleta("21/08/2016", "17:30"), new FechaCompleta("28/08/2016", "20:00"),
             a4, "www.universalmusic.es", l6);
         ex3 = new Exhibition("Exposición tres", "Exposición de Kase-O", "Rap solo",
-            new FechasHoras("26/09/2016", "16:45"), new FechasHoras("26/09/2016", "21:00"),
-            new FechasHoras("26/09/2016", "16:45"), new FechasHoras("26/09/2016", "21:00"),
+            new FechaCompleta("26/09/2016", "16:45"), new FechaCompleta("26/09/2016", "21:00"),
+            new FechaCompleta("26/09/2016", "16:45"), new FechaCompleta("26/09/2016", "21:00"),
             a5, "www.rapsolozgz.com", l3);
         
         bussinessSystem.addNewExhibition(ex1);
@@ -224,18 +224,18 @@ public class P01Tester {
         bussinessSystem.addNewExhibition(ex3);
         
         //Tickets
-        t1 = new Ticket(con1, bussinessSystem.getAtomicInteger(), 1);
-        t2 = new Ticket(con2, bussinessSystem.getAtomicInteger(), 2);
-        t3 = new Ticket(con3, bussinessSystem.getAtomicInteger(), 1);
-        t4 = new Ticket(con4, bussinessSystem.getAtomicInteger(), 1);
-        t5 = new Ticket(con5, bussinessSystem.getAtomicInteger(), 4);
-        t6 = new Ticket(con6, bussinessSystem.getAtomicInteger(), 1);
-        t7 = new Ticket(con7, bussinessSystem.getAtomicInteger(), 1);
-        t8 = new Ticket(f1, bussinessSystem.getAtomicInteger(), 1);
-        t9 = new Ticket(f2, bussinessSystem.getAtomicInteger(), 3);
-        t10 = new Ticket(ex1, bussinessSystem.getAtomicInteger(), 1);
-        t11 = new Ticket(ex2, bussinessSystem.getAtomicInteger(), 1);
-        t12 = new Ticket(ex3, bussinessSystem.getAtomicInteger(), 1);
+        t1 = new Ticket(con1, bussinessSystem.getAtomicInteger(1), 1);
+        t2 = new Ticket(con2, bussinessSystem.getAtomicInteger(2), 2);
+        t3 = new Ticket(con3, bussinessSystem.getAtomicInteger(1), 1);
+        t4 = new Ticket(con4, bussinessSystem.getAtomicInteger(1), 1);
+        t5 = new Ticket(con5, bussinessSystem.getAtomicInteger(4), 4);
+        t6 = new Ticket(con6, bussinessSystem.getAtomicInteger(1), 1);
+        t7 = new Ticket(con7, bussinessSystem.getAtomicInteger(1), 1);
+        t8 = new Ticket(f1, bussinessSystem.getAtomicInteger(1), 1);
+        t9 = new Ticket(f2, bussinessSystem.getAtomicInteger(3), 3);
+        t10 = new Ticket(ex1, bussinessSystem.getAtomicInteger(1), 1);
+        t11 = new Ticket(ex2, bussinessSystem.getAtomicInteger(1), 1);
+        t12 = new Ticket(ex3, bussinessSystem.getAtomicInteger(1), 1);
         
         bussinessSystem.addNewTicket(t1);
         bussinessSystem.addNewTicket(t2);
@@ -251,21 +251,21 @@ public class P01Tester {
         bussinessSystem.addNewTicket(t12);
         
         //Clients
-        cli1 = new Client(11111111, "Alexandre", "Izu Carmona", new FechasHoras("25/01/1994", "00:00"),
+        cli1 = new Client(11111111, "Alexandre", "Izu Carmona", new FechaCompleta("25/01/1994", "00:00"),
             "1111 1111 1111 1111");
-        cli2 = new Client(22222222, "Miryam", "Subiza Erro", new FechasHoras("02/06/1994", "00:00"),
+        cli2 = new Client(22222222, "Miryam", "Subiza Erro", new FechaCompleta("02/06/1994", "00:00"),
             "2222 2222 2222 2222");
-        cli3 = new Client(33333333, "Ana", "Larráyoz Jiménez", new FechasHoras("09/07/1994", "00:00"),
+        cli3 = new Client(33333333, "Ana", "Larráyoz Jiménez", new FechaCompleta("09/07/1994", "00:00"),
             "3333 3333 3333 3333");
-        cli4 = new Client(44444444, "Diego", "Razquin Elcano", new FechasHoras("24/08/1994", "00:00"),
+        cli4 = new Client(44444444, "Diego", "Razquin Elcano", new FechaCompleta("24/08/1994", "00:00"),
             "4444 4444 4444 4444");
-        cli5 = new Client(55555555, "Christian", "Goñi Rebollo", new FechasHoras("14/08/1989", "00:00"),
+        cli5 = new Client(55555555, "Christian", "Goñi Rebollo", new FechaCompleta("14/08/1989", "00:00"),
             "5555 5555 5555 5555");
-        cli6 = new Client(66666666, "Raquel", "Castillo Pérez", new FechasHoras("26/12/1992", "00:00"),
+        cli6 = new Client(66666666, "Raquel", "Castillo Pérez", new FechaCompleta("26/12/1992", "00:00"),
             "6666 6666 6666 6666");
-        cli7 = new Client(77777777, "José Miguel", "Carrillo", new FechasHoras("21/09/1993", "00:00"),
+        cli7 = new Client(77777777, "José Miguel", "Carrillo", new FechaCompleta("21/09/1993", "00:00"),
             "7777 7777 7777 7777");
-        cli8 = new Client(88888888, "Josu", "Goñi", new FechasHoras("02/02/1991", "00:00"),
+        cli8 = new Client(88888888, "Josu", "Goñi", new FechaCompleta("02/02/1991", "00:00"),
             "8888 8888 8888 8888");
         
         cli1.addCreditCard("1000 1000 1000 1000");
@@ -301,7 +301,6 @@ public class P01Tester {
         bussinessSystem.showClients();
         bussinessSystem.showSales();
         System.out.println("***************************************************\n");
-        
         
         return bussinessSystem;
     }
@@ -397,9 +396,9 @@ public class P01Tester {
         System.out.println("Concierto existente:");
         System.out.println(con2);
         System.out.println("Introducción del siguiente concierto:");
-        Concert concertS5 = new Concert("Hola hola", bussinessSystem.retrievePerformer("Nach"), new FechasHoras("14/11/2015", "20:30"),
-            new FechasHoras("14/11/2015", "20:30"), new FechasHoras("14/11/2015", "20:00"),
-            new FechasHoras("14/11/2015", "23:30"), bussinessSystem.getLocation("Carpa Universitaria"));
+        Concert concertS5 = new Concert("Hola hola", bussinessSystem.retrievePerformer("Nach"), new FechaCompleta("14/11/2015", "20:30"),
+            new FechaCompleta("14/11/2015", "20:30"), new FechaCompleta("14/11/2015", "20:00"),
+            new FechaCompleta("14/11/2015", "23:30"), bussinessSystem.getLocation("Carpa Universitaria"));
         System.out.println(concertS5);
         
         // Compruebo si el concierto se puede introducir o no
@@ -431,8 +430,8 @@ public class P01Tester {
         System.out.println("No se puede asociar un evento a una localización que no existe\n");
         System.out.println("Introducción del siguiente concierto en una supuesta localización llamada 'S7'");
         Concert concertS7 = new Concert("Hola hola", bussinessSystem.retrievePerformer("Alex y los Rebujitos"), 
-            new FechasHoras("14/11/2015", "20:30"), new FechasHoras("14/11/2015", "20:30"), 
-            new FechasHoras("14/11/2015", "20:00"), new FechasHoras("14/11/2015", "23:30"), 
+            new FechaCompleta("14/11/2015", "20:30"), new FechaCompleta("14/11/2015", "20:30"), 
+            new FechaCompleta("14/11/2015", "20:00"), new FechaCompleta("14/11/2015", "23:30"), 
             new Location("S7", 100, "Navarra"));
         System.out.println(concertS7);
         
@@ -463,10 +462,10 @@ public class P01Tester {
         System.out.println("\n\nPRUEBA S9)");
         System.out.println("No se puede asignar una venta a un cliente que no existe\n");
         System.out.println("Introducción de la siguiente venta a un supuesto cliente de ID 00000000:");
-        Sales salesS9 = new Sales(t10, new Client(00000000, "Perico", "De Andrés", new FechasHoras("02/01/1990", "00:00"), 
-            "1111 1111 1111 1111"), 10, "0000 0000 0000 0000", new FechasHoras("03/10/2015", "14:00"));
+        Sales salesS9 = new Sales(t10, new Client(00000000, "Perico", "De Andrés", new FechaCompleta("02/01/1990", "00:00"), 
+            "1111 1111 1111 1111"), 10, "0000 0000 0000 0000", new FechaCompleta("03/10/2015", "14:00"));
         System.out.println(salesS9);
-        if (bussinessSystem.addSale(t10, new Client(00000000, "Perico", "De Andrés", new FechasHoras("02/01/1990", "00:00"), 
+        if (bussinessSystem.addSale(t10, new Client(00000000, "Perico", "De Andrés", new FechaCompleta("02/01/1990", "00:00"), 
             "1111 1111 1111 1111"), (float)10, "1111 1111 1111 1111")) 
             System.out.println("La venta ha sido asignada al cliente");
         else System.out.println("La venta no ha sido asignada, el cliente no existe");
@@ -479,7 +478,7 @@ public class P01Tester {
         System.out.println("\n\nPRUEBA S10)");
         System.out.println("No se puede introducir un usuario menor de edad\n");
         System.out.println("Introducción del siguiente supuesto:");
-        Client clientS10 = new Client(12345678, "Maria", "De la o", new FechasHoras("16/02/2000", "00:00"),
+        Client clientS10 = new Client(12345678, "Maria", "De la o", new FechaCompleta("16/02/2000", "00:00"),
             "1234 1234 1234 1234");
         System.out.println(clientS10);
         if (bussinessSystem.addClient(clientS10)) System.out.println("El cliente ha sido introducido\n");

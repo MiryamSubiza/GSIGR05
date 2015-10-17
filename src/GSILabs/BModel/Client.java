@@ -24,7 +24,7 @@ public class Client {
     private String dni;
     private String name;
     private String lastName;
-    private FechasHoras birthday;
+    private FechaCompleta birthday;
     private HashSet <String> creditCards; //Tarjetas de crédito (puede haber una o varias)
     //private HashSet <Ticket> salesOfTickets; //Tickets vendidos a este cliente
     
@@ -36,7 +36,7 @@ public class Client {
      * @param birthday Fecha de nacimiento (>= 18)
      * @param cCard Número de una tarjeta de crédito
      */
-    public Client (int id, String name, String lastName, FechasHoras birthday, String cCard) {
+    public Client (int id, String name, String lastName, FechaCompleta birthday, String cCard) {
         
         this.id = id;
         this.dni = calculateDNILetter(id);
@@ -123,7 +123,7 @@ public class Client {
      * Establecer fecha de nacimiento
      * @param birthday Fecha de nacimiento, ha de ser >= 18
      */
-    public void setBirthday (FechasHoras birthday) {
+    public void setBirthday (FechaCompleta birthday) {
         Date actualDate = new Date();
         if ((actualDate.getYear() + 1900) - (birthday.getYear() + 1900) >= 18)
             this.birthday = birthday;
@@ -133,7 +133,7 @@ public class Client {
      * Obtener fecha de nacimiento
      * @return Fecha de nacimiento
      */
-    public FechasHoras getBirthday () {
+    public FechaCompleta getBirthday () {
         return birthday;
     }
     

@@ -24,10 +24,10 @@ public class Exhibition implements LastingEvent {
     private String exhibitionName;
     private String title;
     private String organizerName;
-    private FechasHoras startDateExhibition;
-    private FechasHoras closingDateExhibition;
-    private FechasHoras startTimeExhibition;
-    private FechasHoras closingTimeExhibition;
+    private FechaCompleta startDateExhibition;
+    private FechaCompleta closingDateExhibition;
+    private FechaCompleta startTimeExhibition;
+    private FechaCompleta closingTimeExhibition;
     private Performer p;
     private HashSet <String> webLinks;
     private Location location;
@@ -46,8 +46,8 @@ public class Exhibition implements LastingEvent {
      * @param location Localización única
      */
     public Exhibition (String exhibitionName, String title, String organizerName, 
-            FechasHoras startDateExhibition, FechasHoras closingDateExhibition, FechasHoras startTimeExhibition,
-            FechasHoras closingTimeExhibition, Performer p, String webLink, Location location) {
+            FechaCompleta startDateExhibition, FechaCompleta closingDateExhibition, FechaCompleta startTimeExhibition,
+            FechaCompleta closingTimeExhibition, Performer p, String webLink, Location location) {
         
         this.exhibitionName = exhibitionName;
         this.title = title;
@@ -116,7 +116,7 @@ public class Exhibition implements LastingEvent {
      * Establecer fecha de apertura
      * @param startDateExhibition Fecha de apertura
      */
-    public void setStartDateExhibition (FechasHoras startDateExhibition) {
+    public void setStartDateExhibition (FechaCompleta startDateExhibition) {
         this.startDateExhibition = startDateExhibition;
     }
     
@@ -133,7 +133,7 @@ public class Exhibition implements LastingEvent {
      * Establecer fecha de cierre
      * @param closingDateExhibition Fecha de cierre
      */
-    public void setClosingDateExhibition (FechasHoras closingDateExhibition) {
+    public void setClosingDateExhibition (FechaCompleta closingDateExhibition) {
         this.closingDateExhibition = closingDateExhibition;
     }
     
@@ -150,7 +150,7 @@ public class Exhibition implements LastingEvent {
      * Establecer hora de apertura
      * @param startTimeExhibition Hora de apertura
      */
-    public void setStartTimeExhibition (FechasHoras startTimeExhibition) {
+    public void setStartTimeExhibition (FechaCompleta startTimeExhibition) {
         this.startTimeExhibition = startTimeExhibition;
     }
     
@@ -166,7 +166,7 @@ public class Exhibition implements LastingEvent {
      * Establecer hora de cierre
      * @param closingTimeExhibition Hora de cierre
      */
-    public void setClosingTimeExhibition (FechasHoras closingTimeExhibition) {
+    public void setClosingTimeExhibition (FechaCompleta closingTimeExhibition) {
         this.closingTimeExhibition = closingTimeExhibition;
     }
     
@@ -225,7 +225,7 @@ public class Exhibition implements LastingEvent {
     @Override
     public Date[] getDates() {
         ArrayList <Date> al = new ArrayList();
-        FechasHoras auxDate = startDateExhibition;
+        FechaCompleta auxDate = startDateExhibition;
         for(int i=0; i<(calculateExhibitionDays(startDateExhibition, closingDateExhibition)); i++) {
             al.add(auxDate);
             auxDate = incrementDay(auxDate);
@@ -237,7 +237,7 @@ public class Exhibition implements LastingEvent {
      * Obtener cuántos días hay de diferencia entre una fecha y otra
      * @return Número de días de diferencia entre una fecha y otra
      */
-    private int calculateExhibitionDays (FechasHoras dia1, FechasHoras dia2) {
+    private int calculateExhibitionDays (FechaCompleta dia1, FechaCompleta dia2) {
         
         int numDias;
         if ((dia2.getMes() - dia1.getMes()) >= 1) {
@@ -249,11 +249,12 @@ public class Exhibition implements LastingEvent {
     }
     
     /**
-     * Obtener cuántos días contiene un determinado mes
+     * Obtener cuántos días contiene un determinado mes.
+     * Es un método static porque no modifica la instancia.
      * @param mes Mes a calcular
      * @return Número de días que contiene ese mes
      */
-    private int numDiasMes (int mes) {
+    private static int numDiasMes (int mes) {
         int nDias;
         switch(mes){
             case 1: case 3: case 5: case 7: case 8: case 10: case 12:
@@ -277,25 +278,32 @@ public class Exhibition implements LastingEvent {
      * @param day Día a incrementar
      * @return Día incrementado
      */
-    private FechasHoras incrementDay (FechasHoras day) {
-        FechasHoras nextDay = null;
-        switch (day.getMes()){
+    private FechaCompleta incrementDay (FechaCompleta day) {
+        
+        final int ANIO = day.getAnio();
+        final int MES = day.getMes();
+        final int DIA = day.getDia();
+        final int HORA = day.getHora();
+        final int MINUTOS = day.getMinuto();
+        
+        FechaCompleta nextDay = null;
+        switch (MES) {
             case 1: case 3: case 5: case 7: case 8: case 10: case 12:
-                if(day.getDia() == 31){
-                    if(day.getMes() == 12) nextDay = new FechasHoras(1, 1, day.getAnio()+1, day.getHora(), day.getMinuto());
-                    else nextDay = new FechasHoras(1, day.getMes() + 1, day.getAnio(), day.getHora(), day.getMinuto());
+                if(DIA == 31){
+                    if(MES == 12) nextDay = new FechaCompleta(1, 1, ANIO+1, HORA, MINUTOS);
+                    else nextDay = new FechaCompleta(1, MES + 1, ANIO, HORA, MINUTOS);
                 }
-                else nextDay = new FechasHoras(day.getDay() + 1, day.getMes(), day.getAnio(), day.getHora(), day.getMinuto());
+                else nextDay = new FechaCompleta(day.getDay() + 1, MES, ANIO, HORA, MINUTOS);
                 break;
                 
             case 4: case 6: case 9: case 11:
-                if(day.getDia() == 30) nextDay = new FechasHoras(1, day.getMes() + 1, day.getAnio(), day.getHora(), day.getMinuto());
-                else nextDay = new FechasHoras(day.getDia() + 1, day.getMes(), day.getAnio(), day.getHora(), day.getMinuto());
+                if(DIA == 30) nextDay = new FechaCompleta(1, MES + 1, ANIO, HORA, MINUTOS);
+                else nextDay = new FechaCompleta(DIA + 1, MES, ANIO, HORA, MINUTOS);
                 break;
                 
             case 2:
-                if(day.getDia() == 28) nextDay = new FechasHoras(1, day.getMes() + 1, day.getAnio(), day.getHora(), day.getMinuto());
-                else nextDay = new FechasHoras(day.getDia() + 1, day.getMes(), day.getAnio(), day.getHora(), day.getMinuto());
+                if(DIA == 28) nextDay = new FechaCompleta(1, MES + 1, ANIO, HORA, MINUTOS);
+                else nextDay = new FechaCompleta(DIA + 1, MES, ANIO, HORA, MINUTOS);
                 break;
         }        
         return nextDay;
@@ -308,10 +316,22 @@ public class Exhibition implements LastingEvent {
      */
     @Override
     public boolean involvesPerformer (Performer p) {
-        
-        return p.equals(this.p);
+
+        if (p instanceof Artist) {
+            if (this.p instanceof Artist) return (((Artist)p).equals(((Artist)this.p)));
+            else if (this.p instanceof Collective) return ((Collective)this.p).isArtistInCollective((Artist)p);
+            else return false;
+        }
+        else if (p instanceof Collective) {
+            if (this.p instanceof Artist) return false;
+            else if (this.p instanceof Collective) return (((Collective)p).equals(((Collective)this.p)));
+            else return false;
+        }    
+        else return false;
         
     }
+    
+    
     
     /**
      * Obtener los performers que actúan en este evento

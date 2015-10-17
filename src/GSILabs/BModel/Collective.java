@@ -127,10 +127,9 @@ public class Collective implements Performer {
         Iterator i = artists.iterator();
         Artist artist = null;
         while (i.hasNext()) {
-            artist = (Artist)i.next();
-            if (auxArtist.equals(artist)) break;
+            if (auxArtist.equals((Artist)i.next())) return true;
         }
-        return auxArtist.equals(artist);
+        return false;
         
     }
     

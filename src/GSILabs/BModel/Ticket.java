@@ -151,6 +151,23 @@ public class Ticket {
     }
     
     /**
+     * Comparación entre dos objetos Ticket
+     * @param o Objeto a comparar
+     * @return True si contienen un mismo identificador. False en caso contrario
+     */
+    @Override
+    public boolean equals (Object o) {
+        
+        if (o instanceof Ticket) {
+            Ticket t = (Ticket)o;
+            int[] ids = this.getIdentifiers();
+            return t.checkIdentifierInTicket(ids[0]);
+        }
+        else return false;
+        
+    }
+    
+    /**
      * Representación por pantalla
      * @return Información a mostrar
      */

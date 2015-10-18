@@ -10,6 +10,7 @@ package GSILabs.BTesting;
 
 import GSILabs.BModel.*;
 import GSILabs.BSystem.BussinessSystem;
+import java.util.Iterator;
 
 /**
  * Introducción de datos para comprobar y mostrar por la línea de comandos que
@@ -91,6 +92,7 @@ public class P01Tester {
         System.out.println("Bienvenido/a a la clase Tester01 para la realización\nde pruebas sobre nuestra práctica 01\n");
         System.out.println("Creación de algunos datos con los que empezar el testeo...");
         bussinessSystem = introduccionDatos();
+        mostrarDatos();
         System.out.println("Una vez creados, comienza el testeo:\n");
         comprobacionDatos();
         
@@ -289,20 +291,89 @@ public class P01Tester {
         bussinessSystem.addSale(t5, cli2, (float)60.5, "2111 2111 2111 2111");
         bussinessSystem.addSale(t6, cli3, (float)20.5, "3333 3333 3333 3333");
         
+        return bussinessSystem;
+    }
+    
+    //Mostrar por pantalla los datos que tenemos actualmente en el sistema
+    public static void mostrarDatos() {
+        
         //Show data
         System.out.println("\n************* PRESENTACIÓN DE DATOS *************");
-        bussinessSystem.showArtists();
-        bussinessSystem.showCollectives();
-        bussinessSystem.showLocations();
-        bussinessSystem.showConcerts();
-        bussinessSystem.showFestivals();
-        bussinessSystem.showExhibitions();
-        bussinessSystem.showTickets();
-        bussinessSystem.showClients();
-        bussinessSystem.showSales();
+        
+        //Artists
+        Iterator i = bussinessSystem.getArtists().values().iterator();
+        Artist artistAux;
+        while (i.hasNext()) {
+            artistAux = (Artist)i.next();
+            System.out.println(artistAux.toString());
+        }
+        
+        //Collectives
+        i = bussinessSystem.getCollectives().values().iterator();
+        Collective collectiveAux;
+        while (i.hasNext()) {
+            collectiveAux = (Collective)i.next();
+            System.out.println(collectiveAux.toString());
+        }
+        
+        //Locations
+        i = bussinessSystem.getLocations().values().iterator();
+        Location locationAux;
+        while (i.hasNext()) {
+            locationAux = (Location)i.next();
+            System.out.println(locationAux.toString());
+        }
+        
+        //Concerts
+        i = bussinessSystem.getConcerts().values().iterator();
+        Concert concertAux;
+        while (i.hasNext()) {
+            concertAux = (Concert)i.next();
+            System.out.println(concertAux.toString());
+        }
+        
+        //Festivals
+        i = bussinessSystem.getFestivals().values().iterator();
+        Festival festivalAux;
+        while (i.hasNext()) {
+            festivalAux = (Festival)i.next();
+            System.out.println(festivalAux.toString());
+        }
+        
+        //Exhibitions
+        i = bussinessSystem.getExhibitions().values().iterator();
+        Exhibition exhibitionAux;
+        while (i.hasNext()) {
+            exhibitionAux = (Exhibition)i.next();
+            System.out.println(exhibitionAux.toString());
+        }
+        
+        //Tickets
+        i = bussinessSystem.getTickets().values().iterator();
+        Ticket ticketAux;
+        while (i.hasNext()) {
+            ticketAux = (Ticket)i.next();
+            System.out.println(ticketAux.toString());
+        }
+        
+        //Clients
+        i = bussinessSystem.getClients().values().iterator();
+        Client clientAux;
+        while (i.hasNext()) {
+            clientAux = (Client)i.next();
+            System.out.println(clientAux.toString());
+        }
+        
+        //Sales
+        i = bussinessSystem.getSales().iterator();
+        Sales saleAux;
+        while (i.hasNext()) {
+            saleAux = (Sales)i.next();
+            System.out.println(saleAux.toString());
+        }
+
         System.out.println("***************************************************\n");
         
-        return bussinessSystem;
     }
     
     //Comprobar y mostrar por línea de comandos varios sucesos

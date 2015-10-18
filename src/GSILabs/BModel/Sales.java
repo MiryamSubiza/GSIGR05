@@ -121,6 +121,23 @@ public class Sales {
     }
     
     /**
+     * Comparación entre dos objetos Sales
+     * @param o Objeto a comparar
+     * @return True si contienen el mismo ticket y el mismo cliente. 
+     *  False en caso contrario.
+     */
+    @Override
+    public boolean equals (Object o) {
+        
+        if (o instanceof Sales) {
+            Sales s = (Sales)o;
+            return ((this.getClient().equals(s.getClient())) && (this.getTicket().equals(s.getTicket())));
+        }
+        else return false;
+        
+    }
+    
+    /**
      * Representación por pantalla
      * @return Información a mostrar
      */

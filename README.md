@@ -1,5 +1,8 @@
 # GSIGR05
 
+Primera práctica de la asignatura Gestión de Sistemas de Información
+
+
 Clonar los ficheros del repositorio remoto al repositorio local:
 Team -> Remote -> Clone...
 
